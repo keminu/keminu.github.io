@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>Coding the future</title>
+  
+  <link href="/atom.xml" rel="self"/>
+  
+  <link href="http://keminu.com/"/>
+  <updated>2016-06-26T09:46:26.742Z</updated>
+  <id>http://keminu.com/</id>
+  
+  <author>
+    <name>keminu</name>
+    <email>keminu@gmail.com</email>
+  </author>
+  
+  <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>你为什么要开始写博客</title>
+    <link href="http://keminu.com/2016/06/26/%E4%BD%A0%E4%B8%BA%E4%BB%80%E4%B9%88%E8%A6%81%E5%BC%80%E5%A7%8B%E5%86%99%E5%8D%9A%E5%AE%A2/"/>
+    <id>http://keminu.com/2016/06/26/你为什么要开始写博客/</id>
+    <published>2016-06-26T08:33:30.000Z</published>
+    <updated>2016-06-26T09:46:26.742Z</updated>
+    
+    <content type="html">&lt;h1 id=&quot;&amp;#x4F60;&amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x8981;&amp;#x5F00;&amp;#x59CB;&amp;#x5199;&amp;#x535A;&amp;#x5BA2;&quot;&gt;&amp;#x4F60;&amp;#x4E3A;&amp;#x4EC0;&amp;#x4E48;&amp;#x8981;&amp;#x5F00;&amp;#x59CB;&amp;#x5199;&amp;#x535A;&amp;#x5BA2;&lt;/h1&gt;
+&lt;!-- toc --&gt;
+&lt;ul&gt;
+&lt;li&gt;&lt;a href=&quot;#1-%E6%80%BB%E7%BB%93%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%B4%BB&quot;&gt;1&amp;#x3001;&amp;#x603B;&amp;#x7ED3;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x5B66;&amp;#x4E60;&amp;#x751F;&amp;#x6D3B;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#2-%E8%AE%A9%E5%88%AB%E4%BA%BA%E6%9B%B4%E5%8A%A0%E4%BA%86%E8%A7%A3%E8%87%AA%E5%B7%B1&quot;&gt;2&amp;#x3001;&amp;#x8BA9;&amp;#x522B;&amp;#x4EBA;&amp;#x66F4;&amp;#x52A0;&amp;#x4E86;&amp;#x89E3;&amp;#x81EA;&amp;#x5DF1;&lt;/a&gt;&lt;/li&gt;
+&lt;li&gt;&lt;a href=&quot;#3-%E5%86%99%E4%B8%80%E4%B8%AAjavascript%E7%9A%84%E4%BB%A3%E7%A0%81%E7%A4%BA%E4%BE%8B&quot;&gt;3&amp;#x3001;&amp;#x5199;&amp;#x4E00;&amp;#x4E2A;Javascript&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x793A;&amp;#x4F8B;&lt;/a&gt;&lt;/li&gt;
+&lt;/ul&gt;
+&lt;!-- tocstop --&gt;
+&lt;h2 id=&quot;1-&amp;#x603B;&amp;#x7ED3;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x5B66;&amp;#x4E60;&amp;#x751F;&amp;#x6D3B;&quot;&gt;1&amp;#x3001;&amp;#x603B;&amp;#x7ED3;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x5B66;&amp;#x4E60;&amp;#x751F;&amp;#x6D3B;&lt;/h2&gt;
+&lt;p&gt;&amp;#x628A;&amp;#x8FD1;&amp;#x671F;&amp;#x5B66;&amp;#x4E60;&amp;#x8FC7;&amp;#x7684;&amp;#x77E5;&amp;#x8BC6;&amp;#x518D;&amp;#x68B3;&amp;#x7406;&amp;#x4E00;&amp;#x904D;&amp;#xFF0C;&amp;#x68B3;&amp;#x7406;&amp;#x7684;&amp;#x8FC7;&amp;#x7A0B;&amp;#x4E2D;&amp;#x4F1A;&amp;#x4E0D;&amp;#x65AD;&amp;#x7684;&amp;#x56DE;&amp;#x5FC6;&amp;#x5DF2;&amp;#x5B66;&amp;#x77E5;&amp;#x8BC6;&amp;#xFF0C;&amp;#x4F1A;&amp;#x53BB;&amp;#x6269;&amp;#x5C55;&amp;#x8C03;&amp;#x67E5;&amp;#x53D6;&amp;#x8BC1;&amp;#x6765;&amp;#x8BC1;&amp;#x660E;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x89C2;&amp;#x70B9;&amp;#xFF0C;&amp;#x8FD9;&amp;#x6837;&amp;#x4E0D;&amp;#x4EC5;&amp;#x80FD;&amp;#x591F;&amp;#x5DE9;&amp;#x56FA;&amp;#x7262;&amp;#x8BB0;&amp;#x4E4B;&amp;#x524D;&amp;#x6240;&amp;#x5B66;&amp;#xFF0C;&amp;#x8FD8;&amp;#x4F1A;&amp;#x8BA9;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x903B;&amp;#x8F91;&amp;#x6027;&amp;#x66F4;&amp;#x5F3A;&lt;/p&gt;
+&lt;h2 id=&quot;2-&amp;#x8BA9;&amp;#x522B;&amp;#x4EBA;&amp;#x66F4;&amp;#x52A0;&amp;#x4E86;&amp;#x89E3;&amp;#x81EA;&amp;#x5DF1;&quot;&gt;2&amp;#x3001;&amp;#x8BA9;&amp;#x522B;&amp;#x4EBA;&amp;#x66F4;&amp;#x52A0;&amp;#x4E86;&amp;#x89E3;&amp;#x81EA;&amp;#x5DF1;&lt;/h2&gt;
+&lt;p&gt;&amp;#x5728;&amp;#x8FD9;&amp;#x4E2A;&amp;#x4E92;&amp;#x8054;&amp;#x7F51;&amp;#x65F6;&amp;#x4EE3;&amp;#xFF0C;&amp;#x8981;&amp;#x5B66;&amp;#x4F1A;&amp;#x5C55;&amp;#x73B0;&amp;#x81EA;&amp;#x5DF1;&amp;#xFF0C;&amp;#x8BA9;&amp;#x4E0D;&amp;#x4E86;&amp;#x89E3;&amp;#x81EA;&amp;#x5DF1;&amp;#x7684;&amp;#x4EBA;&amp;#x66F4;&amp;#x52A0;&amp;#x7684;&amp;#x4E86;&amp;#x89E3;&amp;#x81EA;&amp;#x5DF1;&amp;#x3002;&amp;#x535A;&amp;#x5BA2;&amp;#x5C31;&amp;#x662F;&amp;#x4E00;&amp;#x79CD;&amp;#x5F88;&amp;#x597D;&amp;#x7684;&amp;#x65B9;&amp;#x5F0F;&amp;#x3002;&lt;/p&gt;
+&lt;h2 id=&quot;3-&amp;#x5199;&amp;#x4E00;&amp;#x4E2A;javascript&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x793A;&amp;#x4F8B;&quot;&gt;3&amp;#x3001;&amp;#x5199;&amp;#x4E00;&amp;#x4E2A;Javascript&amp;#x7684;&amp;#x4EE3;&amp;#x7801;&amp;#x793A;&amp;#x4F8B;&lt;/h2&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;2&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;3&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;4&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;5&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;(&lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;) &lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    &lt;span class=&quot;keyword&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;function&quot;&gt;&lt;span class=&quot;keyword&quot;&gt;function&lt;/span&gt; (&lt;span class=&quot;params&quot;&gt;&lt;/span&gt;)&lt;/span&gt;{&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;        &lt;span class=&quot;built_in&quot;&gt;console&lt;/span&gt;(&lt;span class=&quot;string&quot;&gt;&amp;quot;hello hexo&amp;quot;&lt;/span&gt;);&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;    }&lt;/span&gt;&lt;br&gt;&lt;span class=&quot;line&quot;&gt;})();&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+</content>
+    
+    <summary type="html">
+    
+      在此写下我开始写博客的几点原由，对自己进行一些总结。
+    
+    </summary>
+    
+      <category term="hexo" scheme="http://keminu.com/categories/hexo/"/>
+    
+    
+      <category term="hexo" scheme="http://keminu.com/tags/hexo/"/>
+    
+      <category term="思维方式" scheme="http://keminu.com/tags/%E6%80%9D%E7%BB%B4%E6%96%B9%E5%BC%8F/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>Hello World</title>
+    <link href="http://keminu.com/2016/06/25/hello-world/"/>
+    <id>http://keminu.com/2016/06/25/hello-world/</id>
+    <published>2016-06-25T09:25:26.434Z</published>
+    <updated>2016-06-25T09:25:26.434Z</updated>
+    
+    <content type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;documentation&lt;/a&gt; for more info. If you get any problems when using Hexo, you can find the answer in &lt;a href=&quot;https://hexo.io/docs/troubleshooting.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;troubleshooting&lt;/a&gt; or you can ask me on &lt;a href=&quot;https://github.com/hexojs/hexo/issues&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;GitHub&lt;/a&gt;.&lt;/p&gt;
+&lt;h2 id=&quot;quick-start&quot;&gt;Quick Start&lt;/h2&gt;
+&lt;h3 id=&quot;create-a-new-post&quot;&gt;Create a new post&lt;/h3&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo new &lt;span class=&quot;string&quot;&gt;&amp;quot;My New Post&amp;quot;&lt;/span&gt;&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/writing.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Writing&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;run-server&quot;&gt;Run server&lt;/h3&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo server&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/server.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Server&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;generate-static-files&quot;&gt;Generate static files&lt;/h3&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo generate&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/generating.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Generating&lt;/a&gt;&lt;/p&gt;
+&lt;h3 id=&quot;deploy-to-remote-sites&quot;&gt;Deploy to remote sites&lt;/h3&gt;
+&lt;figure class=&quot;highlight bash&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;1&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;td class=&quot;code&quot;&gt;&lt;pre&gt;&lt;span class=&quot;line&quot;&gt;$ hexo deploy&lt;/span&gt;&lt;br&gt;&lt;/pre&gt;&lt;/td&gt;&lt;/tr&gt;&lt;/table&gt;&lt;/figure&gt;
+&lt;p&gt;More info: &lt;a href=&quot;https://hexo.io/docs/deployment.html&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Deployment&lt;/a&gt;&lt;/p&gt;
+</content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot; target=&quot;_blank&quot; rel=&quot;external&quot;&gt;Hexo&lt;/a&gt;! This is your very first post. Check &lt;a href=&quot;https://hexo.
+    
+    </summary>
+    
+    
+  </entry>
+  
+</feed>
