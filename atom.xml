@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <feed xmlns="http://www.w3.org/2005/Atom">
-  <title>xiaoka&#39;s blog</title>
+  <title>Coding the future</title>
   
   <link href="/atom.xml" rel="self"/>
   
@@ -9,7 +9,7 @@
   <id>http://keminu.com/</id>
   
   <author>
-    <name>xiaoka</name>
+    <name>keminu</name>
     <email>keminu@gmail.com</email>
   </author>
   
