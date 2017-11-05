@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>你为什么要开始写博客 | xiaoka de blogs</title>
+  <title>数据双向绑定 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="在此写下我开始写博客的几点原由，对自己进行一些总结。">
-<meta name="keywords" content="思维方式">
+  <meta name="description" content="1.我们要做什么 2.Object.defineProperty() 3.保存旧值 4.监测数组变化 5.模板映射   1.我们要做什么 实现一个迷你库，检测一组数据的变化，当数据变化的时候，做出响应。大致像下面的使用方式： 12345678910111213141516171819// 定义一个变化通知的回调var callback = function(newVal, oldVal)&amp;#1">
+<meta name="keywords" content="vue,响应式原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="你为什么要开始写博客">
-<meta property="og:url" content="http://keminu.com/2016/06/26/你为什么要开始写博客/index.html">
+<meta property="og:title" content="数据双向绑定">
+<meta property="og:url" content="http://keminu.com/2017/11/05/数据双向绑定/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="在此写下我开始写博客的几点原由，对自己进行一些总结。">
-<meta property="og:updated_time" content="2017-11-05T13:08:39.802Z">
+<meta property="og:description" content="1.我们要做什么 2.Object.defineProperty() 3.保存旧值 4.监测数组变化 5.模板映射   1.我们要做什么 实现一个迷你库，检测一组数据的变化，当数据变化的时候，做出响应。大致像下面的使用方式： 12345678910111213141516171819// 定义一个变化通知的回调var callback = function(newVal, oldVal)&amp;#1">
+<meta property="og:updated_time" content="2017-11-05T13:21:33.978Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="你为什么要开始写博客">
-<meta name="twitter:description" content="在此写下我开始写博客的几点原由，对自己进行一些总结。">
+<meta name="twitter:title" content="数据双向绑定">
+<meta name="twitter:description" content="1.我们要做什么 2.Object.defineProperty() 3.保存旧值 4.监测数组变化 5.模板映射   1.我们要做什么 实现一个迷你库，检测一组数据的变化，当数据变化的时候，做出响应。大致像下面的使用方式： 12345678910111213141516171819// 定义一个变化通知的回调var callback = function(newVal, oldVal)&amp;#1">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
   
@@ -146,20 +146,20 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-你为什么要开始写博客" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-数据双向绑定" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      你为什么要开始写博客
+      数据双向绑定
     </h1>
   
 
         
-        <a href="/2016/06/26/你为什么要开始写博客/" class="archive-article-date">
-  	<time datetime="2016-06-26T08:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-26</time>
+        <a href="/2017/11/05/数据双向绑定/" class="archive-article-date">
+  	<time datetime="2017-11-05T13:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
 </a>
         
       </header>
@@ -168,19 +168,56 @@
       
         <!-- toc -->
 <ul>
-<li><a href="#1-%E6%80%BB%E7%BB%93%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%B4%BB">1、总结自己的学习生活</a></li>
-<li><a href="#2-%E8%AE%A9%E5%88%AB%E4%BA%BA%E6%9B%B4%E5%8A%A0%E4%BA%86%E8%A7%A3%E8%87%AA%E5%B7%B1">2、让别人更加了解自己</a></li>
-<li><a href="#3-%E5%86%99%E5%8D%9A%E5%AE%A2%E6%98%AF%E8%AE%AD%E7%BB%83%E8%87%AA%E5%B7%B1%E6%80%9D%E7%BB%B4%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E5%BC%8F">3、写博客是训练自己思维的一种方式</a></li>
+<li><a href="#1%E6%88%91%E4%BB%AC%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88">1.我们要做什么</a></li>
+<li><a href="#2objectdefineproperty">2.Object.defineProperty()</a></li>
+<li><a href="#3%E4%BF%9D%E5%AD%98%E6%97%A7%E5%80%BC">3.保存旧值</a></li>
+<li><a href="#4%E7%9B%91%E6%B5%8B%E6%95%B0%E7%BB%84%E5%8F%98%E5%8C%96">4.监测数组变化</a></li>
+<li><a href="#5%E6%A8%A1%E6%9D%BF%E6%98%A0%E5%B0%84">5.模板映射</a></li>
 </ul>
 <!-- tocstop -->
-<h2 id="1-总结自己的学习生活">1、总结自己的学习生活</h2>
-<p>把近期学习过的知识再梳理一遍，梳理的过程中会不断的回忆已学知识，会去扩展调查取证来证明自己的观点，这样不仅能够巩固牢记之前所学，还会让自己的逻辑性更强</p>
-<h2 id="2-让别人更加了解自己">2、让别人更加了解自己</h2>
-<p>在这个互联网时代，要学会展现自己，让不了解自己的人更加的了解自己。博客就是一种很好的方式。</p>
-<h2 id="3-写博客是训练自己思维的一种方式">3、写博客是训练自己思维的一种方式</h2>
-<p>写出来的博客必须要具有总结性、连贯性、逻辑性。
-总结性需要高度的概括能力，精确的提炼关键信息。
-连贯性与逻辑性是相辅相成的，连贯性是建立在逻辑性的基础之上，而是否符合逻辑很大程度上取决于知识面，知识面越广，理解越透彻，写出来的文章才不是被他人轻易的推倒。</p>
+<h3 id="1我们要做什么">1.我们要做什么</h3>
+<p>实现一个迷你库，检测一组数据的变化，当数据变化的时候，做出响应。大致像下面的使用方式：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 定义一个变化通知的回调</div><div class="line">var callback = function(newVal, oldVal)&#123;</div><div class="line">    alert(newVal + &apos;----&apos; + oldVal);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 定义一个普通对象作为数据模型</div><div class="line">var data = &#123;</div><div class="line">    a: 200,</div><div class="line">    level1: &#123;</div><div class="line">        b: &apos;str&apos;,</div><div class="line">        c: [1, 2, 3],</div><div class="line">        level2: &#123;</div><div class="line">            d: 90</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实例化一个监测对象，去监测数据，并在数据发生改变的时候作出反应</div><div class="line">var v = new Mvvm(data, callback);</div></pre></td></tr></table></figure>
+<p>怎么实现？</p>
+<h3 id="2objectdefineproperty">2.Object.defineProperty()</h3>
+<p>我们可以使用下面的方式定义一个对象，并给对象添加一个属性。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line"></div><div class="line">obj.name = &apos;hcy&apos;;</div></pre></td></tr></table></figure>
+<p>也可以使用Object.defineProperty()给对象添加属性，上面的代码等价于</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line"></div><div class="line">Object.defineProperty(obj, &apos;name&apos;, &#123;</div><div class="line">	value: &apos;hcy&apos;,		// 属性的值</div><div class="line">	writable: true,		// 是否可写</div><div class="line">	enumerable: true,	// 是否能够通过for in 枚举</div><div class="line">	configurable: true	// 是否可使用 delete删除</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这样定义的属性是数据属性，用来描述数据。还有另外一个访问器属性，允许你定义一对儿 getter/setter ，当你读取属性值的时候底层会调用 get 方法，当你去设置属性值的时候，底层会调用 set 方法。</p>
+<p>这简直太美妙了，这不正是我们想要的吗？</p>
+<p>遍历对象的属性，把对象的属性都使用 Object.defineProperty 转为 getter/setter ，这样，当我们修改一些值得时候，就会调用set方法，然后我们在set方法里面，回调通知，这样不就可以了吗？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">const OP = Object.prototype;</div><div class="line"></div><div class="line">class Mvvm&#123;</div><div class="line">    constructor(obj, callback)&#123;</div><div class="line">        if(OP.toString.call(obj) !== &apos;[object Object]&apos;)&#123;</div><div class="line">            console.error(&apos;This parameter must be an object：&apos; + obj);</div><div class="line">        &#125;</div><div class="line">        this.$callback = callback;</div><div class="line">        this.observe(obj);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    observe(obj)&#123;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var val = obj[key];</div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return val;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    this.$callback(newVal);</div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos;)&#123;</div><div class="line">                this.observe(obj[key]);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="https://jsfiddle.net/keminu/8x3ou6pL/1/" target="_blank" rel="external">测试一下我们的代码</a></p>
+<h3 id="3保存旧值">3.保存旧值</h3>
+<p>现在我们成功的监测到数据变化并且做出响应了。但是这个响应只处理了新值，有时候我们是需要旧值的，现在我们的代码还无法传递旧值，怎么改？</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var oldVal = obj[key];</div><div class="line">Object.defineProperty(obj, key, &#123;</div><div class="line">    get: function()&#123;</div><div class="line">        return oldVal;</div><div class="line">    &#125;,</div><div class="line">    set: (function(newVal)&#123;</div><div class="line">        if(oldVal !== newVal)&#123;</div><div class="line">            if(OP.toString.call(newVal) === &apos;[object Object]&apos;)&#123;</div><div class="line">                this.observe(newVal);</div><div class="line">            &#125;</div><div class="line">            this.$callback(newVal, oldVal);</div><div class="line">            oldVal = newVal;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;).bind(this)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p><a href="https://jsfiddle.net/9hsuz6wa/" target="_blank" rel="external">看下效果</a></p>
+<h3 id="4监测数组变化">4.监测数组变化</h3>
+<p>这样子看上去还不错了哦，我们能够监测到数据的变化，拿到了新旧数据。但是这样就完了吗？</p>
+<p>遗憾的是我们还不能监测到数组的变化。比如：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data.level1.c.push(4);</div></pre></td></tr></table></figure>
+<p>有什么思路可以解决这个问题？
+重写原型方法可以吗？像是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Array.prototype.push = function()&#123;</div><div class="line">    // 数据观察</div><div class="line">&#125;</div><div class="line">Array.prototype.pop = function()&#123;</div><div class="line">    // 数据观察</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>暂且不说能不能全部实现的与原生无异，即使你实现的与原生方法在使用方式上一模一样，并且不影响其他代码的运行，那么在性能上，可能就与原生差很多了，重新考虑，我们可不可以在原型链中加一层fakePrototype，在使用 push 等数组方法的时候，调用的是 fakePrototype 上的push方法，然后在 fakePrototype 方法中再去调用真正的Array原型上的 push 方法，同时监听变化。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> *  Object 原型</div><div class="line"> */</div><div class="line">const OP = Object.prototype;</div><div class="line">/*</div><div class="line"> *  需要重写的数组方法 OAR 是 overrideArrayMethod 的缩写</div><div class="line"> */</div><div class="line">const OAM = [&apos;push&apos;, &apos;pop&apos;, &apos;shift&apos;, &apos;unshift&apos;, &apos;splice&apos;, &apos;sort&apos;, &apos;reverse&apos;];</div><div class="line"></div><div class="line">class Mvvm&#123;</div><div class="line">    constructor(obj, callback)&#123;</div><div class="line">        if(OP.toString.call(obj) !== &apos;[object Object]&apos;)&#123;</div><div class="line">            console.error(&apos;This parameter must be an object：&apos; + obj);</div><div class="line">        &#125;</div><div class="line">        this.$callback = callback;</div><div class="line">        this.observe(obj);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    observe(obj)&#123;</div><div class="line">        // 如果发现 监测的对象是数组的话就要调用 overrideArrayProto 方法</div><div class="line">        if(OP.toString.call(obj) === &apos;[object Array]&apos;)&#123;</div><div class="line">            this.overrideArrayProto(obj);</div><div class="line">        &#125;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var oldVal = obj[key];</div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return oldVal;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    if(oldVal !== newVal)&#123;</div><div class="line">                        if(OP.toString.call(newVal) === &apos;[object Object]&apos; || OP.toString.call(newVal) === &apos;[object Array]&apos;)&#123;</div><div class="line">                            this.observe(newVal);</div><div class="line">                        &#125;</div><div class="line">                        this.$callback(newVal, oldVal);</div><div class="line">                        oldVal = newVal;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos; || OP.toString.call(obj[key]) === &apos;[object Array]&apos;)&#123;</div><div class="line">                this.observe(obj[key]);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    overrideArrayProto(array)&#123;</div><div class="line">            // 保存原始 Array 原型</div><div class="line">        var originalProto = Array.prototype,</div><div class="line">            // 通过 Object.create 方法创建一个对象，该对象的原型就是Array.prototype</div><div class="line">            overrideProto = Object.create(Array.prototype),</div><div class="line">            self = this,</div><div class="line">            result;</div><div class="line">        // 遍历要重写的数组方法</div><div class="line">        Object.keys(OAM).forEach(function(key, index, array)&#123;</div><div class="line">            var method = OAM[index],</div><div class="line">                oldArray = [];</div><div class="line">            // 使用 Object.defineProperty 给 overrideProto 添加属性，属性的名称是对应的数组函数名，值是函数</div><div class="line">            Object.defineProperty(overrideProto, method, &#123;</div><div class="line">                value: function()&#123;</div><div class="line">                    oldArray = this.slice(0);</div><div class="line">                    </div><div class="line">                    var arg = [].slice.apply(arguments);</div><div class="line">                    // 调用原始 原型 的数组方法</div><div class="line">                    result = originalProto[method].apply(this, arg);</div><div class="line">                    // 对新的数组进行监测</div><div class="line">                    self.observe(this);</div><div class="line">                    // 执行回调</div><div class="line">                    self.$callback(this, oldArray);</div><div class="line">                    </div><div class="line">                    return result;</div><div class="line">                &#125;,</div><div class="line">                writable: true,</div><div class="line">                enumerable: false,</div><div class="line">                configurable: true</div><div class="line">            &#125;);</div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">        // 最后 让该数组实例的 __proto__ 属性指向 假的原型 overrideProto</div><div class="line">        array.__proto__ = overrideProto;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p><a href="https://jsfiddle.net/keminu/Lv2ycLww/" target="_blank" rel="external">看下效果</a></p>
+<h3 id="5模板映射">5.模板映射</h3>
+<p>现在，我们可以几乎完美的监测到数据对象的变化了，并且能够知道变化前后的旧值与新值，那么这样就结束了吗？当然不是，我们现在并不知道修改的是哪个属性，但是能够知道修改的是哪个属性是非常重要的。比如，我们有如下的模板：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id="box"&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;age&#125;&#125;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;sex&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
+<p>然后有如下的数据：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;</div><div class="line">    <span class="attr">name</span> : <span class="string">'nuoka'</span>,</div><div class="line">    <span class="attr">age</span> : <span class="number">20</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>我们想通过这种方式反应模板与数据之间的关系：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Mvvm(<span class="built_in">document</span>.getElementById(<span class="string">'box'</span>), data);</div></pre></td></tr></table></figure>
+<p>那么当我们的数据模型data中的某个属性改变的时候，比如 data.name = ‘kage’，如若我们不知道改变的字段名称，那么我们就无法得知要刷新哪部分模板。</p>
+<p>那么这里就有一个路径的概念，所谓路径，就是变化的字段的路径，比如有如下数据模型：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var data = &#123;</div><div class="line">    a : &#123;</div><div class="line">        b : &#123;</div><div class="line">            c : &apos;hcy&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>那么字段 a 的路径就是用 data.a ，b 的路径就是 data.a.b，c 的路径就是 data.a.b.c，这里我们用数组来表述路径可以是这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、 a 的路径是 [‘data’, ‘a’]</div><div class="line">2、 b 的路径是 [‘data’, ‘a’, ‘b’]</div><div class="line">3、 c 的路径是 [‘data’, ‘a’, ‘b’, ‘c’]</div></pre></td></tr></table></figure>
+<p>有了这个概念之后，我们来修改之前的代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">observe(obj, path)&#123;</div><div class="line">        // 如果发现 监测的对象是数组的话就要调用 overrideArrayProto 方法</div><div class="line">        if(OP.toString.call(obj) === &apos;[object Array]&apos;)&#123;</div><div class="line">            this.overrideArrayProto(obj, path);</div><div class="line">        &#125;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var oldVal = obj[key];</div><div class="line">            </div><div class="line">            var pathArray = path &amp;&amp; path.slice(0);</div><div class="line">            if (pathArray) &#123;</div><div class="line">                pathArray.push(key);</div><div class="line">            &#125; else &#123;</div><div class="line">                pathArray = [key];</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return oldVal;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    if(oldVal !== newVal)&#123;</div><div class="line">                        if(OP.toString.call(newVal) === &apos;[object Object]&apos; || OP.toString.call(newVal) === &apos;[object Array]&apos;)&#123;</div><div class="line">                            this.observe(newVal, pathArray);</div><div class="line">                        &#125;</div><div class="line">                        this.$callback(newVal, oldVal, pathArray);</div><div class="line">                        oldVal = newVal;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos; || OP.toString.call(obj[key]) === &apos;[object Array]&apos;)&#123;</div><div class="line">                this.observe(obj[key], pathArray);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    overrideArrayProto(array, path)&#123;</div><div class="line">            // 保存原始 Array 原型</div><div class="line">        var originalProto = Array.prototype,</div><div class="line">            // 通过 Object.create 方法创建一个对象，该对象的原型就是Array.prototype</div><div class="line">            overrideProto = Object.create(Array.prototype),</div><div class="line">            self = this,</div><div class="line">            result;</div><div class="line">        // 遍历要重写的数组方法</div><div class="line">        Object.keys(OAM).forEach(function(key, index, array)&#123;</div><div class="line">            var method = OAM[index],</div><div class="line">                oldArray = [];</div><div class="line">            // 使用 Object.defineProperty 给 overrideProto 添加属性，属性的名称是对应的数组函数名，值是函数</div><div class="line">            Object.defineProperty(overrideProto, method, &#123;</div><div class="line">                value: function()&#123;</div><div class="line">                    oldArray = this.slice(0);</div><div class="line">                    </div><div class="line">                    var arg = [].slice.apply(arguments);</div><div class="line">                    // 调用原始 原型 的数组方法</div><div class="line">                    result = originalProto[method].apply(this, arg);</div><div class="line">                    // 对新的数组进行监测</div><div class="line">                    self.observe(this, path);</div><div class="line">                    // 执行回调</div><div class="line">                    self.$callback(this, oldArray, path);</div><div class="line">                    </div><div class="line">                    return result;</div><div class="line">                &#125;,</div><div class="line">                writable: true,</div><div class="line">                enumerable: false,</div><div class="line">                configurable: true</div><div class="line">            &#125;);</div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">        // 最后 让该数组实例的 __proto__ 属性指向 假的原型 overrideProto</div><div class="line">        array.__proto__ = overrideProto;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
+<p><a href="https://jsfiddle.net/keminu/o0zavhy9/" target="_blank" rel="external">最后再尝试下修改数组属性</a></p>
 
       
 
@@ -215,24 +252,17 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">思维方式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">响应式原理</a>
         		</li>
       		
 		</ul>
 	</div>
 
       
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/hexo/" class="article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
 
       
 
@@ -282,7 +312,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2016/06/26/你为什么要开始写博客/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2017/11/05/数据双向绑定/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -296,15 +326,20 @@
   
 <nav id="article-nav">
   
-    <a href="/2016/07/02/在工作中遇到的IE8兼容性问题/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/11/05/精通JavaScript正则之正则基础/" id="article-nav-newer" class="article-nav-link-wrap">
       <i class="icon-circle-left"></i>
       <div class="article-nav-title">
         
-          在工作遇到的IE8兼容性问题
+          精通JavaScript正则之正则基础
         
       </div>
     </a>
   
+  
+    <a href="/2016/07/02/在工作中遇到的IE8兼容性问题/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">在工作遇到的IE8兼容性问题</div>
+      <i class="icon-circle-right"></i>
+    </a>
   
 </nav>
 
@@ -318,8 +353,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://keminu.com/2016/06/26/你为什么要开始写博客/", 
-    sourceId: "你为什么要开始写博客",
+    url: "http://keminu.com/2017/11/05/数据双向绑定/", 
+    sourceId: "数据双向绑定",
     productKey: "83304bb43e064453a25cff956da99aaf",
     target: "cloud-tie-wrapper"
   };
