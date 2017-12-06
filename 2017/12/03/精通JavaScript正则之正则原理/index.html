@@ -6,19 +6,20 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>xiaoka de blogs</title>
+  <title>精通JavaScript正则之正则原理 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="title: 精通JavaScript正则之正则原理 date: 2017-12-03 15:10:02 tags: 正则原理 1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite a">
+  <meta name="description" content="1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。 2.1 NFA 1传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有">
+<meta name="keywords" content="正则原理">
 <meta property="og:type" content="article">
-<meta property="og:title" content="xiaoka de blogs">
+<meta property="og:title" content="精通JavaScript正则之正则原理">
 <meta property="og:url" content="http://keminu.com/2017/12/03/精通JavaScript正则之正则原理/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="title: 精通JavaScript正则之正则原理 date: 2017-12-03 15:10:02 tags: 正则原理 1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite a">
+<meta property="og:description" content="1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。 2.1 NFA 1传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有">
 <meta property="og:image" content="http://keminu.com/Users/kiben/Downloads/35916_12657272630z9X.jpg">
-<meta property="og:updated_time" content="2017-12-06T00:42:52.837Z">
+<meta property="og:updated_time" content="2017-12-06T00:49:20.801Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xiaoka de blogs">
-<meta name="twitter:description" content="title: 精通JavaScript正则之正则原理 date: 2017-12-03 15:10:02 tags: 正则原理 1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite a">
+<meta name="twitter:title" content="精通JavaScript正则之正则原理">
+<meta name="twitter:description" content="1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。 2.1 NFA 1传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有">
 <meta name="twitter:image" content="http://keminu.com/Users/kiben/Downloads/35916_12657272630z9X.jpg">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
@@ -150,12 +151,24 @@
             <article id="post-精通JavaScript正则之正则原理" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      精通JavaScript正则之正则原理
+    </h1>
+  
+
+        
+        <a href="/2017/12/03/精通JavaScript正则之正则原理/" class="archive-article-date">
+  	<time datetime="2017-12-03T07:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
+</a>
+        
+      </header>
+    
     <div class="article-entry" itemprop="articleBody">
       
-        <p>title: 精通JavaScript正则之正则原理
-date: 2017-12-03 15:10:02
-tags: 正则原理</p>
-<h3 id="1-为什么要知道些正则匹配原理">1、为什么要知道些正则匹配原理</h3>
+        <h3 id="1-为什么要知道些正则匹配原理">1、为什么要知道些正则匹配原理</h3>
 <p>知其然，知其所以然。</p>
 <h3 id="2-正则匹配引擎">2、正则匹配引擎</h3>
 <p>正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。</p>
@@ -218,6 +231,17 @@ tags: 正则原理</p>
     <div class="article-info article-info-index">
       
       
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">正则原理</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
       
 
       
@@ -424,6 +448,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">正则原理</a>
               </li>
             
             <div class="clearfix"></div>
