@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://keminu.com/"/>
-  <updated>2017-12-06T14:26:23.809Z</updated>
+  <updated>2017-12-06T14:57:57.887Z</updated>
   <id>http://keminu.com/</id>
   
   <author>
@@ -14,6 +14,30 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>vue单页应用中设置网页标题</title>
+    <link href="http://keminu.com/2017/12/06/vue%E5%8D%95%E9%A1%B5%E5%BA%94%E7%94%A8%E4%B8%AD%E8%AE%BE%E7%BD%AE%E7%BD%91%E9%A1%B5%E6%A0%87%E9%A2%98/"/>
+    <id>http://keminu.com/2017/12/06/vue单页应用中设置网页标题/</id>
+    <published>2017-12-06T14:52:19.000Z</published>
+    <updated>2017-12-06T14:57:57.887Z</updated>
+    
+    <content type="html"><![CDATA[<p>在vue-router的单页应用中，你可能需要在不同的路由设置不同的网页标题，如果你在单文件组件里直接使用document.title来设置页面标题，是不生效的。像这样：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mounted() &#123;</div><div class="line">    document.titile = &apos;title&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样是不生效的。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在vue-router的单页应用中，你可能需要在不同的路由设置不同的网页标题，如果你在单文件组件里直接使用document.title来设置页面标题，是不生效的。像这样：&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td 
+    
+    </summary>
+    
+    
+      <category term="vue" scheme="http://keminu.com/tags/vue/"/>
+    
+  </entry>
   
   <entry>
     <title>精通JavaScript正则之正则原理</title>
