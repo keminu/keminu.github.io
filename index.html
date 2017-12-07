@@ -166,9 +166,24 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>在vue-router的单页应用中，你可能需要在不同的路由设置不同的网页标题，如果你在单文件组件里直接使用document.title来设置页面标题，是不生效的。像这样：</p>
+        <!-- toc -->
+<!-- tocstop -->
+<p>在vue-router的单页应用中，你可能需要在不同的路由设置不同的网页标题，如果你在单文件组件里直接使用document.title来设置页面标题，是不生效的。像这样：</p>
 <figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mounted() &#123;</div><div class="line">    document.titile = &apos;title&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
 <p>这样是不生效的。</p>
+<p>这里有两种方式可以做到这样的功能。一是在路由里定义对应的组件标题，然后在路由钩子里动态设置，但是这种方式在iOS app下不能被支持，因为它不允许动态改变网页标题。二是通过vue指令，在路由切换完成后，静默加载一个空的iframe来设置title。</p>
+<p>第一种方式实现如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">router.beforeEach((to, from, next) =&gt; &#123;</div><div class="line">  document.title = to.extra.title;</div><div class="line">  next();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>对应部分路由定义：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const routers = [&#123;</div><div class="line">    path: &apos;/&apos;,</div><div class="line">    extra: &#123;</div><div class="line">        title: &apos;首页&apos;</div><div class="line">    &#125;</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
+<p>第二种方式实现：</p>
+<p>先定义一个函数用来动态修改标题。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">export const setMetaTitle = title =&gt; &#123;</div><div class="line">  document.title = title;</div><div class="line">  const mobile = navigator.userAgent.toLowerCase();</div><div class="line">  if (/iphone|ipad|ipod/.test(mobile)) &#123;</div><div class="line">    let iframe = document.createElement(&apos;iframe&apos;);</div><div class="line">    iframe.style.visibility = &apos;hidden&apos;;</div><div class="line">    iframe.setAttribute(&apos;src&apos;, &apos;https://www.baidu.com/&apos;);</div><div class="line">    const iframeCallback = () =&gt; &#123;</div><div class="line">      setTimeout(() =&gt; &#123;</div><div class="line">        iframe.removeEventListener(&apos;load&apos;, iframeCallback);</div><div class="line">        document.body.removeChild(iframe);</div><div class="line">      &#125;, 0);</div><div class="line">    &#125;</div><div class="line">    iframe.addEventListener(&apos;load&apos;, iframeCallback);</div><div class="line">    document.body.appendChild(iframe);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再在vue的入口点比如app.js里，定义一个vue指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import &#123; setMetaTitle &#125; from &apos;@/common/utils&apos;; </div><div class="line"></div><div class="line">Vue.directive(&apos;title&apos;, &#123;</div><div class="line">  inserted(el, binding) &#123;</div><div class="line">    setMetaTitle(binding.value);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<p>最后在你的组件里添加这个指令：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">    &lt;div v-title=&quot;这里是你的标题&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    export default &#123;&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>推荐第二种方式实现，没毛病。</p>
 
       
 
