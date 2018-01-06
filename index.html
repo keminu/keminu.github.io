@@ -146,6 +146,182 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-理解JavaScript之值类型与引用类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/01/02/理解JavaScript之值类型与引用类型/">理解JavaScript之值类型与引用类型</a>
+    </h1>
+  
+
+        
+        <a href="/2018/01/02/理解JavaScript之值类型与引用类型/" class="archive-article-date">
+  	<time datetime="2018-01-02T12:57:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-02</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>先来看下面的例子输出什么？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">args</span>) </span>&#123;</div><div class="line">  args.push(<span class="number">4</span>);</div><div class="line">  <span class="built_in">console</span>.log(args); <span class="comment">// 1、输出？</span></div><div class="line">  args = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</div><div class="line">  args.push(<span class="number">7</span>);</div><div class="line">  <span class="built_in">console</span>.log(args); <span class="comment">// 2、输出？</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">foo(arr);</div><div class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// 3、输出？</span></div></pre></td></tr></table></figure>
+<p>1处输出[1, 2, 3, 4]；2处输出[4, 5, 6, 7]；3处输出[1, 2, 3, 4]，为什么不是[4, 5, 6, 7]？</p>
+<p>我们知道在最新的ECMAScript标准中定义了7种数据类型，其中，</p>
+<p>6种原始类型：Boolean，Null，Undefined，Number，String，Symbol（ECMAScript 6新定义）；</p>
+<p>和Object。</p>
+<p><strong>而Javascript対值的引用和赋值或者传递完全由值的类型来决定。</strong></p>
+<p>对于简单值，总是通过值复制的方式来赋值或传递，包括null、undefined、字符串、数字、布尔以及ES6中的symbol；对于复合值总是通过引用复制的方式赋值或传递，包括对象（数组或封装的对象）、函数。</p>
+<p>我们再来看上面的例子，变量arr是数组，属于复合值类型，它的赋值和传递都是通过引用的方式，来看看执行foo函数的时候发生了什么。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">foo(arr);</div><div class="line"><span class="comment">// 对上面函数的执行做一个等价转换</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">args</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> args = arr; <span class="comment">// 创建变量args指向arr指向的值</span></div><div class="line">  args.push(<span class="number">4</span>); <span class="comment">// args和arr是分别指向同一个复合值[1, 2, 3]的两个不同引用。注意，args和arr仅仅是指向值[1, 2, 3]，并非持有，所以调用.push(4)的时候，它们更改的是同一个值，然后它们都指向更改后的新值[1, 2, 3, 4]。</span></div><div class="line">  <span class="built_in">console</span>.log(args); <span class="comment">// [1, 2, 3, 4]</span></div><div class="line">  args = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]; <span class="comment">// 对args重新赋值，相当于重新改变了args的指向，当是并不影响arr原来的指向，也就是说arr还是指向[1, 2, 3, 4]</span></div><div class="line">  args.push(<span class="number">7</span>); <span class="comment">// args = [4, 5, 6, 7]</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 执行完foo函数后，arr的值为[1, 2, 3, 4]</span></div></pre></td></tr></table></figure>
+<p>从这个例子中我们可以得出：</p>
+<ul>
+<li>运算符<code>=</code>就是<strong>创建或修改</strong>变量在内存中的指向。</li>
+<li>初始化变量时为创建，重新赋值即为修改。</li>
+<li>我们无法自行决定使用值复制还是引用复制，一切由值的类型来决定。</li>
+</ul>
+<p>下面我们再尝试从内存占用的角度来解释。</p>
+<p>首先看一个简单的例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">m</span>: <span class="number">1</span> &#125;; <span class="comment">// a1 = &#123; m: 1 &#125;</span></div><div class="line"><span class="keyword">var</span> o2 = o1; <span class="comment">// o2 = &#123; m: 1&#125;</span></div><div class="line">o1 = <span class="number">2</span>; <span class="comment">// 对o1重新赋值</span></div><div class="line"><span class="built_in">console</span>.log(o2); <span class="comment">// &#123; m: 1 &#125;</span></div></pre></td></tr></table></figure>
+<p>前两句代码的内存区情况如下：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">栈</th>
+<th style="text-align:center">堆</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">o1, o2</td>
+<td style="text-align:center">[[Object]] (指向对象m,m为1)</td>
+</tr>
+</tbody>
+</table>
+<p>接下来：</p>
+<ol>
+<li>创建变量o1指向<strong>对象{m: 1}</strong>;</li>
+<li>创建变量o2指向<strong>对象{m: 1}</strong>;</li>
+<li>修改o1重新指向<strong>常量2</strong>;</li>
+</ol>
+<p>现在再来看看内存区情况：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">栈</th>
+<th style="text-align:center">堆</th>
+<th style="text-align:center">常量区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">o1</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2</td>
+</tr>
+<tr>
+<td style="text-align:center">o2</td>
+<td style="text-align:center">[[Object]] (指向对象m,m为1)</td>
+<td style="text-align:center"></td>
+</tr>
+</tbody>
+</table>
+<p>所以o2从头到尾都是指向<strong>对象{m: 1}</strong>。</p>
+<p>修改上面一个例子：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">m</span>: <span class="number">1</span> &#125;; <span class="comment">// a1 = &#123; m: 1 &#125;</span></div><div class="line"><span class="keyword">var</span> o2 = o1; <span class="comment">// o2 = &#123; m: 1&#125;</span></div><div class="line">o1.m = <span class="number">2</span>; <span class="comment">// 对o1重新赋值</span></div><div class="line"><span class="built_in">console</span>.log(o2); <span class="comment">// &#123; m: 2 &#125;</span></div></pre></td></tr></table></figure>
+<p>前两句代码执行完o1, o2, m在内存中的分布：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">栈</th>
+<th style="text-align:center">堆</th>
+<th style="text-align:center">常量区</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">o1, o2</td>
+<td style="text-align:center">[[Object]] (指向对象m,m为1)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">m</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">1</td>
+</tr>
+</tbody>
+</table>
+<p>执行完<strong>o1.m = 2</strong>后：</p>
+<table>
+<thead>
+<tr>
+<th style="text-align:center">栈</th>
+<th style="text-align:center">堆</th>
+<th style="text-align:center">常量</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">o1, o2</td>
+<td style="text-align:center">[[Object]] (指向对象m,m为2)</td>
+<td style="text-align:center"></td>
+</tr>
+<tr>
+<td style="text-align:center">m</td>
+<td style="text-align:center"></td>
+<td style="text-align:center">2</td>
+</tr>
+</tbody>
+</table>
+<p>执行<strong>o1.m = 2</strong>，相当于通过o1的间接引用改变了m的值，那么所有原来指向m的引用的值都改变了，在这里就是o2所引用的值也改变了。o1和o2从始至终都未改变过其引用，只是m改变了。</p>
+<p>根据上面的理论知识，就会想到工作中为了分离变量间的引用所用的操作：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1、JSON.parse(JSON.stringfify(&#123; a: 0 &#125;)); </span></div><div class="line"><span class="comment">// 2、arr.slice()、arr.concat()</span></div><div class="line"><span class="comment">// 3、_.cloneDeep()</span></div><div class="line"><span class="comment">// 4、解构赋值</span></div></pre></td></tr></table></figure>
+<p>总结：</p>
+<p>简单标量基本类型值(字符串和数字等)通过值复制来赋值 / 传递，而复合值(对象等)通过引用复制来赋值 / 传递。</p>
+<p>JavaScript 中的引用和其他语言中的引用 / 指针不同，它们不能指向别的变量 / 引用，只能指向值。</p>
+<p>​			
+​		
+​</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/01/02/理解JavaScript之值类型与引用类型/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-vue单页应用中设置网页标题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -811,7 +987,7 @@
   <div class="outer">
     <div id="footer-info">
     	<div class="footer-left">
-    		&copy; 2017 xiaoka
+    		&copy; 2018 xiaoka
     	</div>
       	<div class="footer-right">
       		<a href="http://hexo.io/" target="_blank">Hexo</a>  Theme <a href="https://github.com/litten/hexo-theme-yilia" target="_blank">Yilia</a> by Litten
@@ -893,11 +1069,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">vue</a>
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -909,7 +1089,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">正则原理</a>
+                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -917,7 +1097,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">正则原理</a>
               </li>
             
             <div class="clearfix"></div>
