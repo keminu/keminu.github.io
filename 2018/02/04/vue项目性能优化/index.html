@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>Archives: 2017 | xiaoka de blogs</title>
+  <title>vue项目性能优化 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xiaoka de blogs">
-<meta property="og:url" content="http://keminu.com/archives/2017/index.html">
+  <meta name="description" content="这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考web性能。 代码分割 默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，">
+<meta name="keywords" content="vue">
+<meta property="og:type" content="article">
+<meta property="og:title" content="vue项目性能优化">
+<meta property="og:url" content="http://keminu.com/2018/02/04/vue项目性能优化/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
+<meta property="og:description" content="这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考web性能。 代码分割 默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，">
+<meta property="og:updated_time" content="2018-02-06T16:20:35.408Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xiaoka de blogs">
-<meta name="twitter:description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
+<meta name="twitter:title" content="vue项目性能优化">
+<meta name="twitter:description" content="这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考web性能。 代码分割 默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
   
@@ -144,36 +146,94 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-vue项目性能优化" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/06/vue单页应用中设置网页标题/" class="archive-article-date">
-  	<time datetime="2017-12-06T14:52:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-06</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/06/vue单页应用中设置网页标题/">vue单页应用中设置网页标题</a>
+    <h1 class="article-title" itemprop="name">
+      vue项目性能优化
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/02/04/vue项目性能优化/" class="archive-article-date">
+  	<time datetime="2018-02-04T12:31:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-04</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考<a href="https://maizsss.github.io/2017/12/12/Web%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" target="_blank" rel="external">web性能</a>。</p>
+<h3 id="代码分割">代码分割</h3>
+<p>默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，你的页面中有一个首页和一个用户信息页，那么可以把它们分成两个文件index.vue和info.vue。当然，如果首页还是很大，还可以按照页面组件来划分，比如menu.vue、tab.vue、modal.vue等。</p>
+<h3 id="组件动态加载">组件动态加载</h3>
+<p>通过上面的分割代码之后，bundle被分成了很多小部分，这样我们可以动态加载需要的部分。来看看是怎么实现的？</p>
+<p>利用import()作为动态模块加载器。在webpack中已经把import()作为一个代码分割点，它把import来的模块打包成一个单独的文件，并在需要的时候去加载。import接收一个文件路径作为参数，然后返回一个Promise。这里有一个异步单文件组件：</p>
+<p>AsyncComponent.vue</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;div&gt;Async Component&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123; &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
+<p>使用import就像这样如此简单整洁的完成异步加载：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123; </div><div class="line">  el: &apos;#app&apos;,</div><div class="line">  components: &#123;</div><div class="line">    AsyncComponent: () =&gt; import(&apos;./AsyncComponent.vue&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
+<h3 id="vue-router路由懒加载">vue-router路由懒加载</h3>
+<p>在vue的项目中，经常会使用vue-router去管理SPA应用。当页面非常多时，打包的文件会变得很大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了。使用import，再结合webpack，很容易就能做到。</p>
+<p>首先，定义一个能够被 Webpack 自动代码分割的异步组件：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const AsyncComponent = () =&gt; import(&apos;./AsyncComponent.vue&apos;)</div></pre></td></tr></table></figure>
+<p>然后在路由定义中去引用它：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/asyncComponent&apos;, component: AsyncComponent &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>当然，如果你想对你的组件使用不同的名字，也很容易做到：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const asyncComponent = () =&gt; import(/* webpackChunkName: &quot;async-component&quot; */ &apos;./asyncComponent.vue&apos;)</div></pre></td></tr></table></figure>
+<p>这样打包出来的分块名就是async-component.[hash].js。</p>
+<h3 id="运行时构建">运行时构建</h3>
+<p>如果在应用中你只使用了渲染函数(render functions)（在单文件组件中，会把组件编译成render function），而不需要html 模板(templates)，那么其实你不需要vue的模板编译器，这样在webpack打包的时候大约会减少25%的体积。当使用<em>import vue from 'vue</em>'时，默认使用运行时构建，你也可以改变webpack的配置：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">resolve: &#123;</div><div class="line">  alias: &#123;</div><div class="line">    &apos;vue$&apos;: &apos;vue/dist/vue.esm.js&apos; // Use the full build</div><div class="line">  &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
+<h3 id="在生产环境中去掉warnings-and-error信息">在生产环境中去掉warnings and error信息</h3>
+<p>把<em>process.env.NODE_ENV</em>设置成<em>production</em>，就可以去掉这些不需要的信息代码。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (process.env.NODE_ENV === &apos;production&apos;) &#123;</div><div class="line">  module.exports.plugins = (module.exports.plugins || []).concat([</div><div class="line">    new webpack.DefinePlugin(&#123;</div><div class="line">      &apos;process.env&apos;: &#123;</div><div class="line">        NODE_ENV: &apos;&quot;production&quot;&apos;</div><div class="line">      &#125;</div><div class="line">    &#125;),</div><div class="line">    new webpack.optimize.UglifyJsPlugin()</div><div class="line">  ])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="cdn化">CDN化</h3>
+<p>如果使用vue-cli，配置CDN路径很简单：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  build: &#123;</div><div class="line">    assetsSubDirectory: &apos;static&apos;,</div><div class="line">    assetsPublicPath: &apos;./&apos;,  // 这里换成CDN地址</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
+<p>这样对于打包后的js和css路径引用是没有问题的，但是js里使用绝对路径或相对路径引用的图片却没有正常引用CDN地址。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        return &#123;</div><div class="line">            img: &apos;./logo.png&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这里换一种方式就能正确引用了：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import logo from &apos;./logo.png&apos;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        return &#123;</div><div class="line">            img: logo</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="代码层面">代码层面</h3>
+<p>v-show or v-if：如果不是频繁的切换显示，我更倾向于使用v-if，它可以减少页面中dom总数，并且它的切换时间肉眼基本没有什么感觉的。</p>
+<h3 id="参考资料">参考资料</h3>
+<p>1、<a href="https://segmentfault.com/a/1190000009443366" target="_blank" rel="external">潜谈vue项目优化</a></p>
+<p>2、<a href="https://router.vuejs.org/zh-cn/advanced/lazy-loading.html" target="_blank" rel="external">vue路由懒加载</a></p>
+<p>3、<a href="https://vuejsdevelopers.com/2017/07/03/vue-js-code-splitting-webpack/" target="_blank" rel="external">vue-js-code-splitting-webpack</a></p>
+<p>4、<a href="https://vuejsdevelopers.com/2017/06/18/vue-js-boost-your-app-with-webpack/" target="_blank" rel="external">vue-js-boost-your-app-with-webpack</a></p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
@@ -185,137 +245,100 @@
 		</ul>
 	</div>
 
-          
+      
 
+      
+
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2018/02/04/vue项目性能优化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/12/03/精通JavaScript正则之正则原理/" class="archive-article-date">
-  	<time datetime="2017-12-03T07:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        </div>
-    	 
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/12/03/精通JavaScript正则之正则原理/">精通JavaScript正则之正则原理</a>
-    </h1>
+  
+    <a href="/2018/01/02/理解JavaScript之值类型与引用类型/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">理解JavaScript之值类型与引用类型</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://keminu.com/2018/02/04/vue项目性能优化/", 
+    sourceId: "vue项目性能优化",
+    productKey: "83304bb43e064453a25cff956da99aaf",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">正则原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/精通JavaScript正则之正则基础/" class="archive-article-date">
-  	<time datetime="2017-11-05T13:23:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/精通JavaScript正则之正则基础/">精通JavaScript正则之正则基础</a>
-    </h1>
   
 
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
   
-    
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2017/11/05/数据双向绑定/" class="archive-article-date">
-  	<time datetime="2017-11-05T13:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        </div>
-    	 
-  
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/11/05/数据双向绑定/">数据双向绑定</a>
-    </h1>
-  
-
-        <div class="article-info info-on-right">
-          
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">响应式原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-          
-
-        </div>
-        <div class="clearfix"></div>
-    </header>
-  </div>
-</article>
-  
-  
-    </div></section>
-  
-
-    
 
 
           </div>
@@ -338,8 +361,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
