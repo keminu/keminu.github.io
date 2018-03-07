@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>Archives: 2016/6 | xiaoka de blogs</title>
+  <title>理解JavaScript之数组扁平化 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xiaoka de blogs">
-<meta property="og:url" content="http://keminu.com/archives/2016/06/index.html">
+  <meta name="description" content="什么是数组扁平化 就是将多维数组转化为一维数组，并且不能改变原来数组的值。比如说原来的数组是： 1var arr = [1, [2, [3, 4]]]; 那么扁平化之后就是： 1[1, 2, 3, 4] 那么我们实现数组扁平化有什么用呢？可以用它来求几个数组的并集，也可以用它来找出差集。 如何实现 下面看看实现的方式。第一种很容易想到的是循环数组元素，如果还是一个数组，就递归调用该方法： 1234">
+<meta name="keywords" content="JavaScript">
+<meta property="og:type" content="article">
+<meta property="og:title" content="理解JavaScript之数组扁平化">
+<meta property="og:url" content="http://keminu.com/2018/03/06/理解JavaScript之数组扁平化/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
+<meta property="og:description" content="什么是数组扁平化 就是将多维数组转化为一维数组，并且不能改变原来数组的值。比如说原来的数组是： 1var arr = [1, [2, [3, 4]]]; 那么扁平化之后就是： 1[1, 2, 3, 4] 那么我们实现数组扁平化有什么用呢？可以用它来求几个数组的并集，也可以用它来找出差集。 如何实现 下面看看实现的方式。第一种很容易想到的是循环数组元素，如果还是一个数组，就递归调用该方法： 1234">
+<meta property="og:updated_time" content="2018-03-07T00:28:49.061Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xiaoka de blogs">
-<meta name="twitter:description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
+<meta name="twitter:title" content="理解JavaScript之数组扁平化">
+<meta name="twitter:description" content="什么是数组扁平化 就是将多维数组转化为一维数组，并且不能改变原来数组的值。比如说原来的数组是： 1var arr = [1, [2, [3, 4]]]; 那么扁平化之后就是： 1[1, 2, 3, 4] 那么我们实现数组扁平化有什么用呢？可以用它来求几个数组的并集，也可以用它来找出差集。 如何实现 下面看看实现的方式。第一种很容易想到的是循环数组元素，如果还是一个数组，就递归调用该方法： 1234">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
   
@@ -144,71 +146,189 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-  
+            <article id="post-理解JavaScript之数组扁平化" class="article article-type-post " itemscope itemprop="blogPost">
+  <div class="article-inner">
     
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2016" class="archive-year">2016</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      	<div class="article-meta">
-	      	<a href="/2016/06/26/你为什么要开始写博客/" class="archive-article-date">
-  	<time datetime="2016-06-26T08:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-26</time>
-</a>
-        </div>
-    	 
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2016/06/26/你为什么要开始写博客/">你为什么要开始写博客</a>
+    <h1 class="article-title" itemprop="name">
+      理解JavaScript之数组扁平化
     </h1>
   
 
-        <div class="article-info info-on-right">
-          
+        
+        <a href="/2018/03/06/理解JavaScript之数组扁平化/" class="archive-article-date">
+  	<time datetime="2018-03-06T03:12:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-06</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="什么是数组扁平化">什么是数组扁平化</h3>
+<p>就是将多维数组转化为一维数组，并且不能改变原来数组的值。比如说原来的数组是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div></pre></td></tr></table></figure>
+<p>那么扁平化之后就是：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div></pre></td></tr></table></figure>
+<p>那么我们实现数组扁平化有什么用呢？可以用它来求几个数组的并集，也可以用它来找出差集。</p>
+<h3 id="如何实现">如何实现</h3>
+<p>下面看看实现的方式。第一种很容易想到的是循环数组元素，如果还是一个数组，就递归调用该方法：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法 1</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> result = [];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = arr.length; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(arr[i])) &#123;</div><div class="line">            result = result.concat(flatten(arr[i]))</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            result.push(arr[i])</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
+<p>这是一个简单的实现，并没有做什么优化。</p>
+<p>我们知道<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toString" target="_blank" rel="external">Array.prototype.toString</a>可以返回一个字符串，表示指定的数组及其元素。对于数组对象，<code>toString</code> 方法返回一个字符串，该字符串由数组中的每个元素的 <code>toString()</code> 返回值经调用 <code>join()</code> 方法连接（由逗号隔开）组成。而<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="external">String.prototype.split</a>方法使用指定的分隔符字符串将一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/String" target="_blank" rel="external"><code>String</code></a>对象分割成字符串数组，以将字符串分隔为子字符串，以确定每个拆分的位置。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法2</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> arr.toString().split(<span class="string">','</span>).map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> +item</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
+<p>对于数组里面含有不同类型的数据时，这种方式就不适用了。</p>
+<p>既然是对数组进行处理，最终返回一个值，我们就可以考虑使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="external">Array.prototype.reduce</a> 来简化代码，这个方法对累加器和数组中的每个元素（从左到右）应用一个函数，将其减少为单个值。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法3</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev, next</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> prev.concat(<span class="built_in">Array</span>.isArray(next) ? flatten(next) : next)</div><div class="line">    &#125;, [])</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
+<p>ES6 增加了扩展运算符，用于取出参数对象的所有可遍历属性，拷贝到当前对象之中：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"><span class="built_in">console</span>.log([].concat(...arr)); <span class="comment">// [1, 2, [3, 4]]</span></div></pre></td></tr></table></figure>
+<p>这种方法只可以扁平一层，但是可以稍微改改：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法4</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (arr.some(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">Array</span>.isArray(item))) &#123;</div><div class="line">        arr = [].concat(...arr);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
+<p>最后放出终极大招，看看underscore是怎么实现的？</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 数组扁平化</div><div class="line"> * @param  &#123;Array&#125; input   要处理的数组</div><div class="line"> * @param  &#123;boolean&#125; shallow 是否只扁平一层</div><div class="line"> * @param  &#123;boolean&#125; strict  是否严格处理元素，下面有解释</div><div class="line"> * @param  &#123;Array&#125; output  这是为了方便递归而传递的参数</div><div class="line"> * 源码地址：https://github.com/jashkenas/underscore/blob/master/underscore.js#L528</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">input, shallow, strict, output</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 递归使用的时候会用到output</span></div><div class="line">    output = output || [];</div><div class="line">    <span class="keyword">var</span> idx = output.length;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = input.length; i &lt; len; i++) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">var</span> value = input[i];</div><div class="line">        <span class="comment">// 如果是数组，就进行处理</span></div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</div><div class="line">            <span class="comment">// 如果是只扁平一层，遍历该数组，依此填入 output</span></div><div class="line">            <span class="keyword">if</span> (shallow) &#123;</div><div class="line">                <span class="keyword">var</span> j = <span class="number">0</span>, len = value.length;</div><div class="line">                <span class="keyword">while</span> (j &lt; len) output[idx++] = value[j++];</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 如果是全部扁平就递归，传入已经处理的 output，递归中接着处理 output</span></div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                flatten(value, shallow, strict, output);</div><div class="line">                idx = output.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 不是数组，根据 strict 的值判断是跳过不处理还是放入 output</span></div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!strict)&#123;</div><div class="line">            output[idx++] = value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> output;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>来看看主要的参数解释：</p>
+<ul>
+<li>shallow true + strict false ：正常扁平一层</li>
+<li>shallow false + strict false ：正常扁平所有层</li>
+<li>shallow true + strict true ：去掉非数组元素</li>
+<li>shallow false + strict true ： 返回一个[]</li>
+</ul>
+<p>Underscore确实有非常多值得学习的地方，更推荐Lodash。</p>
+
+      
+
+      
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
 	<div class="article-tag tagcloud">
 		<i class="icon-price-tags icon"></i>
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">思维方式</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
         		</li>
       		
 		</ul>
 	</div>
 
-          
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/hexo/" class="article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
+      
 
+      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
         </div>
-        <div class="clearfix"></div>
-    </header>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2018/03/06/理解JavaScript之数组扁平化/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
+      
+      <div class="clearfix"></div>
+    </div>
   </div>
 </article>
+
+  
+<nav id="article-nav">
   
   
-    </div></section>
+    <a href="/2018/02/04/vue项目性能优化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">vue项目性能优化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
+
+
+
+
+
+  
+  
+  
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://keminu.com/2018/03/06/理解JavaScript之数组扁平化/", 
+    sourceId: "理解JavaScript之数组扁平化",
+    productKey: "83304bb43e064453a25cff956da99aaf",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-    
+  
+
+  
 
 
           </div>
@@ -231,8 +351,8 @@
 	var yiliaConfig = {
 		mathjax: false,
 		isHome: false,
-		isPost: false,
-		isArchive: true,
+		isPost: true,
+		isArchive: false,
 		isTag: false,
 		isCategory: false,
 		open_in_new: false,
