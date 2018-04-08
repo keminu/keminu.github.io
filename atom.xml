@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://keminu.com/"/>
-  <updated>2018-03-07T00:28:49.061Z</updated>
+  <updated>2018-04-08T16:07:09.032Z</updated>
   <id>http://keminu.com/</id>
   
   <author>
@@ -14,6 +14,49 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>精通JavaScript正则之模板引擎</title>
+    <link href="http://keminu.com/2018/04/08/%E7%B2%BE%E9%80%9AJavaScript%E6%AD%A3%E5%88%99%E4%B9%8B%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/"/>
+    <id>http://keminu.com/2018/04/08/精通JavaScript正则之模板引擎/</id>
+    <published>2018-04-08T14:50:08.000Z</published>
+    <updated>2018-04-08T16:07:09.032Z</updated>
+    
+    <content type="html"><![CDATA[<p>在前端的开发中经常会使用到模板引擎，前端渲染中比如前端框架Knockout、Vue和Angular（React的JSX不属于模板，它是一个带语法糖的手写 AST），在解析指令语法时都会使用对应的模板引擎进行解析，而基于Node.js进行渲染的EJS，DoTjs这些，原理也都是类似。</p>
+<p>现在我们一步步来，看看它们是怎么实现的。</p>
+<p>首先，我想它的使用方式是这样的：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> templateEngine = <span class="function">(<span class="params">tpl, data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 这里模板引擎实现方式</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> template = <span class="string">'&lt;p&gt;Hi, my name is &lt;%name%&gt;. My job is &lt;%job%&gt;.&lt;/p&gt;'</span>;</div><div class="line"><span class="built_in">console</span>.log(templateEngine(template, &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">"nuoka"</span>,</div><div class="line">    <span class="attr">job</span>: <span class="string">'write bug'</span></div><div class="line">&#125;));</div></pre></td></tr></table></figure>
+<p>当使用templateEngine这个函数，并传入一些参数，我们期待它得到</p>
+<figure class="highlight html"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="tag">&lt;<span class="name">p</span>&gt;</span>Hi, my name is nuoka. My job is write bug.<span class="tag">&lt;/<span class="name">p</span>&gt;</span></div></pre></td></tr></table></figure>
+<p>第一步我们要得到动态模板，也就是<code>&lt;%name%&gt;</code>这些，然后再用真实的数据去替换它。对于字符串的处理，我们很容易就想到使用正则来处理，关于正则的使用基础，可以看看前面的文章。好了，来写我们的第一个正则表达式，</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> reg = <span class="regexp">/&lt;%([^%&gt;]+)?%&gt;/g</span>;</div></pre></td></tr></table></figure>
+<p>通过这个正则，我们可以获取到以<code>&lt;%</code>开头，以<code>%&gt;</code>结尾的片段。用<code>exec</code>执行下，可以得到一个包含匹配结果的数组：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> match = reg.exec(template);</div><div class="line"><span class="built_in">console</span>.log(match);</div><div class="line"><span class="comment">// 得到下面的输出</span></div><div class="line"><span class="comment">// [</span></div><div class="line"><span class="comment">//		"&lt;%name%&gt;"</span></div><div class="line"><span class="comment">//		1: "name"</span></div><div class="line"><span class="comment">//		groups: undefined</span></div><div class="line"><span class="comment">//		index: 18</span></div><div class="line"><span class="comment">//		input: "&lt;p&gt;Hi, my name is &lt;%name%&gt;. My job is &lt;%job%&gt;.&lt;/p&gt;"</span></div><div class="line"><span class="comment">// ]</span></div></pre></td></tr></table></figure>
+<p>可以看到返回的数组里只包括一个匹配结果，所以这是我们还需要使用一个<code>while</code>循环来获取全部的结果。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> match;</div><div class="line"><span class="keyword">const</span> reg = <span class="regexp">/&lt;%([^%&gt;]+)?%&gt;/g</span>,</div><div class="line">      template = <span class="string">'&lt;p&gt;Hi, my name is &lt;%name%&gt;. My job is &lt;%job%&gt;.&lt;/p&gt;'</span>;</div><div class="line"><span class="keyword">while</span> (match = re.exec(template)) &#123;</div><div class="line">    <span class="built_in">console</span>.log(match);</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>好了，现在我们能够获取到所有的模板片段，只需要把数据填充进去就可以了，这里使用replace方法来实现。来看看我们最粗略的模板函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> templateEngine = <span class="function">(<span class="params">tpl, data</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">let</span> reg = <span class="regexp">/&lt;%([^%&gt;]+)?%&gt;/g</span>, </div><div class="line">        match;</div><div class="line">    <span class="keyword">while</span>(match = reg.exec(tpl)) &#123;</div><div class="line">        tpl = tpl.replace(match[<span class="number">0</span>], data[match[<span class="number">1</span>]])</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> tpl;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(templateEngine(template, &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">"nuoka"</span>,</div><div class="line">    <span class="attr">job</span>: <span class="string">'write bug'</span></div><div class="line">&#125;));</div></pre></td></tr></table></figure>
+<p>Boom，第一个模板函数实现了，是不是很简单？</p>
+<p>这样足够了吗？然而并没有，考虑下面的情况，我们把输入数据变成这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'nuoka'</span>,</div><div class="line">    <span class="attr">profile</span>: &#123;</div><div class="line">        <span class="attr">job</span>: <span class="string">'write bug'</span>,</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>当使用<code>profile.job</code>去填充数据的时候，发现使用不了了，因为并没有找到<code>profile.job</code>这个属性。要如何解决这个问题呢？且看下回分解。</p>
+<p>占位。。。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在前端的开发中经常会使用到模板引擎，前端渲染中比如前端框架Knockout、Vue和Angular（React的JSX不属于模板，它是一个带语法糖的手写 AST），在解析指令语法时都会使用对应的模板引擎进行解析，而基于Node.js进行渲染的EJS，DoTjs这些，原理也都
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://keminu.com/tags/JavaScript/"/>
+    
+      <category term="正则表达式" scheme="http://keminu.com/tags/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F/"/>
+    
+      <category term="模板引擎" scheme="http://keminu.com/tags/%E6%A8%A1%E6%9D%BF%E5%BC%95%E6%93%8E/"/>
+    
+  </entry>
   
   <entry>
     <title>理解JavaScript之数组扁平化</title>

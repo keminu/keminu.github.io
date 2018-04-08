@@ -6,17 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>xiaoka de blogs</title>
+  <title>精通JavaScript正则之模板引擎 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
-<meta property="og:type" content="website">
-<meta property="og:title" content="xiaoka de blogs">
-<meta property="og:url" content="http://keminu.com/index.html">
+  <meta name="description" content="在前端的开发中经常会使用到模板引擎，前端渲染中比如前端框架Knockout、Vue和Angular（React的JSX不属于模板，它是一个带语法糖的手写 AST），在解析指令语法时都会使用对应的模板引擎进行解析，而基于Node.js进行渲染的EJS，DoTjs这些，原理也都是类似。 现在我们一步步来，看看它们是怎么实现的。 首先，我想它的使用方式是这样的： 12345678const templa">
+<meta name="keywords" content="JavaScript,正则表达式,模板引擎">
+<meta property="og:type" content="article">
+<meta property="og:title" content="精通JavaScript正则之模板引擎">
+<meta property="og:url" content="http://keminu.com/2018/04/08/精通JavaScript正则之模板引擎/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
+<meta property="og:description" content="在前端的开发中经常会使用到模板引擎，前端渲染中比如前端框架Knockout、Vue和Angular（React的JSX不属于模板，它是一个带语法糖的手写 AST），在解析指令语法时都会使用对应的模板引擎进行解析，而基于Node.js进行渲染的EJS，DoTjs这些，原理也都是类似。 现在我们一步步来，看看它们是怎么实现的。 首先，我想它的使用方式是这样的： 12345678const templa">
+<meta property="og:updated_time" content="2018-04-08T16:07:09.032Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="xiaoka de blogs">
-<meta name="twitter:description" content="���˲��� ѧϰ�ܽ� ˼ά��ʽ">
+<meta name="twitter:title" content="精通JavaScript正则之模板引擎">
+<meta name="twitter:description" content="在前端的开发中经常会使用到模板引擎，前端渲染中比如前端框架Knockout、Vue和Angular（React的JSX不属于模板，它是一个带语法糖的手写 AST），在解析指令语法时都会使用对应的模板引擎进行解析，而基于Node.js进行渲染的EJS，DoTjs这些，原理也都是类似。 现在我们一步步来，看看它们是怎么实现的。 首先，我想它的使用方式是这样的： 12345678const templa">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
   
@@ -144,16 +146,14 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            
-  
-    <article id="post-精通JavaScript正则之模板引擎" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+            <article id="post-精通JavaScript正则之模板引擎" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/04/08/精通JavaScript正则之模板引擎/">精通JavaScript正则之模板引擎</a>
+    <h1 class="article-title" itemprop="name">
+      精通JavaScript正则之模板引擎
     </h1>
   
 
@@ -189,6 +189,27 @@
       
 
       
+        <div class="page-reward">
+          <a href="javascript:;" class="page-reward-btn tooltip-top">
+            <div class="tooltip tooltip-east">
+            <span class="tooltip-item">
+              赏
+            </span>
+            <span class="tooltip-content">
+              <span class="tooltip-text">
+                <span class="tooltip-inner">
+                  <p class="reward-p"><i class="icon icon-quo-left"></i>谢谢你请我吃糖果<i class="icon icon-quo-right"></i></p>
+                  <div class="reward-box">
+                    
+                    
+                  </div>
+                </span>
+              </span>
+            </span>
+          </div>
+          </a>
+        </div>
+      
     </div>
     <div class="article-info article-info-index">
       
@@ -215,1037 +236,96 @@
       
 
       
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/04/08/精通JavaScript正则之模板引擎/">展开全文 >></a>
-        </p>
-      
 
+      
+        
+<div class="share-btn share-icons tooltip-left">
+  <div class="tooltip tooltip-east">
+    <span class="tooltip-item">
+      <a href="javascript:;" class="share-sns share-outer">
+        <i class="icon icon-share"></i>
+      </a>
+    </span>
+    <span class="tooltip-content">
+      <div class="share-wrap">
+        <div class="share-icons">
+          <a class="weibo share-sns" href="javascript:;" data-type="weibo">
+            <i class="icon icon-weibo"></i>
+          </a>
+          <a class="weixin share-sns wxFab" href="javascript:;" data-type="weixin">
+            <i class="icon icon-weixin"></i>
+          </a>
+          <a class="qq share-sns" href="javascript:;" data-type="qq">
+            <i class="icon icon-qq"></i>
+          </a>
+          <a class="douban share-sns" href="javascript:;" data-type="douban">
+            <i class="icon icon-douban"></i>
+          </a>
+          <a class="qzone share-sns" href="javascript:;" data-type="qzone">
+            <i class="icon icon-qzone"></i>
+          </a>
+          <a class="facebook share-sns" href="javascript:;" data-type="facebook">
+            <i class="icon icon-facebook"></i>
+          </a>
+          <a class="twitter share-sns" href="javascript:;" data-type="twitter">
+            <i class="icon icon-twitter"></i>
+          </a>
+          <a class="google share-sns" href="javascript:;" data-type="google">
+            <i class="icon icon-google"></i>
+          </a>
+        </div>
+      </div>
+    </span>
+  </div>
+</div>
+
+<div class="page-modal wx-share js-wx-box">
+    <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
+    <p>扫一扫，分享到微信</p>
+    <div class="wx-qrcode">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2018/04/08/精通JavaScript正则之模板引擎/" alt="微信分享二维码">
+    </div>
+</div>
+
+<div class="mask js-mask"></div>
       
       <div class="clearfix"></div>
     </div>
   </div>
 </article>
 
-
-
-
-
   
-    <article id="post-理解JavaScript之数组扁平化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
+<nav id="article-nav">
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/03/06/理解JavaScript之数组扁平化/">理解JavaScript之数组扁平化</a>
-    </h1>
   
-
-        
-        <a href="/2018/03/06/理解JavaScript之数组扁平化/" class="archive-article-date">
-  	<time datetime="2018-03-06T03:12:57.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-03-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="什么是数组扁平化">什么是数组扁平化</h3>
-<p>就是将多维数组转化为一维数组，并且不能改变原来数组的值。比如说原来的数组是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div></pre></td></tr></table></figure>
-<p>那么扁平化之后就是：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">[<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>, <span class="number">4</span>]</div></pre></td></tr></table></figure>
-<p>那么我们实现数组扁平化有什么用呢？可以用它来求几个数组的并集，也可以用它来找出差集。</p>
-<h3 id="如何实现">如何实现</h3>
-<p>下面看看实现的方式。第一种很容易想到的是循环数组元素，如果还是一个数组，就递归调用该方法：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法 1</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> result = [];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = arr.length; i &lt; len; i++) &#123;</div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(arr[i])) &#123;</div><div class="line">            result = result.concat(flatten(arr[i]))</div><div class="line">        &#125;</div><div class="line">        <span class="keyword">else</span> &#123;</div><div class="line">            result.push(arr[i])</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> result;</div><div class="line">&#125;</div><div class="line"></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
-<p>这是一个简单的实现，并没有做什么优化。</p>
-<p>我们知道<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/toString" target="_blank" rel="external">Array.prototype.toString</a>可以返回一个字符串，表示指定的数组及其元素。对于数组对象，<code>toString</code> 方法返回一个字符串，该字符串由数组中的每个元素的 <code>toString()</code> 返回值经调用 <code>join()</code> 方法连接（由逗号隔开）组成。而<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/String/split" target="_blank" rel="external">String.prototype.split</a>方法使用指定的分隔符字符串将一个<a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/String" target="_blank" rel="external"><code>String</code></a>对象分割成字符串数组，以将字符串分隔为子字符串，以确定每个拆分的位置。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法2</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> arr.toString().split(<span class="string">','</span>).map(<span class="function"><span class="keyword">function</span>(<span class="params">item</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> +item</div><div class="line">    &#125;)</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
-<p>对于数组里面含有不同类型的数据时，这种方式就不适用了。</p>
-<p>既然是对数组进行处理，最终返回一个值，我们就可以考虑使用 <a href="https://developer.mozilla.org/zh-CN/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce" target="_blank" rel="external">Array.prototype.reduce</a> 来简化代码，这个方法对累加器和数组中的每个元素（从左到右）应用一个函数，将其减少为单个值。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法3</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line">    <span class="keyword">return</span> arr.reduce(<span class="function"><span class="keyword">function</span>(<span class="params">prev, next</span>)</span>&#123;</div><div class="line">        <span class="keyword">return</span> prev.concat(<span class="built_in">Array</span>.isArray(next) ? flatten(next) : next)</div><div class="line">    &#125;, [])</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
-<p>ES6 增加了扩展运算符，用于取出参数对象的所有可遍历属性，拷贝到当前对象之中：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"><span class="built_in">console</span>.log([].concat(...arr)); <span class="comment">// [1, 2, [3, 4]]</span></div></pre></td></tr></table></figure>
-<p>这种方法只可以扁平一层，但是可以稍微改改：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 方法4</span></div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, [<span class="number">2</span>, [<span class="number">3</span>, <span class="number">4</span>]]];</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">arr</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">while</span> (arr.some(<span class="function"><span class="params">item</span> =&gt;</span> <span class="built_in">Array</span>.isArray(item))) &#123;</div><div class="line">        arr = [].concat(...arr);</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> arr;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(flatten(arr))</div></pre></td></tr></table></figure>
-<p>最后放出终极大招，看看underscore是怎么实现的？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div></pre></td><td class="code"><pre><div class="line"><span class="comment">/**</span></div><div class="line"> * 数组扁平化</div><div class="line"> * @param  &#123;Array&#125; input   要处理的数组</div><div class="line"> * @param  &#123;boolean&#125; shallow 是否只扁平一层</div><div class="line"> * @param  &#123;boolean&#125; strict  是否严格处理元素，下面有解释</div><div class="line"> * @param  &#123;Array&#125; output  这是为了方便递归而传递的参数</div><div class="line"> * 源码地址：https://github.com/jashkenas/underscore/blob/master/underscore.js#L528</div><div class="line"> */</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">flatten</span>(<span class="params">input, shallow, strict, output</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="comment">// 递归使用的时候会用到output</span></div><div class="line">    output = output || [];</div><div class="line">    <span class="keyword">var</span> idx = output.length;</div><div class="line"></div><div class="line">    <span class="keyword">for</span> (<span class="keyword">var</span> i = <span class="number">0</span>, len = input.length; i &lt; len; i++) &#123;</div><div class="line"></div><div class="line">        <span class="keyword">var</span> value = input[i];</div><div class="line">        <span class="comment">// 如果是数组，就进行处理</span></div><div class="line">        <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(value)) &#123;</div><div class="line">            <span class="comment">// 如果是只扁平一层，遍历该数组，依此填入 output</span></div><div class="line">            <span class="keyword">if</span> (shallow) &#123;</div><div class="line">                <span class="keyword">var</span> j = <span class="number">0</span>, len = value.length;</div><div class="line">                <span class="keyword">while</span> (j &lt; len) output[idx++] = value[j++];</div><div class="line">            &#125;</div><div class="line">            <span class="comment">// 如果是全部扁平就递归，传入已经处理的 output，递归中接着处理 output</span></div><div class="line">            <span class="keyword">else</span> &#123;</div><div class="line">                flatten(value, shallow, strict, output);</div><div class="line">                idx = output.length;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">        <span class="comment">// 不是数组，根据 strict 的值判断是跳过不处理还是放入 output</span></div><div class="line">        <span class="keyword">else</span> <span class="keyword">if</span> (!strict)&#123;</div><div class="line">            output[idx++] = value;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> output;</div><div class="line"></div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>来看看主要的参数解释：</p>
-<ul>
-<li>shallow true + strict false ：正常扁平一层</li>
-<li>shallow false + strict false ：正常扁平所有层</li>
-<li>shallow true + strict true ：去掉非数组元素</li>
-<li>shallow false + strict true ： 返回一个[]</li>
-</ul>
-<p>Underscore确实有非常多值得学习的地方，更推荐Lodash。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/03/06/理解JavaScript之数组扁平化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
+    <a href="/2018/03/06/理解JavaScript之数组扁平化/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">理解JavaScript之数组扁平化</div>
+      <i class="icon-circle-right"></i>
+    </a>
+  
+</nav>
 
 
 
 
 
   
-    <article id="post-vue项目性能优化" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
   
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/02/04/vue项目性能优化/">vue项目性能优化</a>
-    </h1>
   
-
-        
-        <a href="/2018/02/04/vue项目性能优化/" class="archive-article-date">
-  	<time datetime="2018-02-04T12:31:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-04</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考<a href="https://maizsss.github.io/2017/12/12/Web%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" target="_blank" rel="external">web性能</a>。</p>
-<h3 id="代码分割">代码分割</h3>
-<p>默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，你的页面中有一个首页和一个用户信息页，那么可以把它们分成两个文件index.vue和info.vue。当然，如果首页还是很大，还可以按照页面组件来划分，比如menu.vue、tab.vue、modal.vue等。</p>
-<h3 id="组件动态加载">组件动态加载</h3>
-<p>通过上面的分割代码之后，bundle被分成了很多小部分，这样我们可以动态加载需要的部分。来看看是怎么实现的？</p>
-<p>利用import()作为动态模块加载器。在webpack中已经把import()作为一个代码分割点，它把import来的模块打包成一个单独的文件，并在需要的时候去加载。import接收一个文件路径作为参数，然后返回一个Promise。这里有一个异步单文件组件：</p>
-<p>AsyncComponent.vue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;div&gt;Async Component&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123; &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>使用import就像这样如此简单整洁的完成异步加载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123; </div><div class="line">  el: &apos;#app&apos;,</div><div class="line">  components: &#123;</div><div class="line">    AsyncComponent: () =&gt; import(&apos;./AsyncComponent.vue&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h3 id="vue-router路由懒加载">vue-router路由懒加载</h3>
-<p>在vue的项目中，经常会使用vue-router去管理SPA应用。当页面非常多时，打包的文件会变得很大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了。使用import，再结合webpack，很容易就能做到。</p>
-<p>首先，定义一个能够被 Webpack 自动代码分割的异步组件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const AsyncComponent = () =&gt; import(&apos;./AsyncComponent.vue&apos;)</div></pre></td></tr></table></figure>
-<p>然后在路由定义中去引用它：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/asyncComponent&apos;, component: AsyncComponent &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>当然，如果你想对你的组件使用不同的名字，也很容易做到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const asyncComponent = () =&gt; import(/* webpackChunkName: &quot;async-component&quot; */ &apos;./asyncComponent.vue&apos;)</div></pre></td></tr></table></figure>
-<p>这样打包出来的分块名就是async-component.[hash].js。</p>
-<h3 id="运行时构建">运行时构建</h3>
-<p>如果在应用中你只使用了渲染函数(render functions)（在单文件组件中，会把组件编译成render function），而不需要html 模板(templates)，那么其实你不需要vue的模板编译器，这样在webpack打包的时候大约会减少25%的体积。当使用<em>import vue from 'vue</em>'时，默认使用运行时构建，你也可以改变webpack的配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">resolve: &#123;</div><div class="line">  alias: &#123;</div><div class="line">    &apos;vue$&apos;: &apos;vue/dist/vue.esm.js&apos; // Use the full build</div><div class="line">  &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<h3 id="在生产环境中去掉warnings-and-error信息">在生产环境中去掉warnings and error信息</h3>
-<p>把<em>process.env.NODE_ENV</em>设置成<em>production</em>，就可以去掉这些不需要的信息代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (process.env.NODE_ENV === &apos;production&apos;) &#123;</div><div class="line">  module.exports.plugins = (module.exports.plugins || []).concat([</div><div class="line">    new webpack.DefinePlugin(&#123;</div><div class="line">      &apos;process.env&apos;: &#123;</div><div class="line">        NODE_ENV: &apos;&quot;production&quot;&apos;</div><div class="line">      &#125;</div><div class="line">    &#125;),</div><div class="line">    new webpack.optimize.UglifyJsPlugin()</div><div class="line">  ])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="cdn化">CDN化</h3>
-<p>如果使用vue-cli，配置CDN路径很简单：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  build: &#123;</div><div class="line">    assetsSubDirectory: &apos;static&apos;,</div><div class="line">    assetsPublicPath: &apos;./&apos;,  // 这里换成CDN地址</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这样对于打包后的js和css路径引用是没有问题的，但是js里使用绝对路径或相对路径引用的图片却没有正常引用CDN地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        return &#123;</div><div class="line">            img: &apos;./logo.png&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里换一种方式就能正确引用了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import logo from &apos;./logo.png&apos;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        return &#123;</div><div class="line">            img: logo</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="代码层面">代码层面</h3>
-<p>v-show or v-if：如果不是频繁的切换显示，我更倾向于使用v-if，它可以减少页面中dom总数，并且它的切换时间肉眼基本没有什么感觉的。</p>
-<h3 id="参考资料">参考资料</h3>
-<p>1、<a href="https://segmentfault.com/a/1190000009443366" target="_blank" rel="external">潜谈vue项目优化</a></p>
-<p>2、<a href="https://router.vuejs.org/zh-cn/advanced/lazy-loading.html" target="_blank" rel="external">vue路由懒加载</a></p>
-<p>3、<a href="https://vuejsdevelopers.com/2017/07/03/vue-js-code-splitting-webpack/" target="_blank" rel="external">vue-js-code-splitting-webpack</a></p>
-<p>4、<a href="https://vuejsdevelopers.com/2017/06/18/vue-js-boost-your-app-with-webpack/" target="_blank" rel="external">vue-js-boost-your-app-with-webpack</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/02/04/vue项目性能优化/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-理解JavaScript之值类型与引用类型" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2018/01/02/理解JavaScript之值类型与引用类型/">理解JavaScript之值类型与引用类型</a>
-    </h1>
+  <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
+<script>
+  var cloudTieConfig = {
+    url: "http://keminu.com/2018/04/08/精通JavaScript正则之模板引擎/", 
+    sourceId: "精通JavaScript正则之模板引擎",
+    productKey: "83304bb43e064453a25cff956da99aaf",
+    target: "cloud-tie-wrapper"
+  };
+</script>
+<script src="https://img1.cache.netease.com/f2e/tie/yun/sdk/loader.js"></script>
   
 
-        
-        <a href="/2018/01/02/理解JavaScript之值类型与引用类型/" class="archive-article-date">
-  	<time datetime="2018-01-02T12:57:23.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-01-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>先来看下面的例子输出什么？</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">args</span>) </span>&#123;</div><div class="line">  args.push(<span class="number">4</span>);</div><div class="line">  <span class="built_in">console</span>.log(args); <span class="comment">// 1、输出？</span></div><div class="line">  args = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>];</div><div class="line">  args.push(<span class="number">7</span>);</div><div class="line">  <span class="built_in">console</span>.log(args); <span class="comment">// 2、输出？</span></div><div class="line">&#125;</div><div class="line"><span class="keyword">var</span> arr = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">3</span>];</div><div class="line">foo(arr);</div><div class="line"><span class="built_in">console</span>.log(arr); <span class="comment">// 3、输出？</span></div></pre></td></tr></table></figure>
-<p>1处输出[1, 2, 3, 4]；2处输出[4, 5, 6, 7]；3处输出[1, 2, 3, 4]，为什么不是[4, 5, 6, 7]？</p>
-<p>我们知道在最新的ECMAScript标准中定义了7种数据类型，其中，</p>
-<p>6种原始类型：Boolean，Null，Undefined，Number，String，Symbol（ECMAScript 6新定义）；</p>
-<p>和Object。</p>
-<p><strong>而Javascript対值的引用和赋值或者传递完全由值的类型来决定。</strong></p>
-<p>对于简单值，总是通过值复制的方式来赋值或传递，包括null、undefined、字符串、数字、布尔以及ES6中的symbol；对于复合值总是通过引用复制的方式赋值或传递，包括对象（数组或封装的对象）、函数。</p>
-<p>我们再来看上面的例子，变量arr是数组，属于复合值类型，它的赋值和传递都是通过引用的方式，来看看执行foo函数的时候发生了什么。</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">foo(arr);</div><div class="line"><span class="comment">// 对上面函数的执行做一个等价转换</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">foo</span>(<span class="params">args</span>) </span>&#123;</div><div class="line">  <span class="keyword">var</span> args = arr; <span class="comment">// 创建变量args指向arr指向的值</span></div><div class="line">  args.push(<span class="number">4</span>); <span class="comment">// args和arr是分别指向同一个复合值[1, 2, 3]的两个不同引用。注意，args和arr仅仅是指向值[1, 2, 3]，并非持有，所以调用.push(4)的时候，它们更改的是同一个值，然后它们都指向更改后的新值[1, 2, 3, 4]。</span></div><div class="line">  <span class="built_in">console</span>.log(args); <span class="comment">// [1, 2, 3, 4]</span></div><div class="line">  args = [<span class="number">4</span>, <span class="number">5</span>, <span class="number">6</span>]; <span class="comment">// 对args重新赋值，相当于重新改变了args的指向，当是并不影响arr原来的指向，也就是说arr还是指向[1, 2, 3, 4]</span></div><div class="line">  args.push(<span class="number">7</span>); <span class="comment">// args = [4, 5, 6, 7]</span></div><div class="line">&#125;</div><div class="line"><span class="comment">// 执行完foo函数后，arr的值为[1, 2, 3, 4]</span></div></pre></td></tr></table></figure>
-<p>从这个例子中我们可以得出：</p>
-<ul>
-<li>运算符<code>=</code>就是<strong>创建或修改</strong>变量在内存中的指向。</li>
-<li>初始化变量时为创建，重新赋值即为修改。</li>
-<li>我们无法自行决定使用值复制还是引用复制，一切由值的类型来决定。</li>
-</ul>
-<p>下面我们再尝试从内存占用的角度来解释。</p>
-<p>首先看一个简单的例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">m</span>: <span class="number">1</span> &#125;; <span class="comment">// a1 = &#123; m: 1 &#125;</span></div><div class="line"><span class="keyword">var</span> o2 = o1; <span class="comment">// o2 = &#123; m: 1&#125;</span></div><div class="line">o1 = <span class="number">2</span>; <span class="comment">// 对o1重新赋值</span></div><div class="line"><span class="built_in">console</span>.log(o2); <span class="comment">// &#123; m: 1 &#125;</span></div></pre></td></tr></table></figure>
-<p>前两句代码的内存区情况如下：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">栈</th>
-<th style="text-align:center">堆</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">o1, o2</td>
-<td style="text-align:center">[[Object]] (指向对象m,m为1)</td>
-</tr>
-</tbody>
-</table>
-<p>接下来：</p>
-<ol>
-<li>创建变量o1指向<strong>对象{m: 1}</strong>;</li>
-<li>创建变量o2指向<strong>对象{m: 1}</strong>;</li>
-<li>修改o1重新指向<strong>常量2</strong>;</li>
-</ol>
-<p>现在再来看看内存区情况：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">栈</th>
-<th style="text-align:center">堆</th>
-<th style="text-align:center">常量区</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">o1</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">2</td>
-</tr>
-<tr>
-<td style="text-align:center">o2</td>
-<td style="text-align:center">[[Object]] (指向对象m,m为1)</td>
-<td style="text-align:center"></td>
-</tr>
-</tbody>
-</table>
-<p>所以o2从头到尾都是指向<strong>对象{m: 1}</strong>。</p>
-<p>修改上面一个例子：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> o1 = &#123; <span class="attr">m</span>: <span class="number">1</span> &#125;; <span class="comment">// a1 = &#123; m: 1 &#125;</span></div><div class="line"><span class="keyword">var</span> o2 = o1; <span class="comment">// o2 = &#123; m: 1&#125;</span></div><div class="line">o1.m = <span class="number">2</span>; <span class="comment">// 对o1重新赋值</span></div><div class="line"><span class="built_in">console</span>.log(o2); <span class="comment">// &#123; m: 2 &#125;</span></div></pre></td></tr></table></figure>
-<p>前两句代码执行完o1, o2, m在内存中的分布：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">栈</th>
-<th style="text-align:center">堆</th>
-<th style="text-align:center">常量区</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">o1, o2</td>
-<td style="text-align:center">[[Object]] (指向对象m,m为1)</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">m</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">1</td>
-</tr>
-</tbody>
-</table>
-<p>执行完<strong>o1.m = 2</strong>后：</p>
-<table>
-<thead>
-<tr>
-<th style="text-align:center">栈</th>
-<th style="text-align:center">堆</th>
-<th style="text-align:center">常量</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td style="text-align:center">o1, o2</td>
-<td style="text-align:center">[[Object]] (指向对象m,m为2)</td>
-<td style="text-align:center"></td>
-</tr>
-<tr>
-<td style="text-align:center">m</td>
-<td style="text-align:center"></td>
-<td style="text-align:center">2</td>
-</tr>
-</tbody>
-</table>
-<p>执行<strong>o1.m = 2</strong>，相当于通过o1的间接引用改变了m的值，那么所有原来指向m的引用的值都改变了，在这里就是o2所引用的值也改变了。o1和o2从始至终都未改变过其引用，只是m改变了。</p>
-<p>根据上面的理论知识，就会想到工作中为了分离变量间的引用所用的操作：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 1、JSON.parse(JSON.stringfify(&#123; a: 0 &#125;)); </span></div><div class="line"><span class="comment">// 2、arr.slice()、arr.concat()</span></div><div class="line"><span class="comment">// 3、_.cloneDeep()</span></div><div class="line"><span class="comment">// 4、解构赋值</span></div></pre></td></tr></table></figure>
-<p>总结：</p>
-<p>简单标量基本类型值(字符串和数字等)通过值复制来赋值 / 传递，而复合值(对象等)通过引用复制来赋值 / 传递。</p>
-<p>JavaScript 中的引用和其他语言中的引用 / 指针不同，它们不能指向别的变量 / 引用，只能指向值。</p>
-<p>​			
-​		
-​</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2018/01/02/理解JavaScript之值类型与引用类型/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-vue单页应用中设置网页标题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/06/vue单页应用中设置网页标题/">vue单页应用中设置网页标题</a>
-    </h1>
   
 
-        
-        <a href="/2017/12/06/vue单页应用中设置网页标题/" class="archive-article-date">
-  	<time datetime="2017-12-06T14:52:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<!-- tocstop -->
-<p>在vue-router的单页应用中，你可能需要在不同的路由设置不同的网页标题，如果你在单文件组件里直接使用document.title来设置页面标题，是不生效的。像这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mounted() &#123;</div><div class="line">    document.titile = &apos;title&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样是不生效的。</p>
-<p>这里有两种方式可以做到这样的功能。一是在路由里定义对应的组件标题，然后在路由钩子里动态设置，但是这种方式在iOS app下不能被支持，因为它不允许动态改变网页标题。二是通过vue指令，在路由切换完成后，静默加载一个空的iframe来设置title。</p>
-<p>第一种方式实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">router.beforeEach((to, from, next) =&gt; &#123;</div><div class="line">  document.title = to.extra.title;</div><div class="line">  next();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>对应部分路由定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const routers = [&#123;</div><div class="line">    path: &apos;/&apos;,</div><div class="line">    extra: &#123;</div><div class="line">        title: &apos;首页&apos;</div><div class="line">    &#125;</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
-<p>第二种方式实现：</p>
-<p>先定义一个函数用来动态修改标题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">export const setMetaTitle = title =&gt; &#123;</div><div class="line">  document.title = title;</div><div class="line">  const mobile = navigator.userAgent.toLowerCase();</div><div class="line">  if (/iphone|ipad|ipod/.test(mobile)) &#123;</div><div class="line">    let iframe = document.createElement(&apos;iframe&apos;);</div><div class="line">    iframe.style.visibility = &apos;hidden&apos;;</div><div class="line">    iframe.setAttribute(&apos;src&apos;, &apos;https://www.baidu.com/&apos;);</div><div class="line">    const iframeCallback = () =&gt; &#123;</div><div class="line">      setTimeout(() =&gt; &#123;</div><div class="line">        iframe.removeEventListener(&apos;load&apos;, iframeCallback);</div><div class="line">        document.body.removeChild(iframe);</div><div class="line">      &#125;, 0);</div><div class="line">    &#125;</div><div class="line">    iframe.addEventListener(&apos;load&apos;, iframeCallback);</div><div class="line">    document.body.appendChild(iframe);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>再在vue的入口点比如app.js里，定义一个vue指令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import &#123; setMetaTitle &#125; from &apos;@/common/utils&apos;; </div><div class="line"></div><div class="line">Vue.directive(&apos;title&apos;, &#123;</div><div class="line">  inserted(el, binding) &#123;</div><div class="line">    setMetaTitle(binding.value);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>最后在你的组件里添加这个指令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">    &lt;div v-title=&quot;这里是你的标题&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    export default &#123;&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>推荐第二种方式实现，没毛病。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/06/vue单页应用中设置网页标题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-精通JavaScript正则之正则原理" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/03/精通JavaScript正则之正则原理/">精通JavaScript正则之正则原理</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/03/精通JavaScript正则之正则原理/" class="archive-article-date">
-  	<time datetime="2017-12-03T07:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1-为什么要知道些正则匹配原理">1、为什么要知道些正则匹配原理</h3>
-<p>知其然，知其所以然。</p>
-<h3 id="2-正则匹配引擎">2、正则匹配引擎</h3>
-<p>正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。</p>
-<h4 id="21-nfa">2.1 NFA</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有可能的扩展并接受第一个匹配项。因为传统的 NFA 构造正则表达式的特定扩展以获得成功的匹配，所以它可以捕获子表达式匹配和匹配的反向引用。但传统 NFA的 回溯使它可以访问完全相同的状态多次（如果通过不同的路径到达该状态）。因此，在最坏情况下，它的执行速度可能非常慢。因为传统的 NFA 接受它找到的第一个匹配，所以它还可能会导致其他（可能更长）匹配未被发现。</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">POSIX NFA 引擎：与传统 NFA 引擎类似，不同点：在可以确保已找到了可能的最长的匹配之前，它们将继续回溯（更慢）；并且在使用 POSIX NFA 时，您恐怕不会愿意在更改回溯搜索的顺序的情况下来支持较短的匹配搜索，而非较长的匹配搜索。</div></pre></td></tr></table></figure>
-<h4 id="22-dfa">2.2 DFA</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DFA引擎：在线性时状态下执行，不要求回溯（因此永远不测试相同的字符两次）；确保匹配最长的可能的字符串；因为只包含有限的状态（？），所以它不能匹配具有反向引用的模式；并且因为它不构造显示扩展，所以它不可以捕获子表达式。</div></pre></td></tr></table></figure>
-<p>例：</p>
-<p>字符串：<strong>this is yansen’s dog</strong></p>
-<p>正则表达式：<strong>/ya(msen|nsen|nsem)/</strong></p>
-<p>NFA工作方式：先在字符串中查找y，然后匹配其后是否为a； 如果是a则继续查找其后是否为m；如果不是则匹配其后是否为n(此时淘汰msen支分支)； 然后继续看其后是否依次为s,e；接着测试是否为n，是n则匹配成功，不是则测试是否为m。为什么是 m ？因为 NFA 工作方式是以正则表达式为标准，反复测试字符串，这样同样一个字符串有可能被反复测试了很多次！</p>
-<p>DFA工作方式：从<strong>this</strong>中<strong>t</strong>开始依次查找<strong>y</strong>，定位到<strong>y</strong>，已知其后为<strong>a</strong>，则查看表达式是否有<strong>a</strong>，此处正好有<strong>a；<strong>然后字符串</strong>a</strong>后为<strong>n</strong>，DFA依次测试表达式，此时<strong>msen</strong>不符合要求淘汰。<strong>nsen</strong>和<strong>nsem</strong>符合要求，然后DFA依次检查字符串，检测到<strong>sen</strong>中的<strong>n</strong>时只有<strong>nsen</strong>分支符合，则匹配成功！</p>
-<h3 id="3-基础知识">3、基础知识</h3>
-<h4 id="31-字符串组成">3.1 字符串组成</h4>
-<p>对于字符串“<strong>reg</strong>”而言，包括三个字符和四个位置，位置0在<strong>r</strong>前面，位置4在<strong>g</strong>后面。</p>
-<h4 id="32-占有字符和零宽度">3.2 占有字符和零宽度</h4>
-<p>正则表达式匹配过程中，如果子表达式匹配到的是字符内容，而非位置，并被保存到最终的匹配结果中，那么就认为这个子表达式是占有字符的；如果子表达式匹配的仅仅是位置，或者匹配的内容并不保存到最终的匹配结果中，那么就认为这个子表达式是零宽度的。</p>
-<p>占有字符是互斥的，零宽度是非互斥的。也就是一个字符，同一时间只能由一个子表达式匹配，而一个位置，却可以同时由多个零宽度的子表达式匹配。</p>
-<h3 id="33-控制权和传动">3.3  控制权和传动</h3>
-<p>正则的匹配过程，通常情况下都是由一个子表达式（可能为一个普通字符、元字符或元字符序列组成）取得控制权，从字符串的某一位置开始尝试匹配，一个子表达式开始尝试匹配的位置，是从前一子表达匹配成功的结束位置开始的。如正则表达式：</p>
-<p><strong>(子表达式一)(子表达式二)</strong></p>
-<p>假设**(子表达式一)<strong>为零宽度表达式，由于它匹配开始和结束的位置是同一个，如位置0，那么</strong>(子表达式二)**是从位置0开始尝试匹配的。</p>
-<p>假设**(子表达式一)<strong>为占有字符的表达式，由于它匹配开始和结束的位置不是同一个，如匹配成功开始于位置0，结束于位置2，那么</strong>(子表达式二)**是从位置2开始尝试匹配的。</p>
-<p>而对于整个表达式来说，通常是由字符串位置0开始尝试匹配的。如果在位置0开始的尝试，匹配到字符串某一位置时整个表达式匹配失败，那么引擎会使正则向前传动，整个表达式从位置1开始重新尝试匹配，依此类推，直到报告匹配成功或尝试到最后一个位置后报告匹配失败。</p>
-<h3 id="4-正则表达式简单匹配过程">4、正则表达式简单匹配过程</h3>
-<h4 id="41-基础匹配过程">4.1 基础匹配过程</h4>
-<p>原字符串：<strong>reg</strong></p>
-<p>正则表达式：/reg/</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，由r来匹配<strong>r</strong>，匹配成功，控制权交给字符e，因为之前字符r从位置0已经匹配成功，所以字符e从位置1开始匹配，e匹配<strong>e</strong>，匹配成功，接着到字符g匹配<strong>g</strong>，也匹配成功。</p>
-<p>正则表达式匹配完成，匹配结果为<strong>reg</strong>，开始位置0，结束位置3。</p>
-<h4 id="42-含有量词的匹配过程1">4.2 含有量词的匹配过程（1）</h4>
-<p>原字符串：<strong>reg</strong></p>
-<p>正则表达式：/re?g/</p>
-<p>量词?属于优先匹配量词，在可匹配可不匹配时，会优先选择尝试匹配，当这种选择使得整个表达式无法匹配成功时，才会让出匹配的内容。</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，r匹配<strong>r</strong>，匹配成功，控制权交给e?，e?尝试优先匹配<strong>e</strong>，匹配成功，控制权交给g，且保留一个备选状态，最后由g匹配<strong>g</strong>，匹配成功，丢弃备选状态，匹配结束。</p>
-<h4 id="43-含有量词的匹配过程2">4.3 含有量词的匹配过程（2）</h4>
-<p>原字符串：<strong>rg</strong></p>
-<p>正则表达式：/re?g/</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，r匹配<strong>r</strong>，匹配成功，控制权交给e?，e?匹配g，匹配失败，保留一个备选状态，由于匹配失败，进行回溯，找到备选状态，此时控制权到g，字符g匹配<strong>g</strong>，匹配成功。</p>
-<h4 id="44-含有量词的匹配过程3">4.4 含有量词的匹配过程（3）</h4>
-<p>原字符串：<strong>reg</strong></p>
-<p>正则表达式：/re?x/</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，r匹配<strong>r</strong>，匹配成功，控制权交给e?，e?尝试优先匹配<strong>e</strong>，匹配成功，控制权交给x，且保留一个备选状态，x匹配g，匹配失败，此时进行回溯，找到记录的备选状态，此时控制权交给x，x匹配<strong>e</strong>，匹配失败，第一轮匹配失败。</p>
-<p>正则引擎使正则向前传动，由位置1开始尝试匹配，由r匹配<strong>e</strong>，匹配失败，没有备选状态，第二轮匹配尝试失败。正则引擎继续向前传动，知道位置3匹配失败，匹配结束，此时整个正则表达式匹配失败。</p>
-<h4 id="45-零宽度匹配过程">4.5 零宽度匹配过程</h4>
-<p>源字符串：<strong>a12</strong></p>
-<p>正则表达式：^(?=[a-z])[a-z0-9]+$</p>
-<p>元字符^和$匹配的只是位置，顺序环视(?=[a-z])只进行匹配，并不占有字符，也不将匹配的内容保存到最终的匹配结果，所以都是零宽度的。</p>
-<p>匹配过程：从元字符^开始，匹配位置0，匹配成功，控制权交给顺序环视(?=[a-z])；</p>
-<p>(?=[a-z])要求它所在位置右侧必须是字母才能匹配成功，零宽度的子表达式之间是不互斥的，即同一个位置可以同时由多个零宽度子表达式匹配，所以它也是从位置0尝试进行匹配，位置0的右侧是字符“<strong>a</strong>”，符合要求，匹配成功，控制权交给[a-z0-9]+；</p>
-<p>因为(?=[a-z])只进行匹配，并不将匹配到的内容保存到最后结果，并且(?=[a-z])匹配成功的位置是位置0，所以[a-z0-9]+也是从位置0开始尝试匹配的，[a-z0-9]+首先尝试匹配a，匹配成功，继续尝试匹配，可以成功匹配接下来的1和2，此时已经匹配到位置3，位置3的右侧已没有字符，这时会把控制权交给$；</p>
-<p>$匹配结束位置，也就是位置3，匹配成功。</p>
-<p>参考资料：</p>
-<p>1、<a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="external">正则表达式—wiki</a></p>
-<p>2、<a href="https://www.teakki.com/p/57e237c5104112321cd7c85e" target="_blank" rel="external">正则表达式匹配解析过程探讨分析</a></p>
-<p>3、<a href="http://blog.csdn.net/lxcnn/article/details/4304651" target="_blank" rel="external">正则基础之——NFA引擎匹配原理</a></p>
-<p>4、<a href="http://www.jianshu.com/p/50a4aa64087e" target="_blank" rel="external">正则表达式的原理</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">正则原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/03/精通JavaScript正则之正则原理/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-精通JavaScript正则之正则基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/精通JavaScript正则之正则基础/">精通JavaScript正则之正则基础</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/精通JavaScript正则之正则基础/" class="archive-article-date">
-  	<time datetime="2017-11-05T13:23:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1正则结构定义">1.正则结构定义</h3>
-<p>有两种方式可以定义一个正则表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var reg = /pattern/;</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var reg = new RegExp(&apos;pattern&apos;);  // 动态匹配</div></pre></td></tr></table></figure>
-<h3 id="2正则标识">2.正则标识</h3>
-<table>
-<thead>
-<tr>
-<th>标识</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>g</td>
-<td>全局（匹配多次；不同的方法对g标识的处理不同）</td>
-</tr>
-<tr>
-<td>i</td>
-<td>忽略字符的大小写</td>
-</tr>
-<tr>
-<td>m</td>
-<td>匹配多行（在此标识下，^和$能匹配行结束符）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="3正则对象属性">3.正则对象属性</h3>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>global</td>
-<td>如果标识 g 被使用，值为true</td>
-</tr>
-<tr>
-<td>source</td>
-<td>正则表达式源码文本</td>
-</tr>
-<tr>
-<td>ignoreCase</td>
-<td>如果标识 i 被使用，值为true</td>
-</tr>
-<tr>
-<td>lastIndex</td>
-<td>下一次exec匹配开始的索引。初始值为0</td>
-</tr>
-<tr>
-<td>multiline</td>
-<td>如果标识 m 被使用，值为true</td>
-</tr>
-</tbody>
-</table>
-<h3 id="4元字符">4.元字符</h3>
-<p>字符的类集，比如不确定的数字、任意字符、空白符、结束符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 匹配数字:  \d</div><div class="line">&quot;ad3ad2ad&quot;.match(/\d/g);  // [&quot;3&quot;, &quot;2&quot;]</div><div class="line"></div><div class="line">// 匹配除换行符以外的任意字符:  .</div><div class="line">&quot;a\nb\rc&quot;.match(/./g);  // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</div><div class="line"></div><div class="line">// 匹配字母或数字或下划线 ： \w</div><div class="line">&quot;a5_  汉字@!-=&quot;.match(/\w/g);  // [&quot;a&quot;, &quot;5&quot;, &quot;_&quot;]</div><div class="line"></div><div class="line">// 匹配元音字母的字符组</div><div class="line">&quot;adefglhi&quot;.match(/[aeiou]/g); // [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, ]</div></pre></td></tr></table></figure>
-<p>注意，在字符组内部，一个^表示的是排除组内字符，并不是匹配行开始，就像’|'、-'一样，在字符组内外有着不同的含义</p>
-<p>字符组与多选结构的区别：
-字符组里面只匹配单个的字符，而多选结构本身就是一个正则</p>
-<h3 id="5量词">5.量词</h3>
-<p>每一个正则因子都可以用一个正则量词后缀来决定这个因子因该被匹配的次数。包围在一对花括号中的一个数字表示这个因子因该被匹配的次数。？号表示可选，就等同于{0, 1}，*等同于{0, }，+则等同于{1, }。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 重复0次或多次</div><div class="line">&quot;test&quot;.match(/test\d*/); // [&quot;test&quot;]</div><div class="line">&quot;test123&quot;.match(/test\d*/); // [&quot;test123&quot;]</div></pre></td></tr></table></figure>
-<p>从上面的结果可以看到正则匹配的子字符串会尽可能返回多的数字，这就是在满足条件的情况下捕获尽可能多的字符-贪婪模式。</p>
-<p>对应的”懒惰模式“，就是在满足条件的情况下捕获尽可能少的字符串，使用懒惰模式的方法，就是在字符重复标识后面加上一个 &quot;?&quot;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 数字重复3~5次，满足条件的情况下返回尽可能少的数字</div><div class="line">&quot;test12345&quot;.match(/test\d&#123;3,5&#125;?/);  // [&quot;test123&quot;]</div><div class="line">// 数字重复1次或更多，满足条件的情况下只返回一个数字</div><div class="line">&quot;test12345&quot;.match(/test\d+?/);  // [&quot;test1&quot;]</div></pre></td></tr></table></figure>
-<h3 id="6字符转义">6.字符转义</h3>
-<p>在正则表达式中元字符是有特殊的含义的，当我们要匹配元字符本身时，就需要用到字符转义。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/\./.test(&quot;.&quot;); // true</div></pre></td></tr></table></figure>
-<h3 id="7分支">7.分支</h3>
-<p>当正则表达式需要匹配几种类型的结果时，可以用到分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;asdasd hi  asdad hello asdasd&quot;.replace(/hi|hello/,&quot;nihao&quot;); // &quot;asdasd nihao  asdad hello asdasd&quot;</div><div class="line"></div><div class="line">&quot;asdasd hi  asdad hello asdasd&quot;.split(/hi|hello/); // [&quot;asdasd &quot;, &quot;  asdad &quot;, &quot; asdasd&quot;]</div></pre></td></tr></table></figure>
-<p>分支条件影响它两边的所有内容， 比如 hi|hello  匹配的是hi或者hello，而不是 hiello 或者 hhello。
-分组中的分支条件不会影响分组外的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abc acd  bbc bcd &quot;.match(/(a|b)bc/g); // [&quot;abc&quot;, &quot;bbc&quot;]</div></pre></td></tr></table></figure>
-<h3 id="8分组">8.分组</h3>
-<p>捕获型：一个捕获型分组是一个被包围在圆括号中的正则表达式分支。任何匹配这个分组的字符都会被捕获。每个捕获型分组都被指定了一个数字代表分组号。</p>
-<p>非捕获型：非捕获型分组有一个(?:前缀。非捕获型分组仅做简单的匹配，并不会捕获所匹配的文本，也不会干扰捕获型分组的编号。</p>
-<p>向前正向匹配：向前正向匹配分组有一个(?=前缀，类似于非捕获型分组，实际上不捕获任何匹配文本，也不分配组号。在这个组匹配后，文本会倒回到它开始的地方。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/hello\s(?=world)/.exec(&quot;asdadasd hello world asdasd&quot;)  // [&quot;hello &quot;]</div></pre></td></tr></table></figure>
-<p>向前负向匹配：向前负向匹配分组有一个(?!前缀。它也类似于非捕获型分组，不捕获任何匹配文本，不分配组号。只有当它匹配失败时才继续向前匹配。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/hello\s(?!world)/.exec(&quot;asdadasd hello world asdasd&quot;) // null</div></pre></td></tr></table></figure>
-<h3 id="9后向引用">9.后向引用</h3>
-<p>正则表达式的分组可以在其后边的语句中通过 \ 紧接着一个数字组号来引用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 匹配重复的单词</div><div class="line">/(\b[a-zA-Z]+\b)\s+\1/.exec(&quot; asd sf  hello hello asd&quot;); // [&quot;hello hello&quot;, &quot;hello&quot;]</div></pre></td></tr></table></figure>
-<h3 id="10方法">10.方法</h3>
-<h3 id="regexpprototypetest">RegExp.prototype.test</h3>
-<p>用来测试字符串中是否含有子字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/hello/.test(&quot;abchello&quot;);  // true</div></pre></td></tr></table></figure>
-<h3 id="regexpprototypeexec">RegExp.prototype.exec</h3>
-<p>这个方法从字符串中捕获满足条件的字符串到结果数组中，值得注意的是，这个方法一次只能捕获一份子字符串到结果数组中，无论正则表达式是否有全局属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var reg=/hello/g;</div><div class="line">reg.exec(&quot;abchelloasdasdhelloasd&quot;);   // [&quot;hello&quot;]</div></pre></td></tr></table></figure>
-<p>如何做全局匹配？</p>
-<p>在正则表达式中有分组的情况下，无论正则表达式是否有全局属性，exec函数都只返回一个结果，并捕获分组的结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/h(ell)o/g.exec(&quot;abchellodefhellog&quot;); // [&quot;hello&quot;, &quot;ell&quot;]</div></pre></td></tr></table></figure>
-<h3 id="stringprototypesearch">String.prototype.search</h3>
-<p>用来找出原字符串中某个子字符串首次出现的index，没有则返回-1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchello&quot;.search(/hello/);  // 3</div></pre></td></tr></table></figure>
-<h3 id="stringprototypereplace">String.prototype.replace</h3>
-<p>用来替换字符串中的子串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchello&quot;.replace(/hello/,&quot;hi&quot;);   // &quot;abchi&quot;</div></pre></td></tr></table></figure>
-<p>正则表达式存在分组的情况下，第二个参数里边可以用 $ 紧接着一个数字组号来指代第几个分组的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot; the best language in the world is java &quot;.replace(/(java)/,&quot;$1script&quot;); // &quot; the best language in the world is javascript &quot;</div></pre></td></tr></table></figure>
-<h3 id="stringprototypesplit">String.prototype.split</h3>
-<p>用来分割字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchelloasdasdhelloasd&quot;.split(/hello/);  // [&quot;abc&quot;, &quot;asdasd&quot;, &quot;asd&quot;]</div></pre></td></tr></table></figure>
-<h3 id="stringprototypematch">String.prototype.match</h3>
-<p>用来捕获字符串中的子字符串到一个数组中。默认情况下只捕获一个结果到数组中，正则表达式有”全局捕获“的属性时(定义正则表达式的时候添加参数g)，会捕获所有结果到数组中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;ahelloasdasdhelloasd&quot;.match(/hello/);  // [&quot;hello&quot;]</div><div class="line"></div><div class="line">&quot;ahelloasdasdhelloasd&quot;.match(/hello/g);  // [&quot;hello&quot;,&quot;hello&quot;]</div></pre></td></tr></table></figure>
-<p>当没有全局属性，但是正则表达式有分组时，会返回分组匹配结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchellodefhellog&quot;.match(/h(ell)o/); // [&quot;hello&quot;, &quot;ell&quot;]</div></pre></td></tr></table></figure>
-<h2 id="一个例子">一个例子</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var parse_url = /^(?:([A-Za-z]+):)?(\/&#123;0,3&#125;)([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;</div></pre></td></tr></table></figure>
-<h2 id="one-more-thing">One more thing...</h2>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/精通JavaScript正则之正则基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-数据双向绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/数据双向绑定/">数据双向绑定</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/数据双向绑定/" class="archive-article-date">
-  	<time datetime="2017-11-05T13:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#1%E6%88%91%E4%BB%AC%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88">1.我们要做什么</a></li>
-<li><a href="#2objectdefineproperty">2.Object.defineProperty()</a></li>
-<li><a href="#3%E4%BF%9D%E5%AD%98%E6%97%A7%E5%80%BC">3.保存旧值</a></li>
-<li><a href="#4%E7%9B%91%E6%B5%8B%E6%95%B0%E7%BB%84%E5%8F%98%E5%8C%96">4.监测数组变化</a></li>
-<li><a href="#5%E6%A8%A1%E6%9D%BF%E6%98%A0%E5%B0%84">5.模板映射</a></li>
-</ul>
-<!-- tocstop -->
-<h3 id="1我们要做什么">1.我们要做什么</h3>
-<p>实现一个迷你库，检测一组数据的变化，当数据变化的时候，做出响应。大致像下面的使用方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 定义一个变化通知的回调</div><div class="line">var callback = function(newVal, oldVal)&#123;</div><div class="line">    alert(newVal + &apos;----&apos; + oldVal);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 定义一个普通对象作为数据模型</div><div class="line">var data = &#123;</div><div class="line">    a: 200,</div><div class="line">    level1: &#123;</div><div class="line">        b: &apos;str&apos;,</div><div class="line">        c: [1, 2, 3],</div><div class="line">        level2: &#123;</div><div class="line">            d: 90</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实例化一个监测对象，去监测数据，并在数据发生改变的时候作出反应</div><div class="line">var v = new Mvvm(data, callback);</div></pre></td></tr></table></figure>
-<p>怎么实现？</p>
-<h3 id="2objectdefineproperty">2.Object.defineProperty()</h3>
-<p>我们可以使用下面的方式定义一个对象，并给对象添加一个属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line"></div><div class="line">obj.name = &apos;hcy&apos;;</div></pre></td></tr></table></figure>
-<p>也可以使用Object.defineProperty()给对象添加属性，上面的代码等价于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line"></div><div class="line">Object.defineProperty(obj, &apos;name&apos;, &#123;</div><div class="line">	value: &apos;hcy&apos;,		// 属性的值</div><div class="line">	writable: true,		// 是否可写</div><div class="line">	enumerable: true,	// 是否能够通过for in 枚举</div><div class="line">	configurable: true	// 是否可使用 delete删除</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>这样定义的属性是数据属性，用来描述数据。还有另外一个访问器属性，允许你定义一对儿 getter/setter ，当你读取属性值的时候底层会调用 get 方法，当你去设置属性值的时候，底层会调用 set 方法。</p>
-<p>这简直太美妙了，这不正是我们想要的吗？</p>
-<p>遍历对象的属性，把对象的属性都使用 Object.defineProperty 转为 getter/setter ，这样，当我们修改一些值得时候，就会调用set方法，然后我们在set方法里面，回调通知，这样不就可以了吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">const OP = Object.prototype;</div><div class="line"></div><div class="line">class Mvvm&#123;</div><div class="line">    constructor(obj, callback)&#123;</div><div class="line">        if(OP.toString.call(obj) !== &apos;[object Object]&apos;)&#123;</div><div class="line">            console.error(&apos;This parameter must be an object：&apos; + obj);</div><div class="line">        &#125;</div><div class="line">        this.$callback = callback;</div><div class="line">        this.observe(obj);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    observe(obj)&#123;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var val = obj[key];</div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return val;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    this.$callback(newVal);</div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos;)&#123;</div><div class="line">                this.observe(obj[key]);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/keminu/8x3ou6pL/1/" target="_blank" rel="external">测试一下我们的代码</a></p>
-<h3 id="3保存旧值">3.保存旧值</h3>
-<p>现在我们成功的监测到数据变化并且做出响应了。但是这个响应只处理了新值，有时候我们是需要旧值的，现在我们的代码还无法传递旧值，怎么改？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var oldVal = obj[key];</div><div class="line">Object.defineProperty(obj, key, &#123;</div><div class="line">    get: function()&#123;</div><div class="line">        return oldVal;</div><div class="line">    &#125;,</div><div class="line">    set: (function(newVal)&#123;</div><div class="line">        if(oldVal !== newVal)&#123;</div><div class="line">            if(OP.toString.call(newVal) === &apos;[object Object]&apos;)&#123;</div><div class="line">                this.observe(newVal);</div><div class="line">            &#125;</div><div class="line">            this.$callback(newVal, oldVal);</div><div class="line">            oldVal = newVal;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;).bind(this)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/9hsuz6wa/" target="_blank" rel="external">看下效果</a></p>
-<h3 id="4监测数组变化">4.监测数组变化</h3>
-<p>这样子看上去还不错了哦，我们能够监测到数据的变化，拿到了新旧数据。但是这样就完了吗？</p>
-<p>遗憾的是我们还不能监测到数组的变化。比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data.level1.c.push(4);</div></pre></td></tr></table></figure>
-<p>有什么思路可以解决这个问题？
-重写原型方法可以吗？像是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Array.prototype.push = function()&#123;</div><div class="line">    // 数据观察</div><div class="line">&#125;</div><div class="line">Array.prototype.pop = function()&#123;</div><div class="line">    // 数据观察</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>暂且不说能不能全部实现的与原生无异，即使你实现的与原生方法在使用方式上一模一样，并且不影响其他代码的运行，那么在性能上，可能就与原生差很多了，重新考虑，我们可不可以在原型链中加一层fakePrototype，在使用 push 等数组方法的时候，调用的是 fakePrototype 上的push方法，然后在 fakePrototype 方法中再去调用真正的Array原型上的 push 方法，同时监听变化。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> *  Object 原型</div><div class="line"> */</div><div class="line">const OP = Object.prototype;</div><div class="line">/*</div><div class="line"> *  需要重写的数组方法 OAR 是 overrideArrayMethod 的缩写</div><div class="line"> */</div><div class="line">const OAM = [&apos;push&apos;, &apos;pop&apos;, &apos;shift&apos;, &apos;unshift&apos;, &apos;splice&apos;, &apos;sort&apos;, &apos;reverse&apos;];</div><div class="line"></div><div class="line">class Mvvm&#123;</div><div class="line">    constructor(obj, callback)&#123;</div><div class="line">        if(OP.toString.call(obj) !== &apos;[object Object]&apos;)&#123;</div><div class="line">            console.error(&apos;This parameter must be an object：&apos; + obj);</div><div class="line">        &#125;</div><div class="line">        this.$callback = callback;</div><div class="line">        this.observe(obj);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    observe(obj)&#123;</div><div class="line">        // 如果发现 监测的对象是数组的话就要调用 overrideArrayProto 方法</div><div class="line">        if(OP.toString.call(obj) === &apos;[object Array]&apos;)&#123;</div><div class="line">            this.overrideArrayProto(obj);</div><div class="line">        &#125;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var oldVal = obj[key];</div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return oldVal;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    if(oldVal !== newVal)&#123;</div><div class="line">                        if(OP.toString.call(newVal) === &apos;[object Object]&apos; || OP.toString.call(newVal) === &apos;[object Array]&apos;)&#123;</div><div class="line">                            this.observe(newVal);</div><div class="line">                        &#125;</div><div class="line">                        this.$callback(newVal, oldVal);</div><div class="line">                        oldVal = newVal;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos; || OP.toString.call(obj[key]) === &apos;[object Array]&apos;)&#123;</div><div class="line">                this.observe(obj[key]);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    overrideArrayProto(array)&#123;</div><div class="line">            // 保存原始 Array 原型</div><div class="line">        var originalProto = Array.prototype,</div><div class="line">            // 通过 Object.create 方法创建一个对象，该对象的原型就是Array.prototype</div><div class="line">            overrideProto = Object.create(Array.prototype),</div><div class="line">            self = this,</div><div class="line">            result;</div><div class="line">        // 遍历要重写的数组方法</div><div class="line">        Object.keys(OAM).forEach(function(key, index, array)&#123;</div><div class="line">            var method = OAM[index],</div><div class="line">                oldArray = [];</div><div class="line">            // 使用 Object.defineProperty 给 overrideProto 添加属性，属性的名称是对应的数组函数名，值是函数</div><div class="line">            Object.defineProperty(overrideProto, method, &#123;</div><div class="line">                value: function()&#123;</div><div class="line">                    oldArray = this.slice(0);</div><div class="line">                    </div><div class="line">                    var arg = [].slice.apply(arguments);</div><div class="line">                    // 调用原始 原型 的数组方法</div><div class="line">                    result = originalProto[method].apply(this, arg);</div><div class="line">                    // 对新的数组进行监测</div><div class="line">                    self.observe(this);</div><div class="line">                    // 执行回调</div><div class="line">                    self.$callback(this, oldArray);</div><div class="line">                    </div><div class="line">                    return result;</div><div class="line">                &#125;,</div><div class="line">                writable: true,</div><div class="line">                enumerable: false,</div><div class="line">                configurable: true</div><div class="line">            &#125;);</div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">        // 最后 让该数组实例的 __proto__ 属性指向 假的原型 overrideProto</div><div class="line">        array.__proto__ = overrideProto;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/keminu/Lv2ycLww/" target="_blank" rel="external">看下效果</a></p>
-<h3 id="5模板映射">5.模板映射</h3>
-<p>现在，我们可以几乎完美的监测到数据对象的变化了，并且能够知道变化前后的旧值与新值，那么这样就结束了吗？当然不是，我们现在并不知道修改的是哪个属性，但是能够知道修改的是哪个属性是非常重要的。比如，我们有如下的模板：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id="box"&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;age&#125;&#125;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;sex&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>然后有如下的数据：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;</div><div class="line">    <span class="attr">name</span> : <span class="string">'nuoka'</span>,</div><div class="line">    <span class="attr">age</span> : <span class="number">20</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们想通过这种方式反应模板与数据之间的关系：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Mvvm(<span class="built_in">document</span>.getElementById(<span class="string">'box'</span>), data);</div></pre></td></tr></table></figure>
-<p>那么当我们的数据模型data中的某个属性改变的时候，比如 data.name = ‘kage’，如若我们不知道改变的字段名称，那么我们就无法得知要刷新哪部分模板。</p>
-<p>那么这里就有一个路径的概念，所谓路径，就是变化的字段的路径，比如有如下数据模型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var data = &#123;</div><div class="line">    a : &#123;</div><div class="line">        b : &#123;</div><div class="line">            c : &apos;hcy&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>那么字段 a 的路径就是用 data.a ，b 的路径就是 data.a.b，c 的路径就是 data.a.b.c，这里我们用数组来表述路径可以是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、 a 的路径是 [‘data’, ‘a’]</div><div class="line">2、 b 的路径是 [‘data’, ‘a’, ‘b’]</div><div class="line">3、 c 的路径是 [‘data’, ‘a’, ‘b’, ‘c’]</div></pre></td></tr></table></figure>
-<p>有了这个概念之后，我们来修改之前的代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">observe(obj, path)&#123;</div><div class="line">        // 如果发现 监测的对象是数组的话就要调用 overrideArrayProto 方法</div><div class="line">        if(OP.toString.call(obj) === &apos;[object Array]&apos;)&#123;</div><div class="line">            this.overrideArrayProto(obj, path);</div><div class="line">        &#125;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var oldVal = obj[key];</div><div class="line">            </div><div class="line">            var pathArray = path &amp;&amp; path.slice(0);</div><div class="line">            if (pathArray) &#123;</div><div class="line">                pathArray.push(key);</div><div class="line">            &#125; else &#123;</div><div class="line">                pathArray = [key];</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return oldVal;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    if(oldVal !== newVal)&#123;</div><div class="line">                        if(OP.toString.call(newVal) === &apos;[object Object]&apos; || OP.toString.call(newVal) === &apos;[object Array]&apos;)&#123;</div><div class="line">                            this.observe(newVal, pathArray);</div><div class="line">                        &#125;</div><div class="line">                        this.$callback(newVal, oldVal, pathArray);</div><div class="line">                        oldVal = newVal;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos; || OP.toString.call(obj[key]) === &apos;[object Array]&apos;)&#123;</div><div class="line">                this.observe(obj[key], pathArray);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    overrideArrayProto(array, path)&#123;</div><div class="line">            // 保存原始 Array 原型</div><div class="line">        var originalProto = Array.prototype,</div><div class="line">            // 通过 Object.create 方法创建一个对象，该对象的原型就是Array.prototype</div><div class="line">            overrideProto = Object.create(Array.prototype),</div><div class="line">            self = this,</div><div class="line">            result;</div><div class="line">        // 遍历要重写的数组方法</div><div class="line">        Object.keys(OAM).forEach(function(key, index, array)&#123;</div><div class="line">            var method = OAM[index],</div><div class="line">                oldArray = [];</div><div class="line">            // 使用 Object.defineProperty 给 overrideProto 添加属性，属性的名称是对应的数组函数名，值是函数</div><div class="line">            Object.defineProperty(overrideProto, method, &#123;</div><div class="line">                value: function()&#123;</div><div class="line">                    oldArray = this.slice(0);</div><div class="line">                    </div><div class="line">                    var arg = [].slice.apply(arguments);</div><div class="line">                    // 调用原始 原型 的数组方法</div><div class="line">                    result = originalProto[method].apply(this, arg);</div><div class="line">                    // 对新的数组进行监测</div><div class="line">                    self.observe(this, path);</div><div class="line">                    // 执行回调</div><div class="line">                    self.$callback(this, oldArray, path);</div><div class="line">                    </div><div class="line">                    return result;</div><div class="line">                &#125;,</div><div class="line">                writable: true,</div><div class="line">                enumerable: false,</div><div class="line">                configurable: true</div><div class="line">            &#125;);</div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">        // 最后 让该数组实例的 __proto__ 属性指向 假的原型 overrideProto</div><div class="line">        array.__proto__ = overrideProto;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/keminu/o0zavhy9/" target="_blank" rel="external">最后再尝试下修改数组属性</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">响应式原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/数据双向绑定/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-在工作中遇到的IE8兼容性问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/在工作中遇到的IE8兼容性问题/">在工作遇到的IE8兼容性问题</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/02/在工作中遇到的IE8兼容性问题/" class="archive-article-date">
-  	<time datetime="2016-07-02T12:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#1-ie8%E4%B8%8D%E5%85%BC%E5%AE%B9es5%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%AF%94%E5%A6%82indexoflastindexoffilter%E7%AD%89%E7%AD%89">1、IE8不兼容ES5的一些方法，比如indexOf,lastIndexOf,filter等等</a></li>
-<li><a href="#2-ie8%E4%B8%8D%E5%85%BC%E5%AE%B9opacity-rgba%E5%B1%9E%E6%80%A7">2、IE8不兼容opacity、rgba属性</a></li>
-<li><a href="#3-ie8%E4%B8%8D%E5%85%BC%E5%AE%B9border-radius%E5%B1%9E%E6%80%A7">3、IE8不兼容border-radius属性</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="1-ie8不兼容es5的一些方法比如indexoflastindexoffilter等等">1、IE8不兼容ES5的一些方法，比如indexOf,lastIndexOf,filter等等</h2>
-<p>解决方法：添加es5-shim.js脚本，在github搜索相应关键字。</p>
-<h2 id="2-ie8不兼容opacity-rgba属性">2、IE8不兼容opacity、rgba属性</h2>
-<p>解决方法：使用ie的过滤器filter</p>
-<h2 id="3-ie8不兼容border-radius属性">3、IE8不兼容border-radius属性</h2>
-<p>尝试使用border-radius.htc这个hack，但是还是没有效果，暂时还不知道是什么原因。
-又尝试使用jquery.corner.js，还是没有解决。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">IE8兼容性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IE8兼容性/" class="article-tag-list-link color2">IE8兼容性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/02/在工作中遇到的IE8兼容性问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-你为什么要开始写博客" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/06/26/你为什么要开始写博客/">你为什么要开始写博客</a>
-    </h1>
-  
-
-        
-        <a href="/2016/06/26/你为什么要开始写博客/" class="archive-article-date">
-  	<time datetime="2016-06-26T08:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-06-26</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#1-%E6%80%BB%E7%BB%93%E8%87%AA%E5%B7%B1%E7%9A%84%E5%AD%A6%E4%B9%A0%E7%94%9F%E6%B4%BB">1、总结自己的学习生活</a></li>
-<li><a href="#2-%E8%AE%A9%E5%88%AB%E4%BA%BA%E6%9B%B4%E5%8A%A0%E4%BA%86%E8%A7%A3%E8%87%AA%E5%B7%B1">2、让别人更加了解自己</a></li>
-<li><a href="#3-%E5%86%99%E5%8D%9A%E5%AE%A2%E6%98%AF%E8%AE%AD%E7%BB%83%E8%87%AA%E5%B7%B1%E6%80%9D%E7%BB%B4%E7%9A%84%E4%B8%80%E7%A7%8D%E6%96%B9%E5%BC%8F">3、写博客是训练自己思维的一种方式</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="1-总结自己的学习生活">1、总结自己的学习生活</h2>
-<p>把近期学习过的知识再梳理一遍，梳理的过程中会不断的回忆已学知识，会去扩展调查取证来证明自己的观点，这样不仅能够巩固牢记之前所学，还会让自己的逻辑性更强</p>
-<h2 id="2-让别人更加了解自己">2、让别人更加了解自己</h2>
-<p>在这个互联网时代，要学会展现自己，让不了解自己的人更加的了解自己。博客就是一种很好的方式。</p>
-<h2 id="3-写博客是训练自己思维的一种方式">3、写博客是训练自己思维的一种方式</h2>
-<p>写出来的博客必须要具有总结性、连贯性、逻辑性。
-总结性需要高度的概括能力，精确的提炼关键信息。
-连贯性与逻辑性是相辅相成的，连贯性是建立在逻辑性的基础之上，而是否符合逻辑很大程度上取决于知识面，知识面越广，理解越透彻，写出来的文章才不是被他人轻易的推倒。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">思维方式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/hexo/" class="article-tag-list-link color5">hexo</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/06/26/你为什么要开始写博客/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
 
 
@@ -1268,8 +348,8 @@
     <script>
 	var yiliaConfig = {
 		mathjax: false,
-		isHome: true,
-		isPost: false,
+		isHome: false,
+		isPost: true,
 		isArchive: false,
 		isTag: false,
 		isCategory: false,
