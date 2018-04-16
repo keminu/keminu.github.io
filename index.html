@@ -183,7 +183,23 @@
 <p>Boom，第一个模板函数实现了，是不是很简单？</p>
 <p>这样足够了吗？然而并没有，考虑下面的情况，我们把输入数据变成这样：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'nuoka'</span>,</div><div class="line">    <span class="attr">profile</span>: &#123;</div><div class="line">        <span class="attr">job</span>: <span class="string">'write bug'</span>,</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>当使用<code>profile.job</code>去填充数据的时候，发现使用不了了，因为并没有找到<code>profile.job</code>这个属性。要如何解决这个问题呢？且看下回分解。</p>
+<p>当使用<code>profile.job</code>去填充数据的时候，发现使用不了了，因为并没有找到<code>profile.job</code>这个属性。要如何解决这个问题呢？</p>
+<p>要是<code>profile.job</code>是一个语句就好了，这样就可以通过<code>.</code>操作符去获取到job属性。通过这个思路，也容易想到，在JavaScript中要把字符串当作语句来执行，可用的方式有<code>eval</code>和<code>new Function</code>，在这里我们就用<code>new Function</code>来试试。来看一下它的基本使用方式：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fn = <span class="keyword">new</span> <span class="built_in">Function</span>(<span class="string">'arg'</span>, <span class="string">'console.log(arg + 1);'</span>);</div><div class="line">fn(<span class="number">1</span>);  <span class="comment">// 输出2</span></div></pre></td></tr></table></figure>
+<p>上面的代码等价于：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> fn = <span class="function">(<span class="params">arg</span>) =&gt;</span> &#123;</div><div class="line">    <span class="built_in">console</span>.log(arg + <span class="number">1</span>);</div><div class="line">&#125;;</div><div class="line">fn(<span class="number">1</span>);  <span class="comment">// 输出2</span></div></pre></td></tr></table></figure>
+<p>现在，我们可以定义一个函数，它的参数和函数体都来自于字符串，很棒，这正是我们想要的。在创建这个函数之前，我们还需要想想怎么构造出它的函数体？</p>
+<p>这个函数体应该返回一个处理好的模板字符串，像是这样：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span> </div><div class="line"><span class="string">"&lt;p&gt;Hi, my name is "</span> + </div><div class="line"><span class="keyword">this</span>.name + </div><div class="line"><span class="string">"My job is"</span> + </div><div class="line"><span class="keyword">this</span>.profile.job + </div><div class="line"><span class="string">" .&lt;/p&gt;"</span>;</div></pre></td></tr></table></figure>
+<p>但是这种方式并不完美，因为如果我们想在模板里嵌套循环的话，这没法做，例如：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> template = </div><div class="line"><span class="string">'My skills:'</span> + </div><div class="line"><span class="string">'&lt;%for(var index in this.skills) &#123;%&gt;'</span> + </div><div class="line"><span class="string">'&lt;a href=""&gt;&lt;%this.skills[index]%&gt;&lt;/a&gt;'</span> +</div><div class="line"><span class="string">'&lt;%&#125;%&gt;'</span>;</div></pre></td></tr></table></figure>
+<p>转化为等价函数：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">return</span></div><div class="line"><span class="string">'My skills:'</span> + </div><div class="line"><span class="keyword">for</span>(<span class="keyword">var</span> index <span class="keyword">in</span> <span class="keyword">this</span>.skills) &#123; +</div><div class="line"><span class="string">'&lt;a href=""&gt;'</span> + </div><div class="line"><span class="keyword">this</span>.skills[index] +</div><div class="line"><span class="string">'&lt;/a&gt;'</span> +</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>报语法错误了！</p>
+<p>怎么办？</p>
+<p>最终我们是要返回一个字符串的，但是又想在返回语句里把真实的语法和字符串分开，并且支持for循环，这里可以先把字符串放入数组里，再通过join方法转化为字符串：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">let</span> r = [];</div><div class="line">r.push(<span class="string">'My skills:'</span>); </div><div class="line"><span class="keyword">for</span>(<span class="keyword">let</span> index <span class="keyword">in</span> <span class="keyword">this</span>.skills) &#123;</div><div class="line">r.push(<span class="string">'&lt;a href=""&gt;'</span>);</div><div class="line">r.push(<span class="keyword">this</span>.skills[index]);</div><div class="line">r.push(<span class="string">'&lt;/a&gt;'</span>);</div><div class="line">&#125;</div><div class="line"><span class="keyword">return</span> r.join(<span class="string">''</span>);</div></pre></td></tr></table></figure>
+<p>下一步，我们来重写我们的模板函数：</p>
 <p>占位。。。</p>
 
       
@@ -1338,6 +1354,14 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
           <ul class="article-tag-list" q-show="showTags">
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
@@ -1346,15 +1370,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color4">vue</a>
+                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1363,10 +1383,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">模板引擎</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
               </li>
              
               <li class="article-tag-list-item">
