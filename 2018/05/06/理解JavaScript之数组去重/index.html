@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>精通JavaScript正则之正则原理 | xiaoka de blogs</title>
+  <title>理解JavaScript之数组去重 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。 2.1 NFA 1传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有">
-<meta name="keywords" content="正则原理">
+  <meta name="description" content="在大量的数据处理中，我们经常会使用到数据去重，得到唯一数组，以便展示。下面来看看常用的几种数组去重的方式。 1、循环遍历 在这种方式中，通过源数组与目标数组进行比较，来判断源数组的元素在目标数组中是否唯一存在。上代码： 12345678910111213141516171819const sourceArray = [&apos;1&apos;, 1, 1, &apos;1&apos;, 2, 2];function unique(so">
+<meta name="keywords" content="JavaScript,数组">
 <meta property="og:type" content="article">
-<meta property="og:title" content="精通JavaScript正则之正则原理">
-<meta property="og:url" content="http://keminu.com/2017/12/03/精通JavaScript正则之正则原理/index.html">
+<meta property="og:title" content="理解JavaScript之数组去重">
+<meta property="og:url" content="http://keminu.com/2018/05/06/理解JavaScript之数组去重/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。 2.1 NFA 1传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有">
-<meta property="og:updated_time" content="2017-12-06T14:26:23.809Z">
+<meta property="og:description" content="在大量的数据处理中，我们经常会使用到数据去重，得到唯一数组，以便展示。下面来看看常用的几种数组去重的方式。 1、循环遍历 在这种方式中，通过源数组与目标数组进行比较，来判断源数组的元素在目标数组中是否唯一存在。上代码： 12345678910111213141516171819const sourceArray = [&apos;1&apos;, 1, 1, &apos;1&apos;, 2, 2];function unique(so">
+<meta property="og:updated_time" content="2018-05-06T14:37:24.104Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="精通JavaScript正则之正则原理">
-<meta name="twitter:description" content="1、为什么要知道些正则匹配原理 知其然，知其所以然。 2、正则匹配引擎 正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。 2.1 NFA 1传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有">
+<meta name="twitter:title" content="理解JavaScript之数组去重">
+<meta name="twitter:description" content="在大量的数据处理中，我们经常会使用到数据去重，得到唯一数组，以便展示。下面来看看常用的几种数组去重的方式。 1、循环遍历 在这种方式中，通过源数组与目标数组进行比较，来判断源数组的元素在目标数组中是否唯一存在。上代码： 12345678910111213141516171819const sourceArray = [&apos;1&apos;, 1, 1, &apos;1&apos;, 2, 2];function unique(so">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
   
@@ -146,85 +146,41 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-精通JavaScript正则之正则原理" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-理解JavaScript之数组去重" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      精通JavaScript正则之正则原理
+      理解JavaScript之数组去重
     </h1>
   
 
         
-        <a href="/2017/12/03/精通JavaScript正则之正则原理/" class="archive-article-date">
-  	<time datetime="2017-12-03T07:10:02.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-03</time>
+        <a href="/2018/05/06/理解JavaScript之数组去重/" class="archive-article-date">
+  	<time datetime="2018-05-06T02:24:04.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-05-06</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h3 id="1-为什么要知道些正则匹配原理">1、为什么要知道些正则匹配原理</h3>
-<p>知其然，知其所以然。</p>
-<h3 id="2-正则匹配引擎">2、正则匹配引擎</h3>
-<p>正则引擎大体上可分为不同的两类：DFA和NFA。DFA(Deterministic finite automaton) 确定型有穷自动机，NFA (Non-deterministic finite automaton)　非确定型有穷自动机。</p>
-<h4 id="21-nfa">2.1 NFA</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">传统的NFA引擎：运行匹配回溯算法——以指定顺序测试正则表达式的所有可能的扩展并接受第一个匹配项。因为传统的 NFA 构造正则表达式的特定扩展以获得成功的匹配，所以它可以捕获子表达式匹配和匹配的反向引用。但传统 NFA的 回溯使它可以访问完全相同的状态多次（如果通过不同的路径到达该状态）。因此，在最坏情况下，它的执行速度可能非常慢。因为传统的 NFA 接受它找到的第一个匹配，所以它还可能会导致其他（可能更长）匹配未被发现。</div></pre></td></tr></table></figure>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">POSIX NFA 引擎：与传统 NFA 引擎类似，不同点：在可以确保已找到了可能的最长的匹配之前，它们将继续回溯（更慢）；并且在使用 POSIX NFA 时，您恐怕不会愿意在更改回溯搜索的顺序的情况下来支持较短的匹配搜索，而非较长的匹配搜索。</div></pre></td></tr></table></figure>
-<h4 id="22-dfa">2.2 DFA</h4>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">DFA引擎：在线性时状态下执行，不要求回溯（因此永远不测试相同的字符两次）；确保匹配最长的可能的字符串；因为只包含有限的状态（？），所以它不能匹配具有反向引用的模式；并且因为它不构造显示扩展，所以它不可以捕获子表达式。</div></pre></td></tr></table></figure>
-<p>例：</p>
-<p>字符串：<strong>this is yansen’s dog</strong></p>
-<p>正则表达式：<strong>/ya(msen|nsen|nsem)/</strong></p>
-<p>NFA工作方式：先在字符串中查找y，然后匹配其后是否为a； 如果是a则继续查找其后是否为m；如果不是则匹配其后是否为n(此时淘汰msen支分支)； 然后继续看其后是否依次为s,e；接着测试是否为n，是n则匹配成功，不是则测试是否为m。为什么是 m ？因为 NFA 工作方式是以正则表达式为标准，反复测试字符串，这样同样一个字符串有可能被反复测试了很多次！</p>
-<p>DFA工作方式：从<strong>this</strong>中<strong>t</strong>开始依次查找<strong>y</strong>，定位到<strong>y</strong>，已知其后为<strong>a</strong>，则查看表达式是否有<strong>a</strong>，此处正好有<strong>a；<strong>然后字符串</strong>a</strong>后为<strong>n</strong>，DFA依次测试表达式，此时<strong>msen</strong>不符合要求淘汰。<strong>nsen</strong>和<strong>nsem</strong>符合要求，然后DFA依次检查字符串，检测到<strong>sen</strong>中的<strong>n</strong>时只有<strong>nsen</strong>分支符合，则匹配成功！</p>
-<h3 id="3-基础知识">3、基础知识</h3>
-<h4 id="31-字符串组成">3.1 字符串组成</h4>
-<p>对于字符串“<strong>reg</strong>”而言，包括三个字符和四个位置，位置0在<strong>r</strong>前面，位置4在<strong>g</strong>后面。</p>
-<h4 id="32-占有字符和零宽度">3.2 占有字符和零宽度</h4>
-<p>正则表达式匹配过程中，如果子表达式匹配到的是字符内容，而非位置，并被保存到最终的匹配结果中，那么就认为这个子表达式是占有字符的；如果子表达式匹配的仅仅是位置，或者匹配的内容并不保存到最终的匹配结果中，那么就认为这个子表达式是零宽度的。</p>
-<p>占有字符是互斥的，零宽度是非互斥的。也就是一个字符，同一时间只能由一个子表达式匹配，而一个位置，却可以同时由多个零宽度的子表达式匹配。</p>
-<h3 id="33-控制权和传动">3.3  控制权和传动</h3>
-<p>正则的匹配过程，通常情况下都是由一个子表达式（可能为一个普通字符、元字符或元字符序列组成）取得控制权，从字符串的某一位置开始尝试匹配，一个子表达式开始尝试匹配的位置，是从前一子表达匹配成功的结束位置开始的。如正则表达式：</p>
-<p><strong>(子表达式一)(子表达式二)</strong></p>
-<p>假设**(子表达式一)<strong>为零宽度表达式，由于它匹配开始和结束的位置是同一个，如位置0，那么</strong>(子表达式二)**是从位置0开始尝试匹配的。</p>
-<p>假设**(子表达式一)<strong>为占有字符的表达式，由于它匹配开始和结束的位置不是同一个，如匹配成功开始于位置0，结束于位置2，那么</strong>(子表达式二)**是从位置2开始尝试匹配的。</p>
-<p>而对于整个表达式来说，通常是由字符串位置0开始尝试匹配的。如果在位置0开始的尝试，匹配到字符串某一位置时整个表达式匹配失败，那么引擎会使正则向前传动，整个表达式从位置1开始重新尝试匹配，依此类推，直到报告匹配成功或尝试到最后一个位置后报告匹配失败。</p>
-<h3 id="4-正则表达式简单匹配过程">4、正则表达式简单匹配过程</h3>
-<h4 id="41-基础匹配过程">4.1 基础匹配过程</h4>
-<p>原字符串：<strong>reg</strong></p>
-<p>正则表达式：/reg/</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，由r来匹配<strong>r</strong>，匹配成功，控制权交给字符e，因为之前字符r从位置0已经匹配成功，所以字符e从位置1开始匹配，e匹配<strong>e</strong>，匹配成功，接着到字符g匹配<strong>g</strong>，也匹配成功。</p>
-<p>正则表达式匹配完成，匹配结果为<strong>reg</strong>，开始位置0，结束位置3。</p>
-<h4 id="42-含有量词的匹配过程1">4.2 含有量词的匹配过程（1）</h4>
-<p>原字符串：<strong>reg</strong></p>
-<p>正则表达式：/re?g/</p>
-<p>量词?属于优先匹配量词，在可匹配可不匹配时，会优先选择尝试匹配，当这种选择使得整个表达式无法匹配成功时，才会让出匹配的内容。</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，r匹配<strong>r</strong>，匹配成功，控制权交给e?，e?尝试优先匹配<strong>e</strong>，匹配成功，控制权交给g，且保留一个备选状态，最后由g匹配<strong>g</strong>，匹配成功，丢弃备选状态，匹配结束。</p>
-<h4 id="43-含有量词的匹配过程2">4.3 含有量词的匹配过程（2）</h4>
-<p>原字符串：<strong>rg</strong></p>
-<p>正则表达式：/re?g/</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，r匹配<strong>r</strong>，匹配成功，控制权交给e?，e?匹配g，匹配失败，保留一个备选状态，由于匹配失败，进行回溯，找到备选状态，此时控制权到g，字符g匹配<strong>g</strong>，匹配成功。</p>
-<h4 id="44-含有量词的匹配过程3">4.4 含有量词的匹配过程（3）</h4>
-<p>原字符串：<strong>reg</strong></p>
-<p>正则表达式：/re?x/</p>
-<p>匹配过程：由字符r取得控制权，从位置0开始匹配，r匹配<strong>r</strong>，匹配成功，控制权交给e?，e?尝试优先匹配<strong>e</strong>，匹配成功，控制权交给x，且保留一个备选状态，x匹配g，匹配失败，此时进行回溯，找到记录的备选状态，此时控制权交给x，x匹配<strong>e</strong>，匹配失败，第一轮匹配失败。</p>
-<p>正则引擎使正则向前传动，由位置1开始尝试匹配，由r匹配<strong>e</strong>，匹配失败，没有备选状态，第二轮匹配尝试失败。正则引擎继续向前传动，知道位置3匹配失败，匹配结束，此时整个正则表达式匹配失败。</p>
-<h4 id="45-零宽度匹配过程">4.5 零宽度匹配过程</h4>
-<p>源字符串：<strong>a12</strong></p>
-<p>正则表达式：^(?=[a-z])[a-z0-9]+$</p>
-<p>元字符^和$匹配的只是位置，顺序环视(?=[a-z])只进行匹配，并不占有字符，也不将匹配的内容保存到最终的匹配结果，所以都是零宽度的。</p>
-<p>匹配过程：从元字符^开始，匹配位置0，匹配成功，控制权交给顺序环视(?=[a-z])；</p>
-<p>(?=[a-z])要求它所在位置右侧必须是字母才能匹配成功，零宽度的子表达式之间是不互斥的，即同一个位置可以同时由多个零宽度子表达式匹配，所以它也是从位置0尝试进行匹配，位置0的右侧是字符“<strong>a</strong>”，符合要求，匹配成功，控制权交给[a-z0-9]+；</p>
-<p>因为(?=[a-z])只进行匹配，并不将匹配到的内容保存到最后结果，并且(?=[a-z])匹配成功的位置是位置0，所以[a-z0-9]+也是从位置0开始尝试匹配的，[a-z0-9]+首先尝试匹配a，匹配成功，继续尝试匹配，可以成功匹配接下来的1和2，此时已经匹配到位置3，位置3的右侧已没有字符，这时会把控制权交给$；</p>
-<p>$匹配结束位置，也就是位置3，匹配成功。</p>
-<p>参考资料：</p>
-<p>1、<a href="https://zh.wikipedia.org/wiki/%E6%AD%A3%E5%88%99%E8%A1%A8%E8%BE%BE%E5%BC%8F" target="_blank" rel="external">正则表达式—wiki</a></p>
-<p>2、<a href="https://www.teakki.com/p/57e237c5104112321cd7c85e" target="_blank" rel="external">正则表达式匹配解析过程探讨分析</a></p>
-<p>3、<a href="http://blog.csdn.net/lxcnn/article/details/4304651" target="_blank" rel="external">正则基础之——NFA引擎匹配原理</a></p>
-<p>4、<a href="http://www.jianshu.com/p/50a4aa64087e" target="_blank" rel="external">正则表达式的原理</a></p>
+        <p>在大量的数据处理中，我们经常会使用到数据去重，得到唯一数组，以便展示。下面来看看常用的几种数组去重的方式。</p>
+<h4 id="1-循环遍历">1、循环遍历</h4>
+<p>在这种方式中，通过源数组与目标数组进行比较，来判断源数组的元素在目标数组中是否唯一存在。上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> sourceArray = [<span class="string">'1'</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="string">'1'</span>, <span class="number">2</span>, <span class="number">2</span>];</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">    <span class="comment">// targetArray用来存储结果</span></div><div class="line">    <span class="keyword">let</span> targetArray = [];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, sourceArrayLen = sourceArray.length; i &lt; sourceArrayLen; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>, targetArrayLen = targetArray.length; j &lt; targetArrayLen; j++ ) &#123;</div><div class="line">            <span class="keyword">if</span> (sourceArray[i] === targetArray[j]) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 如果sourceArray[i]是唯一的，那么执行完循环，j等于targetArrayLen</span></div><div class="line">        <span class="keyword">if</span> (j === targetArrayLen) &#123;</div><div class="line">            targetArray.push(sourceArray[i])</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> targetArray;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// ['1', 1, 2]</span></div></pre></td></tr></table></figure>
+<p>在内循环中，如果sourceArray[i] 与 targetArray[j] 的值不相等，说明元素是唯一的，这时候，j的值就会等于targetArray的长度。</p>
+<p>在数组中检测某个元素是否存在，可以使用indexOf方法，这样便可以简化内循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> targetArray = [];</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = sourceArray.length; i &lt; len; i++) &#123;</div><div class="line">    <span class="keyword">const</span> current = sourceArray[i];</div><div class="line">    <span class="keyword">if</span> (targetArray.indexOf(current) === <span class="number">-1</span>) &#123;</div><div class="line">      targetArray.push(current)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> targetArray;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> sourceArray = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// ['1', 1, 2]</span></div></pre></td></tr></table></figure>
+<h4 id="2-排序后去重">2、排序后去重</h4>
+<p>对于一个已经排序的数组，上面的方法显得效率有点低下，因为我们只需判断当前元素与上一个元素是否相同，不需要再进行循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> targetArray = [];</div><div class="line">  <span class="keyword">const</span> sortedSourceArray = sourceArray.concat().sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a-b); <span class="comment">// 没有对源数组进行直接操作</span></div><div class="line">  <span class="keyword">let</span> pre;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = sortedSourceArray.length; i &lt; len; i++) &#123;</div><div class="line">    <span class="keyword">let</span> current = sortedSourceArray[i];</div><div class="line">    <span class="keyword">if</span> (!i || pre !== current) &#123;</div><div class="line">      targetArray.push(current);</div><div class="line">    &#125;</div><div class="line">    pre = current;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> targetArray;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> sourceArray = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// [1, 2]</span></div></pre></td></tr></table></figure>
+<p>这种方式对于大量已经排序的数组效率有很大的提升，但是如果你的数据没有排序，又存在多种数据类型，那还是考虑其它方式会比较好。</p>
+<h4 id="3-filter">3、filter</h4>
+<p>若是依赖ES5提供的强大原生方法，可以大大的简化我们的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> sourceArray.filter(<span class="function">(<span class="params">item, index , arr</span>) =&gt;</span> sourceArray.indexOf(item) === index);</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> sourceArray = [<span class="number">1</span>, <span class="string">'2'</span>, <span class="number">1</span>, <span class="string">'1'</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// [1, 2]</span></div></pre></td></tr></table></figure>
+<p>是不是超级简洁了。</p>
 
       
 
@@ -259,7 +215,11 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">正则原理</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">数组</a>
         		</li>
       		
 		</ul>
@@ -315,7 +275,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2017/12/03/精通JavaScript正则之正则原理/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2018/05/06/理解JavaScript之数组去重/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -329,18 +289,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2017/12/06/vue单页应用中设置网页标题/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          vue单页应用中设置网页标题
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/11/05/精通JavaScript正则之正则基础/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">精通JavaScript正则之正则基础</div>
+    <a href="/2018/04/08/精通JavaScript正则之模板引擎/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">精通JavaScript正则之模板引擎</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -356,8 +307,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://keminu.com/2017/12/03/精通JavaScript正则之正则原理/", 
-    sourceId: "精通JavaScript正则之正则原理",
+    url: "http://keminu.com/2018/05/06/理解JavaScript之数组去重/", 
+    sourceId: "理解JavaScript之数组去重",
     productKey: "83304bb43e064453a25cff956da99aaf",
     target: "cloud-tie-wrapper"
   };

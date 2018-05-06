@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://keminu.com/"/>
-  <updated>2018-04-18T13:11:49.292Z</updated>
+  <updated>2018-05-06T14:37:24.104Z</updated>
   <id>http://keminu.com/</id>
   
   <author>
@@ -14,6 +14,45 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>理解JavaScript之数组去重</title>
+    <link href="http://keminu.com/2018/05/06/%E7%90%86%E8%A7%A3JavaScript%E4%B9%8B%E6%95%B0%E7%BB%84%E5%8E%BB%E9%87%8D/"/>
+    <id>http://keminu.com/2018/05/06/理解JavaScript之数组去重/</id>
+    <published>2018-05-06T02:24:04.000Z</published>
+    <updated>2018-05-06T14:37:24.104Z</updated>
+    
+    <content type="html"><![CDATA[<p>在大量的数据处理中，我们经常会使用到数据去重，得到唯一数组，以便展示。下面来看看常用的几种数组去重的方式。</p>
+<h4 id="1-循环遍历">1、循环遍历</h4>
+<p>在这种方式中，通过源数组与目标数组进行比较，来判断源数组的元素在目标数组中是否唯一存在。上代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> sourceArray = [<span class="string">'1'</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="string">'1'</span>, <span class="number">2</span>, <span class="number">2</span>];</div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">    <span class="comment">// targetArray用来存储结果</span></div><div class="line">    <span class="keyword">let</span> targetArray = [];</div><div class="line">    <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, sourceArrayLen = sourceArray.length; i &lt; sourceArrayLen; i++) &#123;</div><div class="line">        <span class="keyword">for</span> (<span class="keyword">var</span> j = <span class="number">0</span>, targetArrayLen = targetArray.length; j &lt; targetArrayLen; j++ ) &#123;</div><div class="line">            <span class="keyword">if</span> (sourceArray[i] === targetArray[j]) &#123;</div><div class="line">                <span class="keyword">break</span>;</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line"></div><div class="line">        <span class="comment">// 如果sourceArray[i]是唯一的，那么执行完循环，j等于targetArrayLen</span></div><div class="line">        <span class="keyword">if</span> (j === targetArrayLen) &#123;</div><div class="line">            targetArray.push(sourceArray[i])</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> targetArray;</div><div class="line">&#125;</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// ['1', 1, 2]</span></div></pre></td></tr></table></figure>
+<p>在内循环中，如果sourceArray[i] 与 targetArray[j] 的值不相等，说明元素是唯一的，这时候，j的值就会等于targetArray的长度。</p>
+<p>在数组中检测某个元素是否存在，可以使用indexOf方法，这样便可以简化内循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> targetArray = [];</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = sourceArray.length; i &lt; len; i++) &#123;</div><div class="line">    <span class="keyword">const</span> current = sourceArray[i];</div><div class="line">    <span class="keyword">if</span> (targetArray.indexOf(current) === <span class="number">-1</span>) &#123;</div><div class="line">      targetArray.push(current)</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> targetArray;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> sourceArray = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// ['1', 1, 2]</span></div></pre></td></tr></table></figure>
+<h4 id="2-排序后去重">2、排序后去重</h4>
+<p>对于一个已经排序的数组，上面的方法显得效率有点低下，因为我们只需判断当前元素与上一个元素是否相同，不需要再进行循环。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">  <span class="keyword">let</span> targetArray = [];</div><div class="line">  <span class="keyword">const</span> sortedSourceArray = sourceArray.concat().sort(<span class="function">(<span class="params">a,b</span>) =&gt;</span> a-b); <span class="comment">// 没有对源数组进行直接操作</span></div><div class="line">  <span class="keyword">let</span> pre;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> i = <span class="number">0</span>, len = sortedSourceArray.length; i &lt; len; i++) &#123;</div><div class="line">    <span class="keyword">let</span> current = sortedSourceArray[i];</div><div class="line">    <span class="keyword">if</span> (!i || pre !== current) &#123;</div><div class="line">      targetArray.push(current);</div><div class="line">    &#125;</div><div class="line">    pre = current;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> targetArray;</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> sourceArray = [<span class="number">1</span>, <span class="number">2</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// [1, 2]</span></div></pre></td></tr></table></figure>
+<p>这种方式对于大量已经排序的数组效率有很大的提升，但是如果你的数据没有排序，又存在多种数据类型，那还是考虑其它方式会比较好。</p>
+<h4 id="3-filter">3、filter</h4>
+<p>若是依赖ES5提供的强大原生方法，可以大大的简化我们的代码：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">unique</span>(<span class="params">sourceArray</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> sourceArray.filter(<span class="function">(<span class="params">item, index , arr</span>) =&gt;</span> sourceArray.indexOf(item) === index);</div><div class="line">&#125;</div><div class="line"><span class="keyword">const</span> sourceArray = [<span class="number">1</span>, <span class="string">'2'</span>, <span class="number">1</span>, <span class="string">'1'</span>, <span class="number">1</span>, <span class="number">2</span>];</div><div class="line"><span class="built_in">console</span>.log(unique(sourceArray)); <span class="comment">// [1, 2]</span></div></pre></td></tr></table></figure>
+<p>是不是超级简洁了。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;在大量的数据处理中，我们经常会使用到数据去重，得到唯一数组，以便展示。下面来看看常用的几种数组去重的方式。&lt;/p&gt;
+&lt;h4 id=&quot;1-循环遍历&quot;&gt;1、循环遍历&lt;/h4&gt;
+&lt;p&gt;在这种方式中，通过源数组与目标数组进行比较，来判断源数组的元素在目标数组中是否唯一存在。上代码：
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://keminu.com/tags/JavaScript/"/>
+    
+      <category term="数组" scheme="http://keminu.com/tags/%E6%95%B0%E7%BB%84/"/>
+    
+  </entry>
   
   <entry>
     <title>精通JavaScript正则之模板引擎</title>
