@@ -146,6 +146,102 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-理解JavaScript之创建对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/03/理解JavaScript之创建对象/">理解JavaScript之创建对象.md</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/03/理解JavaScript之创建对象/" class="archive-article-date">
+  	<time datetime="2018-06-03T02:09:49.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-03</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>翻看了之前的文章，有说到，如果有一个对象的访问链是这样的<em>a.b.c</em>，那么其实它可以用数组来表示，写为[a, b, c]。要达到<em>a.b.c</em>转为*[a, b, c]<em>是比较简单的，只需要遍历</em>a*的所有可枚举的属性，再push到一个数组里面。</p>
+<p>好了，现在考虑这样一个场景，在一颗树中，我搜索出了<em>c</em>的路径为*[a, b, c]<em>，如何把它转化为一个对象</em>a.b.c*？</p>
+<p>为了解决这个问题，去复习了下对象的创建方式，这篇文章更像是笔记。</p>
+<p>说了那么多的废话，现在开始吧。下面都是参考《JavaScript高级程序设计》。</p>
+<h3 id="1-工厂模式">1、工厂模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">createPerson</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">    o.name = name;</div><div class="line">    o.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = createPerson(<span class="string">'kevin'</span>);</div></pre></td></tr></table></figure>
+<p>这种方式所有的对象都是从一个函数创建的。所有的实例都指向一个原型，对象无法识别。</p>
+<h3 id="2-构造函数模式">2、构造函数模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'kevin'</span>);</div></pre></td></tr></table></figure>
+<p>这种方式的实例可以识别为一个特定的类型，但是每次创建实例时，每个方法都要被创建一次。</p>
+<h3 id="21-构造函数模式优化">2.1、构造函数模式优化</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">this</span>.getName = getName;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">getName</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'kevin'</span>);</div></pre></td></tr></table></figure>
+<p>这种方式解决了创建实例时，每个方法都要被创建一次的问题，但是，这代码。。</p>
+<h3 id="3-原型模式">3、原型模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype.name = <span class="string">'keivn'</span>;</div><div class="line">Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</div></pre></td></tr></table></figure>
+<p>这样的话，原型方法不会被重新创建，但是所有的属性和方法都是被共享的，很多自定义参数也不能初始化。</p>
+<h3 id="31-原型模式优化1">3.1、原型模式优化1</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype = &#123;</div><div class="line">    <span class="attr">name</span>: <span class="string">'kevin'</span>,</div><div class="line">    <span class="attr">getName</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</div></pre></td></tr></table></figure>
+<p>封装性好了一点，但是重写了原型，丢失了constructor属性。</p>
+<h3 id="32-原型模式优化2">3.2、原型模式优化2</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype = &#123;</div><div class="line">    <span class="attr">constructor</span>: Person,</div><div class="line">    <span class="attr">name</span>: <span class="string">'kevin'</span>,</div><div class="line">    <span class="attr">getName</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</div></pre></td></tr></table></figure>
+<p>保留了构造函数，但是所有的属性和参数还是被共享。</p>
+<h3 id="4-组合模式">4、组合模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">&#125;</div><div class="line"></div><div class="line">Person.prototype = &#123;</div><div class="line">    <span class="attr">constructor</span>: Person,</div><div class="line">    <span class="attr">getName</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;</div><div class="line">&#125;;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</div></pre></td></tr></table></figure>
+<p>构造函数模式与原型模式的组合，该共享的共享，该私有的私有，使用最广泛的方式。但是有人就喜欢有更好的封装，所有的东西写在一块。</p>
+<h3 id="41-动态原型模式">4.1、动态原型模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.getName != <span class="string">"function"</span>) &#123;</div><div class="line">        Person.prototype.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">            <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person();</div></pre></td></tr></table></figure>
+<p>使用这种方式时，不能用对象字面量重写原型。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line">    <span class="keyword">this</span>.name = name;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> <span class="keyword">this</span>.getName != <span class="string">"function"</span>) &#123;</div><div class="line">        Person.prototype = &#123;</div><div class="line">            <span class="attr">constructor</span>: Person,</div><div class="line">            <span class="attr">getName</span>: <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">                <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">            &#125;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'kevin'</span>);</div><div class="line"><span class="keyword">var</span> person2 = <span class="keyword">new</span> Person(<span class="string">'daisy'</span>);</div><div class="line"></div><div class="line"><span class="comment">// 报错 并没有该方法</span></div><div class="line">person1.getName();</div><div class="line"></div><div class="line"><span class="comment">// 注释掉上面的代码，这句是可以执行的。</span></div><div class="line">person2.getName();</div></pre></td></tr></table></figure>
+<p>使用字面量方式直接覆盖 Person.prototype，并不会更改原来实例的原型的值，person1 依然是指向了以前的原型，而不是 Person.prototype。而之前的原型是没有 getName 方法的，所以就报错了！</p>
+<h3 id="51-寄生构造函数模式">5.1、寄生构造函数模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">Person</span>(<span class="params">name</span>) </span>&#123;</div><div class="line"></div><div class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">    o.name = name;</div><div class="line">    o.getName = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(<span class="keyword">this</span>.name);</div><div class="line">    &#125;;</div><div class="line"></div><div class="line">    <span class="keyword">return</span> o;</div><div class="line"></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = <span class="keyword">new</span> Person(<span class="string">'kevin'</span>);</div><div class="line"><span class="built_in">console</span>.log(person1 <span class="keyword">instanceof</span> Person) <span class="comment">// false</span></div><div class="line"><span class="built_in">console</span>.log(person1 <span class="keyword">instanceof</span> <span class="built_in">Object</span>)  <span class="comment">// true</span></div></pre></td></tr></table></figure>
+<p>就是寄生在构造函数中的一种模式，应用场景在于比如我们想创建一个具有额外方法的特殊数组，但是又不想直接修改Array构造函数。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">SpecialArray</span>(<span class="params"></span>) </span>&#123;</div><div class="line">    <span class="keyword">var</span> array = <span class="keyword">new</span> <span class="built_in">Array</span>();</div><div class="line"></div><div class="line">    array.selfFn = <span class="function"><span class="keyword">function</span> (<span class="params"></span>) </span>&#123;</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> array;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<h3 id="52-稳妥构造函数模式">5.2、稳妥构造函数模式</h3>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">person</span>(<span class="params">name</span>)</span>&#123;</div><div class="line">    <span class="keyword">var</span> o = <span class="keyword">new</span> <span class="built_in">Object</span>();</div><div class="line">    o.sayName = <span class="function"><span class="keyword">function</span>(<span class="params"></span>)</span>&#123;</div><div class="line">        <span class="built_in">console</span>.log(name);</div><div class="line">    &#125;;</div><div class="line">    <span class="keyword">return</span> o;</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="keyword">var</span> person1 = person(<span class="string">'kevin'</span>);</div><div class="line"></div><div class="line">person1.sayName(); <span class="comment">// kevin</span></div><div class="line"></div><div class="line">person1.name = <span class="string">"daisy"</span>;</div><div class="line"></div><div class="line">person1.sayName(); <span class="comment">// kevin</span></div><div class="line"></div><div class="line"><span class="built_in">console</span>.log(person1.name); <span class="comment">// daisy</span></div></pre></td></tr></table></figure>
+<p>所谓稳妥，指的是没有公共属性，而且其方法也不引用 this 的对象。适合在一些安全的环境中。</p>
+<p>每一种模式都对应着不同的应用场景，我们使用的最多的应该是组合模式。</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/03/理解JavaScript之创建对象/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-理解JavaScript之数组去重" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1204,93 +1300,6 @@
 
 
   
-    <article id="post-在工作中遇到的IE8兼容性问题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2016/07/02/在工作中遇到的IE8兼容性问题/">在工作遇到的IE8兼容性问题</a>
-    </h1>
-  
-
-        
-        <a href="/2016/07/02/在工作中遇到的IE8兼容性问题/" class="archive-article-date">
-  	<time datetime="2016-07-02T12:33:30.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2016-07-02</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#1-ie8%E4%B8%8D%E5%85%BC%E5%AE%B9es5%E7%9A%84%E4%B8%80%E4%BA%9B%E6%96%B9%E6%B3%95%E6%AF%94%E5%A6%82indexoflastindexoffilter%E7%AD%89%E7%AD%89">1、IE8不兼容ES5的一些方法，比如indexOf,lastIndexOf,filter等等</a></li>
-<li><a href="#2-ie8%E4%B8%8D%E5%85%BC%E5%AE%B9opacity-rgba%E5%B1%9E%E6%80%A7">2、IE8不兼容opacity、rgba属性</a></li>
-<li><a href="#3-ie8%E4%B8%8D%E5%85%BC%E5%AE%B9border-radius%E5%B1%9E%E6%80%A7">3、IE8不兼容border-radius属性</a></li>
-</ul>
-<!-- tocstop -->
-<h2 id="1-ie8不兼容es5的一些方法比如indexoflastindexoffilter等等">1、IE8不兼容ES5的一些方法，比如indexOf,lastIndexOf,filter等等</h2>
-<p>解决方法：添加es5-shim.js脚本，在github搜索相应关键字。</p>
-<h2 id="2-ie8不兼容opacity-rgba属性">2、IE8不兼容opacity、rgba属性</h2>
-<p>解决方法：使用ie的过滤器filter</p>
-<h2 id="3-ie8不兼容border-radius属性">3、IE8不兼容border-radius属性</h2>
-<p>尝试使用border-radius.htc这个hack，但是还是没有效果，暂时还不知道是什么原因。
-又尝试使用jquery.corner.js，还是没有解决。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">css</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color2">IE8兼容性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-	<div class="article-category tagcloud">
-		<i class="icon-book icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="/categories/IE8兼容性/" class="article-tag-list-link color2">IE8兼容性</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2016/07/02/在工作中遇到的IE8兼容性问题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1403,15 +1412,15 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color3">数组</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
               </li>
              
               <li class="article-tag-list-item">
