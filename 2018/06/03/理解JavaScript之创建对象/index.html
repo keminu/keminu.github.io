@@ -6,18 +6,18 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>理解JavaScript之创建对象.md | xiaoka de blogs</title>
+  <title>理解JavaScript之创建对象 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="翻看了之前的文章，有说到，如果有一个对象的访问链是这样的a.b.c，那么其实它可以用数组来表示，写为[a, b, c]。要达到a.b.c转为*[a, b, c]是比较简单的，只需要遍历a*的所有可枚举的属性，再push到一个数组里面。 好了，现在考虑这样一个场景，在一颗树中，我搜索出了c的路径为*[a, b, c]，如何把它转化为一个对象a.b.c*？ 为了解决这个问题，去复习了下对象的创建方式，">
 <meta name="keywords" content="JavaScript">
 <meta property="og:type" content="article">
-<meta property="og:title" content="理解JavaScript之创建对象.md">
+<meta property="og:title" content="理解JavaScript之创建对象">
 <meta property="og:url" content="http://keminu.com/2018/06/03/理解JavaScript之创建对象/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
 <meta property="og:description" content="翻看了之前的文章，有说到，如果有一个对象的访问链是这样的a.b.c，那么其实它可以用数组来表示，写为[a, b, c]。要达到a.b.c转为*[a, b, c]是比较简单的，只需要遍历a*的所有可枚举的属性，再push到一个数组里面。 好了，现在考虑这样一个场景，在一颗树中，我搜索出了c的路径为*[a, b, c]，如何把它转化为一个对象a.b.c*？ 为了解决这个问题，去复习了下对象的创建方式，">
-<meta property="og:updated_time" content="2018-06-07T23:58:26.103Z">
+<meta property="og:updated_time" content="2018-06-08T00:00:22.971Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="理解JavaScript之创建对象.md">
+<meta name="twitter:title" content="理解JavaScript之创建对象">
 <meta name="twitter:description" content="翻看了之前的文章，有说到，如果有一个对象的访问链是这样的a.b.c，那么其实它可以用数组来表示，写为[a, b, c]。要达到a.b.c转为*[a, b, c]是比较简单的，只需要遍历a*的所有可枚举的属性，再push到一个数组里面。 好了，现在考虑这样一个场景，在一颗树中，我搜索出了c的路径为*[a, b, c]，如何把它转化为一个对象a.b.c*？ 为了解决这个问题，去复习了下对象的创建方式，">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
@@ -153,7 +153,7 @@
         
   
     <h1 class="article-title" itemprop="name">
-      理解JavaScript之创建对象.md
+      理解JavaScript之创建对象
     </h1>
   
 

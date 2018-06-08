@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://keminu.com/"/>
-  <updated>2018-06-07T23:58:26.103Z</updated>
+  <updated>2018-06-08T00:00:22.971Z</updated>
   <id>http://keminu.com/</id>
   
   <author>
@@ -16,11 +16,11 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
-    <title>理解JavaScript之创建对象.md</title>
+    <title>理解JavaScript之创建对象</title>
     <link href="http://keminu.com/2018/06/03/%E7%90%86%E8%A7%A3JavaScript%E4%B9%8B%E5%88%9B%E5%BB%BA%E5%AF%B9%E8%B1%A1/"/>
     <id>http://keminu.com/2018/06/03/理解JavaScript之创建对象/</id>
     <published>2018-06-03T02:09:49.000Z</published>
-    <updated>2018-06-07T23:58:26.103Z</updated>
+    <updated>2018-06-08T00:00:22.971Z</updated>
     
     <content type="html"><![CDATA[<p>翻看了之前的文章，有说到，如果有一个对象的访问链是这样的<em>a.b.c</em>，那么其实它可以用数组来表示，写为[a, b, c]。要达到<em>a.b.c</em>转为*[a, b, c]<em>是比较简单的，只需要遍历</em>a*的所有可枚举的属性，再push到一个数组里面。</p>
 <p>好了，现在考虑这样一个场景，在一颗树中，我搜索出了<em>c</em>的路径为*[a, b, c]<em>，如何把它转化为一个对象</em>a.b.c*？</p>
