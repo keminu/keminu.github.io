@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://keminu.com/"/>
-  <updated>2018-06-08T00:00:22.971Z</updated>
+  <updated>2018-07-09T13:48:03.952Z</updated>
   <id>http://keminu.com/</id>
   
   <author>
@@ -14,6 +14,108 @@
   </author>
   
   <generator uri="http://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>web安全（一）</title>
+    <link href="http://keminu.com/2018/07/08/web%E5%AE%89%E5%85%A8/"/>
+    <id>http://keminu.com/2018/07/08/web安全/</id>
+    <published>2018-07-08T02:59:17.000Z</published>
+    <updated>2018-07-09T13:48:03.952Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="1-数据流输入输出">1、数据流输入输出</h3>
+<p>我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf /;</div><div class="line">2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题，这段“特殊数据”可能长得如下这般：&apos; union select user, pwd, 1, 2, 3, 4 from users--</div><div class="line">3. 如果在Web容器层如nginx中没处理好，nginx把“特殊数据”当做指令执行时，可能会产生远程溢出、DoS等各种安全问题，这段“特殊数据”可能长得如下这般：%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%20</div><div class="line">4. 如果在Web开发框架或Web应用层中没处理好，把“特殊数据”当做指令执行时，可能会产生远程命令执行的安全问题，这段“特殊数据”可能长得如下这般：eval($_REQUEST[&apos;x&apos;]);</div><div class="line">5. 如果在Web前端层中没处理好，浏览器的JS引擎把“特殊数据”当做指令执行时，可能会产生XSS跨站脚本的安全问题，这段“特殊数据”可能长得如下这般：&apos;&quot;&gt;&lt;script&gt;alert(/cos is my hero./)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-ddos攻击">2、DDoS攻击</h3>
+<p>DoS(Denial of Service)，即拒绝服务，造成远程服务器拒绝服务的行为被称为DoS攻击。其目的是使计算机或网络无法提供正常的服务。最常见的DoS攻击有计算机网络带宽攻击和连通性攻击。攻击的问题就出在TCP连接的三次握手中，假设一个用户向服务器发送了SYN报文后突然死机或掉线，那么服务器在发出SYN+ACK应答报文后是无法收到客户端的ACK报文的，从而导致第三次握手无法完成。在这种情况下服务器端一般会重试，即再次发送SYN+ACK给客户端，并等待一段时间后丢弃这个未完成的连接。这段时间的长度我们称为SYN Timeout，一般来说这个时间是分钟的数量级，大约为30秒到2分钟。一个用户出现异常导致服务器的一个线程等待1分钟并不是什么很大的问题，但如果有一个恶意的攻击者大量模拟这种情况，服务器端将为了维护一个非常大的半连接列表而消耗非常多的资源，即数以万计的半连接，将会对服务器的CPU和内存造成极大的消耗。若服务器的TCP/IP栈不够强大，最后的结果往往是堆栈溢出崩溃。实际上，就算服务器端的系统足够强大，服务器端也将忙于处理攻击者伪造的TCP连接请求而无暇理睬客户的正常请求，导致用户的正常请求失去响应。</p>
+<p>对于DDoS攻击，我们可以做如下防范：</p>
+<p>(1) 反欺骗：对数据包的地址及端口的正确性进行验证，同时进行反向探测。</p>
+<p>(2) 协议栈行为模式分析：每个数据包类型需要符合RFC规定，这就好像每个数据包都要有完整规范的着装，只要不符合规范，就自动识别并将其过滤掉。</p>
+<p>(3) 特定应用防护：非法流量总是有一些特定特征的，这就好比即便你混进了顾客群中，但你的行为还是会暴露出你的动机，比如老重复问店员同一个问题，老做同样的动作，这样你仍然还是会被发现的。</p>
+<p>(4) 带宽控制：真实的访问数据过大时，可以限制其最大输出的流量，以减少下游网络系统的压力</p>
+<h3 id="3-跨站脚本攻击xss">3、跨站脚本攻击（XSS）</h3>
+<p>XSS(Cross Site Scripting)，跨站脚本攻击。为和层叠样式表(Cascading Style Sheets，CSS)区分开，跨站脚本在安全领域叫做“XSS”。恶意攻击者往Web页面里注入恶意Script代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取cookie信息、会话劫持等各种攻击。XSS是常见的Web攻击技术之一，由于跨站脚本漏洞易于出现且利用成本低，所以被OWASP列为当前的头号Web安全威胁。</p>
+<p>根据XSS攻击的效果，可以将XSS分为3类：</p>
+<p>(1) 反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：www.a.com?xss.php?name=</p>
+<script>alert(document.cookie)</script>。访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。
+<p>(2) 存储型XSS(Persistent XSS)，这类XSS攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型XSS大同小异，只是脚本不是通过浏览器à服务器à浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种XSS攻击就叫做“存储型XSS”。例如：</p>
+<p>服务器端代码：<?php $db.set(‘name’, $_GET[‘name’]);?></p>
+<p>HTML页面代码：<?php echo ‘Hi,’ . $db.get[‘name’];?></p>
+<p>对于XSS攻击，我们可以做如下防范：</p>
+<p>(1) 输入过滤。永远不要相信用户的输入，对用户输入的数据做一定的过滤。如输入的数据是否符合预期的格式，比如日期格式，Email格式，电话号码格式等等。这样可以初步对XSS漏洞进行防御。</p>
+<p>上面的措施只在web端做了限制，攻击者通抓包工具如Fiddler还是可以绕过前端输入的限制，修改请求注入攻击脚本。因此，后台服务器需要在接收到用户输入的数据后，对特殊危险字符进行过滤或者转义处理，然后再存储到数据库中。</p>
+<p>(2) 输出编码。服务器端输出到浏览器的数据，可以使用系统的安全函数来进行编码或转义来防范XSS攻击。在PHP中，有htmlentities()和htmlspecialchars()两个函数可以满足安全要求。相应的JavaScript的编码方式可以使用JavascriptEncode。</p>
+<p>(3) 安全编码。开发需尽量避免Web客户端文档重写、重定向或其他敏感操作，同时要避免使用客户端数据，这些操作需尽量在服务器端使用动态页面来实现。</p>
+<p>(4) HttpOnly Cookie。预防XSS攻击窃取用户cookie最有效的防御手段。Web应用程序在设置cookie时，将其属性设为HttpOnly，就可以避免该网页的cookie被客户端恶意JavaScript窃取，保护用户cookie信息。</p>
+<p>(5)WAF(Web Application Firewall)，Web应用防火墙，主要的功能是防范诸如网页木马、XSS以及CSRF等常见的Web漏洞攻击。由第三方公司开发，在企业环境中深受欢迎。</p>
+<h3 id="4-跨站点请求伪造csrf">4、跨站点请求伪造（CSRF）</h3>
+<p>CSRF(Cross Site Request Forgery)，即跨站请求伪造，是一种常见的Web攻击，但很多开发者对它很陌生。CSRF也是Web安全中最容易被忽略的一种攻击。下面先介绍一下CSRF攻击的原理。</p>
+<p>受害者用户登录网站A，输入个人信息，在本地保存服务器生成的cookie。攻击者构建一条恶意链接，例如对受害者在网站A的信息及状态进行操作，典型的例子就是转账。受害者打开了攻击者构建的网页B，浏览器发出该恶意连接的请求，浏览器发起会话的过程中发送本地保存的cookie到网址A，A网站收到cookie，以为此链接是受害者发出的操作，导致受害者的身份被盗用，完成攻击者恶意的目的。</p>
+<p>举个简单的例子来说明下CSRF的危害。用户登陆某银行网站，以Get请求的方式完成到另一银行的转账，如：http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000。攻击者可构造另一危险链接http://www.mybank.com/Transfer.php?toUserId=100&amp;money=1000并把该链接通过一定方式发给受害者用户。受害者用户若在浏览器打开此链接，会将之前登陆后的cookie信息一起发送给银行网站，服务器在接收到该请求后，确认cookie信息无误，会完成改请求操作，造成攻击行为完成。攻击者可以构造CGI的每一个参数，伪造请求。这也是存在CSRF漏洞的最本质原因。</p>
+<p>对于CSRF攻击，我们可以做如下防范：</p>
+<p>(1) 验证码。应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制CSRF攻击。</p>
+<p>但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</p>
+<p>(2) Referer Check。HTTP Referer是header的一部分，当浏览器向web服务器发送请求时，一般会带上Referer信息告诉服务器是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。可以通过检查请求的来源来防御CSRF攻击。正常请求的referer具有一定规律，如在提交表单的referer必定是在该页面发起的请求。所以通过检查http包头referer的值是不是这个页面，来判断是不是CSRF攻击。</p>
+<p>但在某些情况下如从https跳转到http，浏览器处于安全考虑，不会发送referer，服务器就无法进行check了。若与该网站同域的其他网站有XSS漏洞，那么攻击者可以在其他网站注入恶意脚本，受害者进入了此类同域的网址，也会遭受攻击。出于以上原因，无法完全依赖Referer Check作为防御CSRF的主要手段。但是可以通过Referer Check来监控CSRF攻击的发生。</p>
+<p>(3) Anti CSRF Token。目前比较完善的解决方案是加入Anti-CSRF-Token，即发送请求时在HTTP 请求中以参数的形式加入一个随机产生的token，并在服务器建立一个拦截器来验证这个token。服务器读取浏览器当前域cookie中这个token值，会进行校验该请求当中的token和cookie当中的token值是否都存在且相等，才认为这是合法的请求。否则认为这次请求是违法的，拒绝该次服务。</p>
+<h3 id="5-点击劫持clickjacking">5、点击劫持（ClickJacking）</h3>
+<p>点击攻击就是一种视觉上的欺骗。攻击者用一个透明的不可见的iframe，覆盖在一个网页上，用户在不知情的情况下，点击透明的iframe。</p>
+<h3 id="6-数据库注入攻击">6、数据库注入攻击</h3>
+<p>SQL注入(SQL Injection)，应用程序在向后台数据库传递SQL(Structured Query Language，结构化查询语言)时，攻击者将SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
+<p>SQL注入常见产生的原因有：</p>
+<p>(1) 转义字符处理不当。特别是输入验证和单引号处理不当。用户简单的在url页面输入一个单引号，就能快速识别Web站点是否易收到SQL注入攻击。</p>
+<p>(2) 后台查询语句处理不当。开发者完全信赖用户的输入，未对输入的字段进行判断和过滤处理，直接调用用户输入字段访问数据库。</p>
+<p>(3) SQL语句被拼接。攻击者构造精心设计拼接过的SQL语句，来达到恶意的目的。如构造语句：select * from users where userid=123; DROP TABLE users;直接导致user表被删除。</p>
+<h3 id="7-文件上传漏洞">7、文件上传漏洞</h3>
+<p>上传漏洞在DVBBS6.0时代被黑客们利用的最为猖獗，利用上传漏洞可以直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。该漏洞允许用户上传任意文件可能会让攻击者注入危险内容或恶意代码，并在服务器上运行。</p>
+<p>文件上传漏洞的原理：由于文件上传功能实现代码没有严格限制用户上传的文件后缀以及文件类型，导致允许攻击者向某个可通过 Web 访问的目录上传任意PHP文件，并能够将这些文件传递给 PHP 解释器，就可以在远程服务器上执行任意PHP脚本。</p>
+<p>对于文件上传漏洞攻击，我们可以做如下防范：</p>
+<p>(1)检查服务器是否判断了上传文件类型及后缀。</p>
+<p>(2) 定义上传文件类型白名单，即只允许白名单里面类型的文件上传。</p>
+<p>(3) 文件上传目录禁止执行脚本解析，避免攻击者进行二次攻击。</p>
+<h3 id="参考资料">参考资料</h3>
+<p>《白帽子讲web安全》</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;1-数据流输入输出&quot;&gt;1、数据流输入输出&lt;/h3&gt;
+&lt;p&gt;我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。&lt;/p&gt;
+&lt;figure class=&quot;highlight plain&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;gutter&quot;&gt;&lt;pre
+    
+    </summary>
+    
+    
+      <category term="web安全" scheme="http://keminu.com/tags/web%E5%AE%89%E5%85%A8/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>理解JavaScript之函数创建过程</title>
+    <link href="http://keminu.com/2018/06/09/%E7%90%86%E8%A7%A3JavaScript%E4%B9%8B%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/"/>
+    <id>http://keminu.com/2018/06/09/理解JavaScript之函数创建过程/</id>
+    <published>2018-06-09T08:32:54.000Z</published>
+    <updated>2018-06-09T09:01:46.332Z</updated>
+    
+    <content type="html"><![CDATA[<p>为了更好的了解JavaScript函数的执行，看了下ECMAScript标准有关函数的创建过程。</p>
+<p>下面的伪代码展现了函数的创建算法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 解释了原型链最顶部的类型</span></div><div class="line">F = <span class="keyword">new</span> NativeObject();</div><div class="line">  </div><div class="line"><span class="comment">// property [[Class]] is "Function"</span></div><div class="line">F.[[Class]] = <span class="string">"Function"</span></div><div class="line">  </div><div class="line"><span class="comment">// a prototype of a function object</span></div><div class="line">F.[[Prototype]] = <span class="built_in">Function</span>.prototype</div><div class="line">  </div><div class="line"><span class="comment">// reference to function itself</span></div><div class="line"><span class="comment">// [[Call]] is activated by call expression F()</span></div><div class="line"><span class="comment">// and creates a new execution context</span></div><div class="line"><span class="comment">// 函数调用时执行[[Call]]，并创建执行上下文</span></div><div class="line">F.[[Call]] = &lt;reference to function&gt;</div><div class="line">  </div><div class="line">// built in general constructor of objects</div><div class="line">// [[Construct]] is activated via "new" keyword</div><div class="line">// and it is the one who allocates memory for new</div><div class="line">// objects; then it calls F.[[Call]]</div><div class="line">// to initialize created objects passing as</div><div class="line">// "this" value newly created object </div><div class="line">// 当使用 new 操作符时会调用[[Construct]]，并为新的对象分配内存，再调用[[Call]]</div><div class="line">F.[[Construct]] = internalConstructor</div><div class="line">  </div><div class="line">// scope chain of the current context</div><div class="line">// i.e. context which creates function F</div><div class="line">// 这里说明了使用new操作符与直接调用的不同，</div><div class="line">// 不同的原型链，不同的this指向</div><div class="line">F.[[Scope]] = activeContext.Scope</div><div class="line">// if this functions is created </div><div class="line">// via new Function(...), then</div><div class="line">F.[[Scope]] = globalContext.Scope</div><div class="line">  </div><div class="line">// number of formal parameters</div><div class="line">// 函数参数</div><div class="line">F.length = countParameters</div><div class="line">  </div><div class="line">// a prototype of created by F objects</div><div class="line">__objectPrototype = new Object();</div><div class="line">__objectPrototype.constructor = F // &#123;DontEnum&#125;, is not enumerable in loops</div><div class="line">F.prototype = __objectPrototype</div><div class="line">  </div><div class="line">return F</div></pre></td></tr></table></figure>
+<p>需要注意的是，*F.[[Prototype]]*是函数(构造器)的原型，也被这个函数所创建的对象的原型。怎么翻译都感觉不对，自己体会吧。(<em>F.[[Prototype]]</em> is a prototype of the <em>function (constructor)</em> and <em>F.prototype</em> is a prototype <em>of objects created by this function</em>)</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;为了更好的了解JavaScript函数的执行，看了下ECMAScript标准有关函数的创建过程。&lt;/p&gt;
+&lt;p&gt;下面的伪代码展现了函数的创建算法。&lt;/p&gt;
+&lt;figure class=&quot;highlight javascript&quot;&gt;&lt;table&gt;&lt;tr&gt;&lt;td class=&quot;
+    
+    </summary>
+    
+    
+      <category term="JavaScript" scheme="http://keminu.com/tags/JavaScript/"/>
+    
+      <category term="函数" scheme="http://keminu.com/tags/%E5%87%BD%E6%95%B0/"/>
+    
+  </entry>
   
   <entry>
     <title>理解JavaScript之创建对象</title>

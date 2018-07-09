@@ -146,6 +146,182 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-web安全" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/07/08/web安全/">web安全（一）</a>
+    </h1>
+  
+
+        
+        <a href="/2018/07/08/web安全/" class="archive-article-date">
+  	<time datetime="2018-07-08T02:59:17.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-07-08</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h3 id="1-数据流输入输出">1、数据流输入输出</h3>
+<p>我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">1. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf /;</div><div class="line">2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题，这段“特殊数据”可能长得如下这般：&apos; union select user, pwd, 1, 2, 3, 4 from users--</div><div class="line">3. 如果在Web容器层如nginx中没处理好，nginx把“特殊数据”当做指令执行时，可能会产生远程溢出、DoS等各种安全问题，这段“特殊数据”可能长得如下这般：%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%20</div><div class="line">4. 如果在Web开发框架或Web应用层中没处理好，把“特殊数据”当做指令执行时，可能会产生远程命令执行的安全问题，这段“特殊数据”可能长得如下这般：eval($_REQUEST[&apos;x&apos;]);</div><div class="line">5. 如果在Web前端层中没处理好，浏览器的JS引擎把“特殊数据”当做指令执行时，可能会产生XSS跨站脚本的安全问题，这段“特殊数据”可能长得如下这般：&apos;&quot;&gt;&lt;script&gt;alert(/cos is my hero./)&lt;/script&gt;</div></pre></td></tr></table></figure>
+<h3 id="2-ddos攻击">2、DDoS攻击</h3>
+<p>DoS(Denial of Service)，即拒绝服务，造成远程服务器拒绝服务的行为被称为DoS攻击。其目的是使计算机或网络无法提供正常的服务。最常见的DoS攻击有计算机网络带宽攻击和连通性攻击。攻击的问题就出在TCP连接的三次握手中，假设一个用户向服务器发送了SYN报文后突然死机或掉线，那么服务器在发出SYN+ACK应答报文后是无法收到客户端的ACK报文的，从而导致第三次握手无法完成。在这种情况下服务器端一般会重试，即再次发送SYN+ACK给客户端，并等待一段时间后丢弃这个未完成的连接。这段时间的长度我们称为SYN Timeout，一般来说这个时间是分钟的数量级，大约为30秒到2分钟。一个用户出现异常导致服务器的一个线程等待1分钟并不是什么很大的问题，但如果有一个恶意的攻击者大量模拟这种情况，服务器端将为了维护一个非常大的半连接列表而消耗非常多的资源，即数以万计的半连接，将会对服务器的CPU和内存造成极大的消耗。若服务器的TCP/IP栈不够强大，最后的结果往往是堆栈溢出崩溃。实际上，就算服务器端的系统足够强大，服务器端也将忙于处理攻击者伪造的TCP连接请求而无暇理睬客户的正常请求，导致用户的正常请求失去响应。</p>
+<p>对于DDoS攻击，我们可以做如下防范：</p>
+<p>(1) 反欺骗：对数据包的地址及端口的正确性进行验证，同时进行反向探测。</p>
+<p>(2) 协议栈行为模式分析：每个数据包类型需要符合RFC规定，这就好像每个数据包都要有完整规范的着装，只要不符合规范，就自动识别并将其过滤掉。</p>
+<p>(3) 特定应用防护：非法流量总是有一些特定特征的，这就好比即便你混进了顾客群中，但你的行为还是会暴露出你的动机，比如老重复问店员同一个问题，老做同样的动作，这样你仍然还是会被发现的。</p>
+<p>(4) 带宽控制：真实的访问数据过大时，可以限制其最大输出的流量，以减少下游网络系统的压力</p>
+<h3 id="3-跨站脚本攻击xss">3、跨站脚本攻击（XSS）</h3>
+<p>XSS(Cross Site Scripting)，跨站脚本攻击。为和层叠样式表(Cascading Style Sheets，CSS)区分开，跨站脚本在安全领域叫做“XSS”。恶意攻击者往Web页面里注入恶意Script代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取cookie信息、会话劫持等各种攻击。XSS是常见的Web攻击技术之一，由于跨站脚本漏洞易于出现且利用成本低，所以被OWASP列为当前的头号Web安全威胁。</p>
+<p>根据XSS攻击的效果，可以将XSS分为3类：</p>
+<p>(1) 反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：www.a.com?xss.php?name=</p>
+<script>alert(document.cookie)</script>。访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。
+<p>(2) 存储型XSS(Persistent XSS)，这类XSS攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型XSS大同小异，只是脚本不是通过浏览器à服务器à浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种XSS攻击就叫做“存储型XSS”。例如：</p>
+<p>服务器端代码：<?php $db.set(‘name’, $_GET[‘name’]);?></p>
+<p>HTML页面代码：<?php echo ‘Hi,’ . $db.get[‘name’];?></p>
+<p>对于XSS攻击，我们可以做如下防范：</p>
+<p>(1) 输入过滤。永远不要相信用户的输入，对用户输入的数据做一定的过滤。如输入的数据是否符合预期的格式，比如日期格式，Email格式，电话号码格式等等。这样可以初步对XSS漏洞进行防御。</p>
+<p>上面的措施只在web端做了限制，攻击者通抓包工具如Fiddler还是可以绕过前端输入的限制，修改请求注入攻击脚本。因此，后台服务器需要在接收到用户输入的数据后，对特殊危险字符进行过滤或者转义处理，然后再存储到数据库中。</p>
+<p>(2) 输出编码。服务器端输出到浏览器的数据，可以使用系统的安全函数来进行编码或转义来防范XSS攻击。在PHP中，有htmlentities()和htmlspecialchars()两个函数可以满足安全要求。相应的JavaScript的编码方式可以使用JavascriptEncode。</p>
+<p>(3) 安全编码。开发需尽量避免Web客户端文档重写、重定向或其他敏感操作，同时要避免使用客户端数据，这些操作需尽量在服务器端使用动态页面来实现。</p>
+<p>(4) HttpOnly Cookie。预防XSS攻击窃取用户cookie最有效的防御手段。Web应用程序在设置cookie时，将其属性设为HttpOnly，就可以避免该网页的cookie被客户端恶意JavaScript窃取，保护用户cookie信息。</p>
+<p>(5)WAF(Web Application Firewall)，Web应用防火墙，主要的功能是防范诸如网页木马、XSS以及CSRF等常见的Web漏洞攻击。由第三方公司开发，在企业环境中深受欢迎。</p>
+<h3 id="4-跨站点请求伪造csrf">4、跨站点请求伪造（CSRF）</h3>
+<p>CSRF(Cross Site Request Forgery)，即跨站请求伪造，是一种常见的Web攻击，但很多开发者对它很陌生。CSRF也是Web安全中最容易被忽略的一种攻击。下面先介绍一下CSRF攻击的原理。</p>
+<p>受害者用户登录网站A，输入个人信息，在本地保存服务器生成的cookie。攻击者构建一条恶意链接，例如对受害者在网站A的信息及状态进行操作，典型的例子就是转账。受害者打开了攻击者构建的网页B，浏览器发出该恶意连接的请求，浏览器发起会话的过程中发送本地保存的cookie到网址A，A网站收到cookie，以为此链接是受害者发出的操作，导致受害者的身份被盗用，完成攻击者恶意的目的。</p>
+<p>举个简单的例子来说明下CSRF的危害。用户登陆某银行网站，以Get请求的方式完成到另一银行的转账，如：http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000。攻击者可构造另一危险链接http://www.mybank.com/Transfer.php?toUserId=100&amp;money=1000并把该链接通过一定方式发给受害者用户。受害者用户若在浏览器打开此链接，会将之前登陆后的cookie信息一起发送给银行网站，服务器在接收到该请求后，确认cookie信息无误，会完成改请求操作，造成攻击行为完成。攻击者可以构造CGI的每一个参数，伪造请求。这也是存在CSRF漏洞的最本质原因。</p>
+<p>对于CSRF攻击，我们可以做如下防范：</p>
+<p>(1) 验证码。应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制CSRF攻击。</p>
+<p>但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</p>
+<p>(2) Referer Check。HTTP Referer是header的一部分，当浏览器向web服务器发送请求时，一般会带上Referer信息告诉服务器是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。可以通过检查请求的来源来防御CSRF攻击。正常请求的referer具有一定规律，如在提交表单的referer必定是在该页面发起的请求。所以通过检查http包头referer的值是不是这个页面，来判断是不是CSRF攻击。</p>
+<p>但在某些情况下如从https跳转到http，浏览器处于安全考虑，不会发送referer，服务器就无法进行check了。若与该网站同域的其他网站有XSS漏洞，那么攻击者可以在其他网站注入恶意脚本，受害者进入了此类同域的网址，也会遭受攻击。出于以上原因，无法完全依赖Referer Check作为防御CSRF的主要手段。但是可以通过Referer Check来监控CSRF攻击的发生。</p>
+<p>(3) Anti CSRF Token。目前比较完善的解决方案是加入Anti-CSRF-Token，即发送请求时在HTTP 请求中以参数的形式加入一个随机产生的token，并在服务器建立一个拦截器来验证这个token。服务器读取浏览器当前域cookie中这个token值，会进行校验该请求当中的token和cookie当中的token值是否都存在且相等，才认为这是合法的请求。否则认为这次请求是违法的，拒绝该次服务。</p>
+<h3 id="5-点击劫持clickjacking">5、点击劫持（ClickJacking）</h3>
+<p>点击攻击就是一种视觉上的欺骗。攻击者用一个透明的不可见的iframe，覆盖在一个网页上，用户在不知情的情况下，点击透明的iframe。</p>
+<h3 id="6-数据库注入攻击">6、数据库注入攻击</h3>
+<p>SQL注入(SQL Injection)，应用程序在向后台数据库传递SQL(Structured Query Language，结构化查询语言)时，攻击者将SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
+<p>SQL注入常见产生的原因有：</p>
+<p>(1) 转义字符处理不当。特别是输入验证和单引号处理不当。用户简单的在url页面输入一个单引号，就能快速识别Web站点是否易收到SQL注入攻击。</p>
+<p>(2) 后台查询语句处理不当。开发者完全信赖用户的输入，未对输入的字段进行判断和过滤处理，直接调用用户输入字段访问数据库。</p>
+<p>(3) SQL语句被拼接。攻击者构造精心设计拼接过的SQL语句，来达到恶意的目的。如构造语句：select * from users where userid=123; DROP TABLE users;直接导致user表被删除。</p>
+<h3 id="7-文件上传漏洞">7、文件上传漏洞</h3>
+<p>上传漏洞在DVBBS6.0时代被黑客们利用的最为猖獗，利用上传漏洞可以直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。该漏洞允许用户上传任意文件可能会让攻击者注入危险内容或恶意代码，并在服务器上运行。</p>
+<p>文件上传漏洞的原理：由于文件上传功能实现代码没有严格限制用户上传的文件后缀以及文件类型，导致允许攻击者向某个可通过 Web 访问的目录上传任意PHP文件，并能够将这些文件传递给 PHP 解释器，就可以在远程服务器上执行任意PHP脚本。</p>
+<p>对于文件上传漏洞攻击，我们可以做如下防范：</p>
+<p>(1)检查服务器是否判断了上传文件类型及后缀。</p>
+<p>(2) 定义上传文件类型白名单，即只允许白名单里面类型的文件上传。</p>
+<p>(3) 文件上传目录禁止执行脚本解析，避免攻击者进行二次攻击。</p>
+<h3 id="参考资料">参考资料</h3>
+<p>《白帽子讲web安全》</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">web安全</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/07/08/web安全/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
+    <article id="post-理解JavaScript之函数创建过程" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/06/09/理解JavaScript之函数创建过程/">理解JavaScript之函数创建过程</a>
+    </h1>
+  
+
+        
+        <a href="/2018/06/09/理解JavaScript之函数创建过程/" class="archive-article-date">
+  	<time datetime="2018-06-09T08:32:54.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-06-09</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>为了更好的了解JavaScript函数的执行，看了下ECMAScript标准有关函数的创建过程。</p>
+<p>下面的伪代码展现了函数的创建算法。</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div></pre></td><td class="code"><pre><div class="line"><span class="comment">// 解释了原型链最顶部的类型</span></div><div class="line">F = <span class="keyword">new</span> NativeObject();</div><div class="line">  </div><div class="line"><span class="comment">// property [[Class]] is "Function"</span></div><div class="line">F.[[Class]] = <span class="string">"Function"</span></div><div class="line">  </div><div class="line"><span class="comment">// a prototype of a function object</span></div><div class="line">F.[[Prototype]] = <span class="built_in">Function</span>.prototype</div><div class="line">  </div><div class="line"><span class="comment">// reference to function itself</span></div><div class="line"><span class="comment">// [[Call]] is activated by call expression F()</span></div><div class="line"><span class="comment">// and creates a new execution context</span></div><div class="line"><span class="comment">// 函数调用时执行[[Call]]，并创建执行上下文</span></div><div class="line">F.[[Call]] = &lt;reference to function&gt;</div><div class="line">  </div><div class="line">// built in general constructor of objects</div><div class="line">// [[Construct]] is activated via "new" keyword</div><div class="line">// and it is the one who allocates memory for new</div><div class="line">// objects; then it calls F.[[Call]]</div><div class="line">// to initialize created objects passing as</div><div class="line">// "this" value newly created object </div><div class="line">// 当使用 new 操作符时会调用[[Construct]]，并为新的对象分配内存，再调用[[Call]]</div><div class="line">F.[[Construct]] = internalConstructor</div><div class="line">  </div><div class="line">// scope chain of the current context</div><div class="line">// i.e. context which creates function F</div><div class="line">// 这里说明了使用new操作符与直接调用的不同，</div><div class="line">// 不同的原型链，不同的this指向</div><div class="line">F.[[Scope]] = activeContext.Scope</div><div class="line">// if this functions is created </div><div class="line">// via new Function(...), then</div><div class="line">F.[[Scope]] = globalContext.Scope</div><div class="line">  </div><div class="line">// number of formal parameters</div><div class="line">// 函数参数</div><div class="line">F.length = countParameters</div><div class="line">  </div><div class="line">// a prototype of created by F objects</div><div class="line">__objectPrototype = new Object();</div><div class="line">__objectPrototype.constructor = F // &#123;DontEnum&#125;, is not enumerable in loops</div><div class="line">F.prototype = __objectPrototype</div><div class="line">  </div><div class="line">return F</div></pre></td></tr></table></figure>
+<p>需要注意的是，*F.[[Prototype]]*是函数(构造器)的原型，也被这个函数所创建的对象的原型。怎么翻译都感觉不对，自己体会吧。(<em>F.[[Prototype]]</em> is a prototype of the <em>function (constructor)</em> and <em>F.prototype</em> is a prototype <em>of objects created by this function</em>)</p>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">JavaScript</a>
+        		</li>
+      		 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color3">函数</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/06/09/理解JavaScript之函数创建过程/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-理解JavaScript之创建对象" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1009,297 +1185,6 @@
 
 
   
-    <article id="post-精通JavaScript正则之正则基础" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/精通JavaScript正则之正则基础/">精通JavaScript正则之正则基础</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/精通JavaScript正则之正则基础/" class="archive-article-date">
-  	<time datetime="2017-11-05T13:23:08.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h3 id="1正则结构定义">1.正则结构定义</h3>
-<p>有两种方式可以定义一个正则表达式</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var reg = /pattern/;</div></pre></td></tr></table></figure>
-<p>或者</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var reg = new RegExp(&apos;pattern&apos;);  // 动态匹配</div></pre></td></tr></table></figure>
-<h3 id="2正则标识">2.正则标识</h3>
-<table>
-<thead>
-<tr>
-<th>标识</th>
-<th>含义</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>g</td>
-<td>全局（匹配多次；不同的方法对g标识的处理不同）</td>
-</tr>
-<tr>
-<td>i</td>
-<td>忽略字符的大小写</td>
-</tr>
-<tr>
-<td>m</td>
-<td>匹配多行（在此标识下，^和$能匹配行结束符）</td>
-</tr>
-</tbody>
-</table>
-<h3 id="3正则对象属性">3.正则对象属性</h3>
-<table>
-<thead>
-<tr>
-<th>属性</th>
-<th>用法</th>
-</tr>
-</thead>
-<tbody>
-<tr>
-<td>global</td>
-<td>如果标识 g 被使用，值为true</td>
-</tr>
-<tr>
-<td>source</td>
-<td>正则表达式源码文本</td>
-</tr>
-<tr>
-<td>ignoreCase</td>
-<td>如果标识 i 被使用，值为true</td>
-</tr>
-<tr>
-<td>lastIndex</td>
-<td>下一次exec匹配开始的索引。初始值为0</td>
-</tr>
-<tr>
-<td>multiline</td>
-<td>如果标识 m 被使用，值为true</td>
-</tr>
-</tbody>
-</table>
-<h3 id="4元字符">4.元字符</h3>
-<p>字符的类集，比如不确定的数字、任意字符、空白符、结束符</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div></pre></td><td class="code"><pre><div class="line">// 匹配数字:  \d</div><div class="line">&quot;ad3ad2ad&quot;.match(/\d/g);  // [&quot;3&quot;, &quot;2&quot;]</div><div class="line"></div><div class="line">// 匹配除换行符以外的任意字符:  .</div><div class="line">&quot;a\nb\rc&quot;.match(/./g);  // [&quot;a&quot;, &quot;b&quot;, &quot;c&quot;]</div><div class="line"></div><div class="line">// 匹配字母或数字或下划线 ： \w</div><div class="line">&quot;a5_  汉字@!-=&quot;.match(/\w/g);  // [&quot;a&quot;, &quot;5&quot;, &quot;_&quot;]</div><div class="line"></div><div class="line">// 匹配元音字母的字符组</div><div class="line">&quot;adefglhi&quot;.match(/[aeiou]/g); // [&quot;a&quot;, &quot;e&quot;, &quot;i&quot;, ]</div></pre></td></tr></table></figure>
-<p>注意，在字符组内部，一个^表示的是排除组内字符，并不是匹配行开始，就像’|'、-'一样，在字符组内外有着不同的含义</p>
-<p>字符组与多选结构的区别：
-字符组里面只匹配单个的字符，而多选结构本身就是一个正则</p>
-<h3 id="5量词">5.量词</h3>
-<p>每一个正则因子都可以用一个正则量词后缀来决定这个因子因该被匹配的次数。包围在一对花括号中的一个数字表示这个因子因该被匹配的次数。？号表示可选，就等同于{0, 1}，*等同于{0, }，+则等同于{1, }。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">// 重复0次或多次</div><div class="line">&quot;test&quot;.match(/test\d*/); // [&quot;test&quot;]</div><div class="line">&quot;test123&quot;.match(/test\d*/); // [&quot;test123&quot;]</div></pre></td></tr></table></figure>
-<p>从上面的结果可以看到正则匹配的子字符串会尽可能返回多的数字，这就是在满足条件的情况下捕获尽可能多的字符-贪婪模式。</p>
-<p>对应的”懒惰模式“，就是在满足条件的情况下捕获尽可能少的字符串，使用懒惰模式的方法，就是在字符重复标识后面加上一个 &quot;?&quot;</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">// 数字重复3~5次，满足条件的情况下返回尽可能少的数字</div><div class="line">&quot;test12345&quot;.match(/test\d&#123;3,5&#125;?/);  // [&quot;test123&quot;]</div><div class="line">// 数字重复1次或更多，满足条件的情况下只返回一个数字</div><div class="line">&quot;test12345&quot;.match(/test\d+?/);  // [&quot;test1&quot;]</div></pre></td></tr></table></figure>
-<h3 id="6字符转义">6.字符转义</h3>
-<p>在正则表达式中元字符是有特殊的含义的，当我们要匹配元字符本身时，就需要用到字符转义。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/\./.test(&quot;.&quot;); // true</div></pre></td></tr></table></figure>
-<h3 id="7分支">7.分支</h3>
-<p>当正则表达式需要匹配几种类型的结果时，可以用到分支</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;asdasd hi  asdad hello asdasd&quot;.replace(/hi|hello/,&quot;nihao&quot;); // &quot;asdasd nihao  asdad hello asdasd&quot;</div><div class="line"></div><div class="line">&quot;asdasd hi  asdad hello asdasd&quot;.split(/hi|hello/); // [&quot;asdasd &quot;, &quot;  asdad &quot;, &quot; asdasd&quot;]</div></pre></td></tr></table></figure>
-<p>分支条件影响它两边的所有内容， 比如 hi|hello  匹配的是hi或者hello，而不是 hiello 或者 hhello。
-分组中的分支条件不会影响分组外的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abc acd  bbc bcd &quot;.match(/(a|b)bc/g); // [&quot;abc&quot;, &quot;bbc&quot;]</div></pre></td></tr></table></figure>
-<h3 id="8分组">8.分组</h3>
-<p>捕获型：一个捕获型分组是一个被包围在圆括号中的正则表达式分支。任何匹配这个分组的字符都会被捕获。每个捕获型分组都被指定了一个数字代表分组号。</p>
-<p>非捕获型：非捕获型分组有一个(?:前缀。非捕获型分组仅做简单的匹配，并不会捕获所匹配的文本，也不会干扰捕获型分组的编号。</p>
-<p>向前正向匹配：向前正向匹配分组有一个(?=前缀，类似于非捕获型分组，实际上不捕获任何匹配文本，也不分配组号。在这个组匹配后，文本会倒回到它开始的地方。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/hello\s(?=world)/.exec(&quot;asdadasd hello world asdasd&quot;)  // [&quot;hello &quot;]</div></pre></td></tr></table></figure>
-<p>向前负向匹配：向前负向匹配分组有一个(?!前缀。它也类似于非捕获型分组，不捕获任何匹配文本，不分配组号。只有当它匹配失败时才继续向前匹配。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/hello\s(?!world)/.exec(&quot;asdadasd hello world asdasd&quot;) // null</div></pre></td></tr></table></figure>
-<h3 id="9后向引用">9.后向引用</h3>
-<p>正则表达式的分组可以在其后边的语句中通过 \ 紧接着一个数字组号来引用</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">// 匹配重复的单词</div><div class="line">/(\b[a-zA-Z]+\b)\s+\1/.exec(&quot; asd sf  hello hello asd&quot;); // [&quot;hello hello&quot;, &quot;hello&quot;]</div></pre></td></tr></table></figure>
-<h3 id="10方法">10.方法</h3>
-<h3 id="regexpprototypetest">RegExp.prototype.test</h3>
-<p>用来测试字符串中是否含有子字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/hello/.test(&quot;abchello&quot;);  // true</div></pre></td></tr></table></figure>
-<h3 id="regexpprototypeexec">RegExp.prototype.exec</h3>
-<p>这个方法从字符串中捕获满足条件的字符串到结果数组中，值得注意的是，这个方法一次只能捕获一份子字符串到结果数组中，无论正则表达式是否有全局属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div></pre></td><td class="code"><pre><div class="line">var reg=/hello/g;</div><div class="line">reg.exec(&quot;abchelloasdasdhelloasd&quot;);   // [&quot;hello&quot;]</div></pre></td></tr></table></figure>
-<p>如何做全局匹配？</p>
-<p>在正则表达式中有分组的情况下，无论正则表达式是否有全局属性，exec函数都只返回一个结果，并捕获分组的结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">/h(ell)o/g.exec(&quot;abchellodefhellog&quot;); // [&quot;hello&quot;, &quot;ell&quot;]</div></pre></td></tr></table></figure>
-<h3 id="stringprototypesearch">String.prototype.search</h3>
-<p>用来找出原字符串中某个子字符串首次出现的index，没有则返回-1</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchello&quot;.search(/hello/);  // 3</div></pre></td></tr></table></figure>
-<h3 id="stringprototypereplace">String.prototype.replace</h3>
-<p>用来替换字符串中的子串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchello&quot;.replace(/hello/,&quot;hi&quot;);   // &quot;abchi&quot;</div></pre></td></tr></table></figure>
-<p>正则表达式存在分组的情况下，第二个参数里边可以用 $ 紧接着一个数字组号来指代第几个分组的内容</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot; the best language in the world is java &quot;.replace(/(java)/,&quot;$1script&quot;); // &quot; the best language in the world is javascript &quot;</div></pre></td></tr></table></figure>
-<h3 id="stringprototypesplit">String.prototype.split</h3>
-<p>用来分割字符串</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchelloasdasdhelloasd&quot;.split(/hello/);  // [&quot;abc&quot;, &quot;asdasd&quot;, &quot;asd&quot;]</div></pre></td></tr></table></figure>
-<h3 id="stringprototypematch">String.prototype.match</h3>
-<p>用来捕获字符串中的子字符串到一个数组中。默认情况下只捕获一个结果到数组中，正则表达式有”全局捕获“的属性时(定义正则表达式的时候添加参数g)，会捕获所有结果到数组中。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">&quot;ahelloasdasdhelloasd&quot;.match(/hello/);  // [&quot;hello&quot;]</div><div class="line"></div><div class="line">&quot;ahelloasdasdhelloasd&quot;.match(/hello/g);  // [&quot;hello&quot;,&quot;hello&quot;]</div></pre></td></tr></table></figure>
-<p>当没有全局属性，但是正则表达式有分组时，会返回分组匹配结果。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">&quot;abchellodefhellog&quot;.match(/h(ell)o/); // [&quot;hello&quot;, &quot;ell&quot;]</div></pre></td></tr></table></figure>
-<h2 id="一个例子">一个例子</h2>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">var parse_url = /^(?:([A-Za-z]+):)?(\/&#123;0,3&#125;)([0-9.\-A-Za-z]+)(?::(\d+))?(?:\/([^?#]*))?(?:\?([^#]*))?(?:#(.*))?$/;</div></pre></td></tr></table></figure>
-<h2 id="one-more-thing">One more thing...</h2>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">正则表达式</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/精通JavaScript正则之正则基础/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
-    <article id="post-数据双向绑定" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/11/05/数据双向绑定/">数据双向绑定</a>
-    </h1>
-  
-
-        
-        <a href="/2017/11/05/数据双向绑定/" class="archive-article-date">
-  	<time datetime="2017-11-05T13:05:01.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-11-05</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<ul>
-<li><a href="#1%E6%88%91%E4%BB%AC%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88">1.我们要做什么</a></li>
-<li><a href="#2objectdefineproperty">2.Object.defineProperty()</a></li>
-<li><a href="#3%E4%BF%9D%E5%AD%98%E6%97%A7%E5%80%BC">3.保存旧值</a></li>
-<li><a href="#4%E7%9B%91%E6%B5%8B%E6%95%B0%E7%BB%84%E5%8F%98%E5%8C%96">4.监测数组变化</a></li>
-<li><a href="#5%E6%A8%A1%E6%9D%BF%E6%98%A0%E5%B0%84">5.模板映射</a></li>
-</ul>
-<!-- tocstop -->
-<h3 id="1我们要做什么">1.我们要做什么</h3>
-<p>实现一个迷你库，检测一组数据的变化，当数据变化的时候，做出响应。大致像下面的使用方式：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div></pre></td><td class="code"><pre><div class="line">// 定义一个变化通知的回调</div><div class="line">var callback = function(newVal, oldVal)&#123;</div><div class="line">    alert(newVal + &apos;----&apos; + oldVal);</div><div class="line">&#125;;</div><div class="line"></div><div class="line">// 定义一个普通对象作为数据模型</div><div class="line">var data = &#123;</div><div class="line">    a: 200,</div><div class="line">    level1: &#123;</div><div class="line">        b: &apos;str&apos;,</div><div class="line">        c: [1, 2, 3],</div><div class="line">        level2: &#123;</div><div class="line">            d: 90</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div><div class="line"></div><div class="line">// 实例化一个监测对象，去监测数据，并在数据发生改变的时候作出反应</div><div class="line">var v = new Mvvm(data, callback);</div></pre></td></tr></table></figure>
-<p>怎么实现？</p>
-<h3 id="2objectdefineproperty">2.Object.defineProperty()</h3>
-<p>我们可以使用下面的方式定义一个对象，并给对象添加一个属性。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line"></div><div class="line">obj.name = &apos;hcy&apos;;</div></pre></td></tr></table></figure>
-<p>也可以使用Object.defineProperty()给对象添加属性，上面的代码等价于</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div></pre></td><td class="code"><pre><div class="line">var obj = &#123;&#125;;</div><div class="line"></div><div class="line">Object.defineProperty(obj, &apos;name&apos;, &#123;</div><div class="line">	value: &apos;hcy&apos;,		// 属性的值</div><div class="line">	writable: true,		// 是否可写</div><div class="line">	enumerable: true,	// 是否能够通过for in 枚举</div><div class="line">	configurable: true	// 是否可使用 delete删除</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>这样定义的属性是数据属性，用来描述数据。还有另外一个访问器属性，允许你定义一对儿 getter/setter ，当你读取属性值的时候底层会调用 get 方法，当你去设置属性值的时候，底层会调用 set 方法。</p>
-<p>这简直太美妙了，这不正是我们想要的吗？</p>
-<p>遍历对象的属性，把对象的属性都使用 Object.defineProperty 转为 getter/setter ，这样，当我们修改一些值得时候，就会调用set方法，然后我们在set方法里面，回调通知，这样不就可以了吗？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div></pre></td><td class="code"><pre><div class="line">const OP = Object.prototype;</div><div class="line"></div><div class="line">class Mvvm&#123;</div><div class="line">    constructor(obj, callback)&#123;</div><div class="line">        if(OP.toString.call(obj) !== &apos;[object Object]&apos;)&#123;</div><div class="line">            console.error(&apos;This parameter must be an object：&apos; + obj);</div><div class="line">        &#125;</div><div class="line">        this.$callback = callback;</div><div class="line">        this.observe(obj);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    observe(obj)&#123;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var val = obj[key];</div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return val;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    this.$callback(newVal);</div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos;)&#123;</div><div class="line">                this.observe(obj[key]);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/keminu/8x3ou6pL/1/" target="_blank" rel="external">测试一下我们的代码</a></p>
-<h3 id="3保存旧值">3.保存旧值</h3>
-<p>现在我们成功的监测到数据变化并且做出响应了。但是这个响应只处理了新值，有时候我们是需要旧值的，现在我们的代码还无法传递旧值，怎么改？</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div></pre></td><td class="code"><pre><div class="line">var oldVal = obj[key];</div><div class="line">Object.defineProperty(obj, key, &#123;</div><div class="line">    get: function()&#123;</div><div class="line">        return oldVal;</div><div class="line">    &#125;,</div><div class="line">    set: (function(newVal)&#123;</div><div class="line">        if(oldVal !== newVal)&#123;</div><div class="line">            if(OP.toString.call(newVal) === &apos;[object Object]&apos;)&#123;</div><div class="line">                this.observe(newVal);</div><div class="line">            &#125;</div><div class="line">            this.$callback(newVal, oldVal);</div><div class="line">            oldVal = newVal;</div><div class="line">        &#125;</div><div class="line">        </div><div class="line">    &#125;).bind(this)</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/9hsuz6wa/" target="_blank" rel="external">看下效果</a></p>
-<h3 id="4监测数组变化">4.监测数组变化</h3>
-<p>这样子看上去还不错了哦，我们能够监测到数据的变化，拿到了新旧数据。但是这样就完了吗？</p>
-<p>遗憾的是我们还不能监测到数组的变化。比如：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">data.level1.c.push(4);</div></pre></td></tr></table></figure>
-<p>有什么思路可以解决这个问题？
-重写原型方法可以吗？像是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">Array.prototype.push = function()&#123;</div><div class="line">    // 数据观察</div><div class="line">&#125;</div><div class="line">Array.prototype.pop = function()&#123;</div><div class="line">    // 数据观察</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>暂且不说能不能全部实现的与原生无异，即使你实现的与原生方法在使用方式上一模一样，并且不影响其他代码的运行，那么在性能上，可能就与原生差很多了，重新考虑，我们可不可以在原型链中加一层fakePrototype，在使用 push 等数组方法的时候，调用的是 fakePrototype 上的push方法，然后在 fakePrototype 方法中再去调用真正的Array原型上的 push 方法，同时监听变化。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div><div class="line">76</div><div class="line">77</div><div class="line">78</div><div class="line">79</div><div class="line">80</div><div class="line">81</div><div class="line">82</div><div class="line">83</div><div class="line">84</div><div class="line">85</div><div class="line">86</div></pre></td><td class="code"><pre><div class="line">/*</div><div class="line"> *  Object 原型</div><div class="line"> */</div><div class="line">const OP = Object.prototype;</div><div class="line">/*</div><div class="line"> *  需要重写的数组方法 OAR 是 overrideArrayMethod 的缩写</div><div class="line"> */</div><div class="line">const OAM = [&apos;push&apos;, &apos;pop&apos;, &apos;shift&apos;, &apos;unshift&apos;, &apos;splice&apos;, &apos;sort&apos;, &apos;reverse&apos;];</div><div class="line"></div><div class="line">class Mvvm&#123;</div><div class="line">    constructor(obj, callback)&#123;</div><div class="line">        if(OP.toString.call(obj) !== &apos;[object Object]&apos;)&#123;</div><div class="line">            console.error(&apos;This parameter must be an object：&apos; + obj);</div><div class="line">        &#125;</div><div class="line">        this.$callback = callback;</div><div class="line">        this.observe(obj);</div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    observe(obj)&#123;</div><div class="line">        // 如果发现 监测的对象是数组的话就要调用 overrideArrayProto 方法</div><div class="line">        if(OP.toString.call(obj) === &apos;[object Array]&apos;)&#123;</div><div class="line">            this.overrideArrayProto(obj);</div><div class="line">        &#125;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var oldVal = obj[key];</div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return oldVal;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    if(oldVal !== newVal)&#123;</div><div class="line">                        if(OP.toString.call(newVal) === &apos;[object Object]&apos; || OP.toString.call(newVal) === &apos;[object Array]&apos;)&#123;</div><div class="line">                            this.observe(newVal);</div><div class="line">                        &#125;</div><div class="line">                        this.$callback(newVal, oldVal);</div><div class="line">                        oldVal = newVal;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos; || OP.toString.call(obj[key]) === &apos;[object Array]&apos;)&#123;</div><div class="line">                this.observe(obj[key]);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    overrideArrayProto(array)&#123;</div><div class="line">            // 保存原始 Array 原型</div><div class="line">        var originalProto = Array.prototype,</div><div class="line">            // 通过 Object.create 方法创建一个对象，该对象的原型就是Array.prototype</div><div class="line">            overrideProto = Object.create(Array.prototype),</div><div class="line">            self = this,</div><div class="line">            result;</div><div class="line">        // 遍历要重写的数组方法</div><div class="line">        Object.keys(OAM).forEach(function(key, index, array)&#123;</div><div class="line">            var method = OAM[index],</div><div class="line">                oldArray = [];</div><div class="line">            // 使用 Object.defineProperty 给 overrideProto 添加属性，属性的名称是对应的数组函数名，值是函数</div><div class="line">            Object.defineProperty(overrideProto, method, &#123;</div><div class="line">                value: function()&#123;</div><div class="line">                    oldArray = this.slice(0);</div><div class="line">                    </div><div class="line">                    var arg = [].slice.apply(arguments);</div><div class="line">                    // 调用原始 原型 的数组方法</div><div class="line">                    result = originalProto[method].apply(this, arg);</div><div class="line">                    // 对新的数组进行监测</div><div class="line">                    self.observe(this);</div><div class="line">                    // 执行回调</div><div class="line">                    self.$callback(this, oldArray);</div><div class="line">                    </div><div class="line">                    return result;</div><div class="line">                &#125;,</div><div class="line">                writable: true,</div><div class="line">                enumerable: false,</div><div class="line">                configurable: true</div><div class="line">            &#125;);</div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">        // 最后 让该数组实例的 __proto__ 属性指向 假的原型 overrideProto</div><div class="line">        array.__proto__ = overrideProto;</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/keminu/Lv2ycLww/" target="_blank" rel="external">看下效果</a></p>
-<h3 id="5模板映射">5.模板映射</h3>
-<p>现在，我们可以几乎完美的监测到数据对象的变化了，并且能够知道变化前后的旧值与新值，那么这样就结束了吗？当然不是，我们现在并不知道修改的是哪个属性，但是能够知道修改的是哪个属性是非常重要的。比如，我们有如下的模板：</p>
-<figure class="highlight"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">&lt;div id="box"&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;name&#125;&#125;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;age&#125;&#125;&lt;/div&gt;</div><div class="line">    &lt;div&gt;&#123;&#123;sex&#125;&#125;&lt;/div&gt;</div><div class="line">&lt;/div&gt;</div></pre></td></tr></table></figure>
-<p>然后有如下的数据：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">var</span> data = &#123;</div><div class="line">    <span class="attr">name</span> : <span class="string">'nuoka'</span>,</div><div class="line">    <span class="attr">age</span> : <span class="number">20</span>,</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>我们想通过这种方式反应模板与数据之间的关系：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">new</span> Mvvm(<span class="built_in">document</span>.getElementById(<span class="string">'box'</span>), data);</div></pre></td></tr></table></figure>
-<p>那么当我们的数据模型data中的某个属性改变的时候，比如 data.name = ‘kage’，如若我们不知道改变的字段名称，那么我们就无法得知要刷新哪部分模板。</p>
-<p>那么这里就有一个路径的概念，所谓路径，就是变化的字段的路径，比如有如下数据模型：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">var data = &#123;</div><div class="line">    a : &#123;</div><div class="line">        b : &#123;</div><div class="line">            c : &apos;hcy&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>那么字段 a 的路径就是用 data.a ，b 的路径就是 data.a.b，c 的路径就是 data.a.b.c，这里我们用数组来表述路径可以是这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">1、 a 的路径是 [‘data’, ‘a’]</div><div class="line">2、 b 的路径是 [‘data’, ‘a’, ‘b’]</div><div class="line">3、 c 的路径是 [‘data’, ‘a’, ‘b’, ‘c’]</div></pre></td></tr></table></figure>
-<p>有了这个概念之后，我们来修改之前的代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div><div class="line">39</div><div class="line">40</div><div class="line">41</div><div class="line">42</div><div class="line">43</div><div class="line">44</div><div class="line">45</div><div class="line">46</div><div class="line">47</div><div class="line">48</div><div class="line">49</div><div class="line">50</div><div class="line">51</div><div class="line">52</div><div class="line">53</div><div class="line">54</div><div class="line">55</div><div class="line">56</div><div class="line">57</div><div class="line">58</div><div class="line">59</div><div class="line">60</div><div class="line">61</div><div class="line">62</div><div class="line">63</div><div class="line">64</div><div class="line">65</div><div class="line">66</div><div class="line">67</div><div class="line">68</div><div class="line">69</div><div class="line">70</div><div class="line">71</div><div class="line">72</div><div class="line">73</div><div class="line">74</div><div class="line">75</div></pre></td><td class="code"><pre><div class="line">observe(obj, path)&#123;</div><div class="line">        // 如果发现 监测的对象是数组的话就要调用 overrideArrayProto 方法</div><div class="line">        if(OP.toString.call(obj) === &apos;[object Array]&apos;)&#123;</div><div class="line">            this.overrideArrayProto(obj, path);</div><div class="line">        &#125;</div><div class="line">        Object.keys(obj).forEach(function(key, index, keyArray)&#123;</div><div class="line">            var oldVal = obj[key];</div><div class="line">            </div><div class="line">            var pathArray = path &amp;&amp; path.slice(0);</div><div class="line">            if (pathArray) &#123;</div><div class="line">                pathArray.push(key);</div><div class="line">            &#125; else &#123;</div><div class="line">                pathArray = [key];</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">            Object.defineProperty(obj, key, &#123;</div><div class="line">                get: function()&#123;</div><div class="line">                    return oldVal;</div><div class="line">                &#125;,</div><div class="line">                set: (function(newVal)&#123;</div><div class="line">                    if(oldVal !== newVal)&#123;</div><div class="line">                        if(OP.toString.call(newVal) === &apos;[object Object]&apos; || OP.toString.call(newVal) === &apos;[object Array]&apos;)&#123;</div><div class="line">                            this.observe(newVal, pathArray);</div><div class="line">                        &#125;</div><div class="line">                        this.$callback(newVal, oldVal, pathArray);</div><div class="line">                        oldVal = newVal;</div><div class="line">                    &#125;</div><div class="line">                    </div><div class="line">                &#125;).bind(this)</div><div class="line">            &#125;);</div><div class="line">            </div><div class="line">            if(OP.toString.call(obj[key]) === &apos;[object Object]&apos; || OP.toString.call(obj[key]) === &apos;[object Array]&apos;)&#123;</div><div class="line">                this.observe(obj[key], pathArray);</div><div class="line">            &#125;</div><div class="line">            </div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">    &#125;</div><div class="line">    </div><div class="line">    overrideArrayProto(array, path)&#123;</div><div class="line">            // 保存原始 Array 原型</div><div class="line">        var originalProto = Array.prototype,</div><div class="line">            // 通过 Object.create 方法创建一个对象，该对象的原型就是Array.prototype</div><div class="line">            overrideProto = Object.create(Array.prototype),</div><div class="line">            self = this,</div><div class="line">            result;</div><div class="line">        // 遍历要重写的数组方法</div><div class="line">        Object.keys(OAM).forEach(function(key, index, array)&#123;</div><div class="line">            var method = OAM[index],</div><div class="line">                oldArray = [];</div><div class="line">            // 使用 Object.defineProperty 给 overrideProto 添加属性，属性的名称是对应的数组函数名，值是函数</div><div class="line">            Object.defineProperty(overrideProto, method, &#123;</div><div class="line">                value: function()&#123;</div><div class="line">                    oldArray = this.slice(0);</div><div class="line">                    </div><div class="line">                    var arg = [].slice.apply(arguments);</div><div class="line">                    // 调用原始 原型 的数组方法</div><div class="line">                    result = originalProto[method].apply(this, arg);</div><div class="line">                    // 对新的数组进行监测</div><div class="line">                    self.observe(this, path);</div><div class="line">                    // 执行回调</div><div class="line">                    self.$callback(this, oldArray, path);</div><div class="line">                    </div><div class="line">                    return result;</div><div class="line">                &#125;,</div><div class="line">                writable: true,</div><div class="line">                enumerable: false,</div><div class="line">                configurable: true</div><div class="line">            &#125;);</div><div class="line">        &#125;, this);</div><div class="line">        </div><div class="line">        // 最后 让该数组实例的 __proto__ 属性指向 假的原型 overrideProto</div><div class="line">        array.__proto__ = overrideProto;</div><div class="line">        </div><div class="line">    &#125;</div></pre></td></tr></table></figure>
-<p><a href="https://jsfiddle.net/keminu/o0zavhy9/" target="_blank" rel="external">最后再尝试下修改数组属性</a></p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color1">响应式原理</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/11/05/数据双向绑定/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1400,6 +1285,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
               </li>
              
@@ -1417,6 +1306,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color1">JavaScript</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color3">函数</a>
               </li>
              
               <li class="article-tag-list-item">
