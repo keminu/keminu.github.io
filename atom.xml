@@ -5,7 +5,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="http://keminu.com/"/>
-  <updated>2018-07-09T14:16:26.444Z</updated>
+  <updated>2018-08-26T15:10:40.077Z</updated>
   <id>http://keminu.com/</id>
   
   <author>
@@ -16,11 +16,72 @@
   <generator uri="http://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>微信小程序使用小结</title>
+    <link href="http://keminu.com/2018/08/25/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93/"/>
+    <id>http://keminu.com/2018/08/25/微信小程序使用小结/</id>
+    <published>2018-08-25T02:42:21.000Z</published>
+    <updated>2018-08-26T15:10:40.077Z</updated>
+    
+    <content type="html"><![CDATA[<p>大概是一年前，做了第一个微信小程序。那时候小程序刚起步，很多功能也都不太完善，使用起来很鸡肋。经过这么长时间，微信小程序的数量达到100多万，对开发者的开发体验也好（la）了（ji）蛮（yi）多（jiu）。最近又做了些微信小程序，有必要重新认识下。</p>
+<h4 id="1-小程序整体架构">1、小程序整体架构</h4>
+<p>下面是来自网上的一张图片，显示了微信小程序的整个框架和交互过程。</p>
+<p><img src="https://ws2.sinaimg.cn/large/006tNbRwgy1funevsientj31c10qmtfp.jpg" alt="img"></p>
+<p>从上面的架构可以看到，整个小程序分成两个模块独立运行，一个是View层，还有一个Service层。View层用于前端UI展示，Service层控制后台逻辑，然后通过JSBridge进行交互。这就解释了为什么在小程序里面js不能直接使用浏览器的DOM和BOM接口。一个典型的交互流程如下：在View层，用户操作触发event，通过JSBridge通知到Service层，Service层处理完逻辑，把处理后的data再通过JSBridge传给View层，View层更新。</p>
+<h4 id="2-异步流程控制">2、异步流程控制</h4>
+<p>在js开发里少不了异步的操作，小程序里也不例外。目前异步编程中，主要有以下几种解决方案：</p>
+<ul>
+<li>
+<p>事件发布/订阅模式</p>
+</li>
+<li>
+<p>Promise 模式</p>
+</li>
+<li>
+<p>一些异步流程控制库Q.js、Async、Bluebird等</p>
+<p>好在小程序已经提供了Promise的支持，避免回调地狱非常容易。下面是用小程序提供的api来发起网络请求：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div></pre></td><td class="code"><pre><div class="line">wx.request(&#123;</div><div class="line">    <span class="attr">url</span>: </div><div class="line">    method: </div><div class="line">    success: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 另一个异步请求</span></div><div class="line">    wx.request(&#123;</div><div class="line">      ...</div><div class="line">      success: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    	<span class="comment">// 再有另一个异步请求</span></div><div class="line">	  &#125;</div><div class="line">	&#125;)</div><div class="line">&#125;</div><div class="line">    fail:</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
+<p>这样的代码不太好，我们可以使用一个函数来封装一下api，使它支持promise。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">promisify</span>(<span class="params">api</span>) </span>&#123;</div><div class="line">  <span class="keyword">return</span> <span class="function">(<span class="params">options, ...params</span>) =&gt;</span> &#123;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">new</span> <span class="built_in">Promise</span>(<span class="function">(<span class="params">resolve, reject</span>) =&gt;</span> &#123;</div><div class="line">      api(<span class="built_in">Object</span>.assign(&#123;&#125;, options, &#123;<span class="attr">success</span>: resolve, <span class="attr">fail</span>: reject&#125;), ...params)</div><div class="line">    &#125;)</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>再使用wx.request时可以像这样：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div></pre></td><td class="code"><pre><div class="line">request = promisify(wx.request)</div><div class="line">request(&#123;</div><div class="line">    <span class="attr">url</span>: </div><div class="line">    method:</div><div class="line">&#125;).then(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 异步成功</span></div><div class="line">&#125;).catch(<span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 异步失败</span></div><div class="line">&#125;)</div><div class="line"></div><div class="line">download = promisify(wx.download)</div><div class="line">...</div></pre></td></tr></table></figure>
+<p>这样是不是简洁清晰很多。当然，有了Promise，并行异步任务，流程异步依赖的问题也可以很好处理。</p>
+</li>
+</ul>
+<h4 id="3-页面间通信">3、页面间通信</h4>
+<p>小程序已经提供了组件功能，组件间的通信可以通过事件派发。但是在页面之间的通信却没有提供对应的机制。有这样一个需求，在首页显示了用户的钱包金额，到下单页下单之后，用户金额减少。要想在下单后首页的金额数发生变化，可以在首页的onShow事件中重新获取数据，这种处理显然不够妥。</p>
+<p>更好的处理方式是建立一个全局的事件中心，所有页面间的通信通过事件中心统一管理。下面是一个简单的事件中心，使用事件发布/订阅方式处理。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div><div class="line">35</div><div class="line">36</div><div class="line">37</div><div class="line">38</div></pre></td><td class="code"><pre><div class="line"><span class="class"><span class="keyword">class</span> <span class="title">Event</span> </span>&#123;</div><div class="line">  <span class="keyword">constructor</span>() &#123;</div><div class="line">    <span class="keyword">this</span>._queue = &#123;&#125;</div><div class="line">  &#125;</div><div class="line">  on(key, callback) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="built_in">Array</span>.isArray(key)) &#123;</div><div class="line">      key.map(<span class="function"><span class="params">item</span> =&gt;</span> &#123;</div><div class="line">        <span class="keyword">this</span>._queue[item] = <span class="keyword">this</span>._queue[item] || []</div><div class="line">        <span class="keyword">this</span>._queue[item].push(callback)</div><div class="line">      &#125;)</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      <span class="keyword">this</span>._queue[key] = <span class="keyword">this</span>._queue[key] || []</div><div class="line">      <span class="keyword">this</span>._queue[key].push(callback)</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span></div><div class="line">  &#125;</div><div class="line">  off(key, callback) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._queue[key]) &#123;</div><div class="line">      <span class="keyword">const</span> index = <span class="keyword">typeof</span> callback === <span class="literal">undefined</span> ? <span class="number">-2</span> : <span class="keyword">this</span>._queue[key].indexOf(callback)</div><div class="line">      <span class="keyword">if</span> (index === <span class="number">-2</span>) &#123;</div><div class="line">        <span class="keyword">delete</span> <span class="keyword">this</span>._queue[key]</div><div class="line">      &#125; <span class="keyword">else</span> <span class="keyword">if</span> (index !== <span class="number">-1</span>) &#123;</div><div class="line">        <span class="keyword">this</span>._queue[key].splice(index, <span class="number">1</span>)</div><div class="line">      &#125;</div><div class="line">      <span class="keyword">if</span> (<span class="keyword">this</span>._queue[key] &amp;&amp; <span class="keyword">this</span>._queue[key].length === <span class="number">0</span>) <span class="keyword">delete</span> <span class="keyword">this</span>._queue[key]</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span></div><div class="line">  &#125;</div><div class="line">  has(key) &#123;</div><div class="line">    <span class="keyword">return</span> !!<span class="keyword">this</span>._queue[key]</div><div class="line">  &#125;</div><div class="line">  emit(key, ...args) &#123; </div><div class="line">    <span class="keyword">if</span> (<span class="keyword">this</span>._queue[key]) &#123;</div><div class="line">      <span class="keyword">this</span>._queue[key].forEach(<span class="function"><span class="params">callback</span> =&gt;</span> callback.apply(<span class="keyword">this</span>, args))</div><div class="line">    &#125;</div><div class="line">    <span class="keyword">return</span> <span class="keyword">this</span></div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>把事件中心注入到App内，通过在页面getApp()，可以获得全局的事件控制。</p>
+<h4 id="4-小程序数据埋点">4、小程序数据埋点</h4>
+<p>预置的数据埋点是在各种App，Page事件上进行跟踪，发送所需数据给后台。下面这张图是Page实例的生命周期：</p>
+<p><img src="https://mp.weixin.qq.com/debug/wxadoc/dev/image/mina-lifecycle.png?t=1474644090505" alt="image"></p>
+<p>现在需要在onHide事件中发送这个事件并把相应的数据传给后台。容易想到的是直接在Page onHide事件里发送，但是这样代码没有跟业务解耦，也难在其它项目中复用。有没有更好的方式？</p>
+<p>我们可以对Page方法进行重写，满足既执行埋点代码，也执行业务代码。</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div><div class="line">18</div><div class="line">19</div><div class="line">20</div><div class="line">21</div><div class="line">22</div><div class="line">23</div><div class="line">24</div><div class="line">25</div><div class="line">26</div><div class="line">27</div><div class="line">28</div><div class="line">29</div><div class="line">30</div><div class="line">31</div><div class="line">32</div><div class="line">33</div><div class="line">34</div></pre></td><td class="code"><pre><div class="line"><span class="keyword">const</span> pageHide = <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">    <span class="comment">// 这里是埋点代码</span></div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// page/index/index</span></div><div class="line">Page(&#123;</div><div class="line">    <span class="attr">onHide</span>: <span class="function"><span class="params">()</span> =&gt;</span> &#123;</div><div class="line">        <span class="comment">// 里面是业务代码</span></div><div class="line">    &#125;</div><div class="line">&#125;)</div><div class="line"></div><div class="line"><span class="comment">// 对Page重写</span></div><div class="line"><span class="keyword">const</span> copyPage = page</div><div class="line">page = <span class="function"><span class="keyword">function</span>(<span class="params">obj</span>) </span>&#123;</div><div class="line">    copyPage(proxy(obj, &#123; <span class="attr">onHide</span>: pageHide &#125;))</div><div class="line">&#125;</div><div class="line"></div><div class="line"><span class="comment">// proxy函数返回新的obj</span></div><div class="line"><span class="function"><span class="keyword">function</span> <span class="title">proxy</span>(<span class="params">obj, events</span>) </span>&#123;</div><div class="line">  <span class="keyword">for</span> (<span class="keyword">let</span> key <span class="keyword">in</span> events) &#123;</div><div class="line">    <span class="keyword">if</span> (<span class="keyword">typeof</span> obj[key] === <span class="string">'function'</span>) &#123;</div><div class="line">      <span class="keyword">const</span> fn = obj[key]</div><div class="line">      obj[key] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        fn.call(<span class="keyword">this</span>)</div><div class="line">        events[key].call(<span class="keyword">this</span>)</div><div class="line">      &#125;</div><div class="line">    &#125; <span class="keyword">else</span> &#123;</div><div class="line">      obj[key] = <span class="function"><span class="keyword">function</span>(<span class="params"></span>) </span>&#123;</div><div class="line">        events[key].call(<span class="keyword">this</span>)</div><div class="line">      &#125;</div><div class="line">    &#125;</div><div class="line">  &#125;</div><div class="line">  <span class="keyword">return</span> obj</div><div class="line">&#125;</div></pre></td></tr></table></figure>
+<p>这样只需在App.js里引入埋点代码即可。</p>
+<h4 id="5-小程序开发框架">5、小程序开发框架</h4>
+<p>在小程序还不支持组件化、Promise、箭头函数的时候，这是很痛苦的，这时候一些框架应运而生，解决掉了这些痛点。比较流弊的框架有Wepy（腾讯团队）、mpvue（美团团队）、Taro（京东凹凸）。Wepy是比较早出现的小程序开发框架，采用类vue风格语法，但是官方又推荐redux做状态管理，应该是吸收了vue和react的优点，大家都说坑太多；mpvue fork自vue，对runtime 和compiler部分进行了修改，vuex做状态管理，各技术栈一致，思想统一，有问题好解决；Taro号称是多端统一开发框架，支持用 React 的开发方式编写一次代码，生成能运行在微信小程序、H5、React Native 等的应用，但是，现实有些差距。</p>
+<p>综合一下，以后用mpvue来开发不错，vue 的组件在H5和小程序公用，支持npm包管理，各种工程化开发方式解锁。</p>
+]]></content>
+    
+    <summary type="html">
+    
+      &lt;p&gt;大概是一年前，做了第一个微信小程序。那时候小程序刚起步，很多功能也都不太完善，使用起来很鸡肋。经过这么长时间，微信小程序的数量达到100多万，对开发者的开发体验也好（la）了（ji）蛮（yi）多（jiu）。最近又做了些微信小程序，有必要重新认识下。&lt;/p&gt;
+&lt;h4 id=&quot;
+    
+    </summary>
+    
+    
+      <category term="微信小程序" scheme="http://keminu.com/tags/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F/"/>
+    
+  </entry>
+  
+  <entry>
     <title>web安全</title>
     <link href="http://keminu.com/2018/07/08/web%E5%AE%89%E5%85%A8/"/>
     <id>http://keminu.com/2018/07/08/web安全/</id>
     <published>2018-07-08T02:59:17.000Z</published>
-    <updated>2018-07-09T14:16:26.444Z</updated>
+    <updated>2018-08-26T15:12:04.078Z</updated>
     
     <content type="html"><![CDATA[<h3 id="1-数据流输入输出">1、数据流输入输出</h3>
 <p>我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。</p>
@@ -36,7 +97,7 @@
 <p>XSS(Cross Site Scripting)，跨站脚本攻击。为和层叠样式表(Cascading Style Sheets，CSS)区分开，跨站脚本在安全领域叫做“XSS”。恶意攻击者往Web页面里注入恶意Script代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取cookie信息、会话劫持等各种攻击。XSS是常见的Web攻击技术之一，由于跨站脚本漏洞易于出现且利用成本低，所以被OWASP列为当前的头号Web安全威胁。</p>
 <p>根据XSS攻击的效果，可以将XSS分为3类：</p>
 <p>(1) 反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：www.a.com?xss.php?name=</p>
-<script>alert('哈哈，你的cookie我已经拿到')</script>。访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。
+<p><scrip>alert('哈哈，你的cookie我已经拿到')</scrip>。修改为script标签，访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。</p>
 <p>(2) 存储型XSS(Persistent XSS)，这类XSS攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型XSS大同小异，只是脚本不是通过浏览器à服务器à浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种XSS攻击就叫做“存储型XSS”。例如：</p>
 <p>服务器端代码：<?php $db.set(‘name’, $_GET[‘name’]);?></p>
 <p>HTML页面代码：<?php echo ‘Hi,’ . $db.get[‘name’];?></p>

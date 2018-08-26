@@ -15,7 +15,7 @@
 <meta property="og:url" content="http://keminu.com/2018/07/08/web安全/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
 <meta property="og:description" content="1、数据流输入输出 我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。 123451. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf /;2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题">
-<meta property="og:updated_time" content="2018-07-09T14:16:26.444Z">
+<meta property="og:updated_time" content="2018-08-26T15:12:04.078Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="web安全">
 <meta name="twitter:description" content="1、数据流输入输出 我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。 123451. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf /;2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题">
@@ -180,7 +180,7 @@
 <p>XSS(Cross Site Scripting)，跨站脚本攻击。为和层叠样式表(Cascading Style Sheets，CSS)区分开，跨站脚本在安全领域叫做“XSS”。恶意攻击者往Web页面里注入恶意Script代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取cookie信息、会话劫持等各种攻击。XSS是常见的Web攻击技术之一，由于跨站脚本漏洞易于出现且利用成本低，所以被OWASP列为当前的头号Web安全威胁。</p>
 <p>根据XSS攻击的效果，可以将XSS分为3类：</p>
 <p>(1) 反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：www.a.com?xss.php?name=</p>
-<script>alert('哈哈，你的cookie我已经拿到')</script>。访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。
+<p><scrip>alert('哈哈，你的cookie我已经拿到')</scrip>。修改为script标签，访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。</p>
 <p>(2) 存储型XSS(Persistent XSS)，这类XSS攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型XSS大同小异，只是脚本不是通过浏览器à服务器à浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种XSS攻击就叫做“存储型XSS”。例如：</p>
 <p>服务器端代码：<?php $db.set(‘name’, $_GET[‘name’]);?></p>
 <p>HTML页面代码：<?php echo ‘Hi,’ . $db.get[‘name’];?></p>
@@ -322,6 +322,15 @@
   
 <nav id="article-nav">
   
+    <a href="/2018/08/25/微信小程序使用小结/" id="article-nav-newer" class="article-nav-link-wrap">
+      <i class="icon-circle-left"></i>
+      <div class="article-nav-title">
+        
+          微信小程序使用小结
+        
+      </div>
+    </a>
+  
   
     <a href="/2018/06/09/理解JavaScript之函数创建过程/" id="article-nav-older" class="article-nav-link-wrap">
       <div class="article-nav-title">理解JavaScript之函数创建过程</div>
@@ -447,14 +456,6 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">web安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
@@ -463,7 +464,7 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
+                <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -483,11 +484,23 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">模板引擎</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">正则原理</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">微信小程序</a>
               </li>
             
             <div class="clearfix"></div>
