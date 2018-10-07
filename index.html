@@ -146,6 +146,186 @@
           <div id="js-content" class="content-ll">
             
   
+    <article id="post-【译】评估一个JS库你需要考虑的12件事" class="article article-type-post  article-index" itemscope itemprop="blogPost">
+  <div class="article-inner">
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2018/10/07/【译】评估一个JS库你需要考虑的12件事/">【译】评估一个JS库你需要考虑的12件事</a>
+    </h1>
+  
+
+        
+        <a href="/2018/10/07/【译】评估一个JS库你需要考虑的12件事/" class="archive-article-date">
+  	<time datetime="2018-10-07T12:09:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-07</time>
+</a>
+        
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <blockquote>
+<p>原文链接：<a href="https://medium.freecodecamp.org/the-12-things-you-need-to-consider-when-evaluating-any-new-javascript-library-3908c4ed3f49" target="_blank" rel="external">The 12 Things You Need to Consider When Evaluating Any New JavaScript Library</a></p>
+</blockquote>
+<p>水平有限，根据自己的理解进行删减和重排，有能力还是看原文比较好，我只是个小小的搬运工😜。</p>
+<p>反观这些，当自己写一个库的时候，也需要思考下这些有没有做到。</p>
+<p>正文开始：</p>
+<h4 id="完整因素">完整因素</h4>
+<h5 id="1-️-特性features">1、<strong>🕹️ 特性（Features）</strong></h5>
+<h5 id="2-稳定性stability">2、<strong>🐞 稳定性（Stability）</strong></h5>
+<h5 id="3-性能performance">3、<strong>⚡ 性能（Performance）</strong></h5>
+<h5 id="4-依赖包生态package-ecosystem">4、<strong>🎁 依赖包生态（Package Ecosystem）</strong></h5>
+<h5 id="5-社区community">5、🌎 <strong>社区（Community）</strong></h5>
+<h5 id="6-学习曲线learning-curve">6、<strong>👶 学习曲线（Learning Curve）</strong></h5>
+<h5 id="7-文档documentation">7、<strong>📖 文档（Documentation）</strong></h5>
+<h5 id="8-工具tooling">8、<strong>🔧 工具（Tooling）</strong></h5>
+<h5 id="9-️-发展史track-record">9、<strong>🏛️ 发展史（Track Record）</strong></h5>
+<h5 id="10-团队team">10、<strong>👫 团队（Team）</strong></h5>
+<h5 id="11-️-兼容性compatibility">11、<strong>⚖️ 兼容性（Compatibility）</strong></h5>
+<h5 id="12-趋势momentum">12、<strong>📈 趋势（Momentum）</strong></h5>
+<h4 id="特性">特性</h4>
+<p>选择一种技术的首要原因就是：这种技术可以做啥？</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 能完成以前不能完成的事</li>
+<li>B - 用更加优雅的方式做相同的事</li>
+<li>C - 比现有方案差</li>
+</ul>
+<h4 id="稳定性">稳定性</h4>
+<p>不管你的库功能有多么丰富，稳定性都是不可忽视的。如果开发人员在使用的过程中每隔两分钟都发生一次错误，那简直要崩溃了。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 少量的bugs和问题，很容易调试和解决掉</li>
+<li>B - 还有些问题，但是不影响你的软件的稳定性</li>
+<li>C - 已经影响到你的软件的稳定性</li>
+</ul>
+<h4 id="性能">性能</h4>
+<p>如果一个用户打开你的网站需要15秒的话，一切的功能都是徒劳，还没打开，用户已经离开了。</p>
+<p>这也是为什么有一个功能这么完善的react，而像preact、riot还能存活下来的原因。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 体积小，加载快，支持各种优化方案</li>
+<li>B - 对你的软件性能没有影响</li>
+<li>C - 对你的软件性能有影响</li>
+</ul>
+<h4 id="包生态">包生态</h4>
+<p>早起的小程序相信使用过的都很痛苦，大家都用npm、es6模块管理，它却只支持commonjs。还有第三方包的成熟度，对TS的支持等。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 圈子里对一些公共问题有明确的解决方案，第三方包有很好的维护性和文档</li>
+<li>B - 有很多可选的竞争对手</li>
+<li>C -  没有可选包，都要自己动手</li>
+</ul>
+<h4 id="社区">社区</h4>
+<p>另一个考虑的因素综合性社区，当有问题的时候，这些问题可以得到解答。比如Stack Overflow、GitHub的issues。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 有论坛、聊天室、GitHub issues 活跃度高。Stack Overflow 有大量相关问题回答。</li>
+<li>B - 论坛或聊天室活跃度低</li>
+<li>C - 除了GitHub没有其它社区</li>
+</ul>
+<h4 id="学习曲线">学习曲线</h4>
+<p>想想react和vue就知道了。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 马上就能上手</li>
+<li>B - 需要学习一周</li>
+<li>C - 需要学习几周</li>
+</ul>
+<h4 id="文档">文档</h4>
+<p>好的文档能让学习曲线大大降低。这个看看react和vue的文档就知道了。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 有独立的文档站点，文档有演示、项目事例、指导、api说明、良好的代码注释</li>
+<li>B - 有基本的Readme和api说明</li>
+<li>C - 只有简明的readme，得读源码才知道如何使用</li>
+</ul>
+<h4 id="工具">工具</h4>
+<p>调试Redux的时候，浏览器开发工具简洁明了的图形化界面，VS Code对TypeScript的良好支持。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 两个或以上的工具，包括浏览器扩展，代码编辑器拓展、CLI 工具、第三方SaaS服务</li>
+<li>B - 一个工具</li>
+<li>C - 没有工具</li>
+</ul>
+<h4 id="发展史">发展史</h4>
+<p>历史越悠久的库，风险越小，像Rails/PHP，除非它的技术栈很陈旧语言本身不适应发展，面临淘汰。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 4 年以上历史，大量公司实践过</li>
+<li>B - 1-4 年历史，已经有不少人使用过了</li>
+<li>C - 少于一年，几乎没有人用过</li>
+</ul>
+<h4 id="团队">团队</h4>
+<p>Angular.js 出于Google和 React出于Facebook，都是世界一流大厂，家底厚，人员充足，资源多。Vue是个美丽的例外，对工程艺术的执着，总比背着api而完成要好些。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>
+<p>A - 一线大厂的开源团队</p>
+</li>
+<li>
+<p>B - 中型团队维护，并有良好的分工</p>
+</li>
+<li>
+<p>C - 独立维护</p>
+</li>
+</ul>
+<h4 id="兼容性">兼容性</h4>
+<p>除了库本身对浏览器的兼容性重要之外，版本的迭代对旧版本的兼容也很重要。想想你升级babel的时候。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 升级总是能最大程度向后兼容，不兼容部分给出警告。不兼容的老版本维护两年或更久</li>
+<li>B - 不兼容性升级，但给出文档说明</li>
+<li>C - 频繁升级改动大，又没有好的说明</li>
+</ul>
+<h4 id="趋势">趋势</h4>
+<p>大家保持着对这个库的新鲜关注度，能在这个库上面发现一些好的技术点。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 在Hacker News热烈讨论，stars数量多，各大会议都要提及</li>
+<li>B - 启动阶段大家有些兴趣，少量stars</li>
+<li>C - stars少得可怜</li>
+</ul>
+
+      
+
+      
+    </div>
+    <div class="article-info article-info-index">
+      
+      
+	<div class="article-tag tagcloud">
+		<i class="icon-price-tags icon"></i>
+		<ul class="article-tag-list">
+			 
+        		<li class="article-tag-list-item">
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JavaScript，搬运工</a>
+        		</li>
+      		
+		</ul>
+	</div>
+
+      
+
+      
+        <p class="article-more-link">
+          <a class="article-more-a" href="/2018/10/07/【译】评估一个JS库你需要考虑的12件事/">展开全文 >></a>
+        </p>
+      
+
+      
+      <div class="clearfix"></div>
+    </div>
+  </div>
+</article>
+
+
+
+
+
+  
     <article id="post-微信小程序使用小结" class="article article-type-post  article-index" itemscope itemprop="blogPost">
   <div class="article-inner">
     
@@ -1090,82 +1270,6 @@
 
 
   
-    <article id="post-vue单页应用中设置网页标题" class="article article-type-post  article-index" itemscope itemprop="blogPost">
-  <div class="article-inner">
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/12/06/vue单页应用中设置网页标题/">vue单页应用中设置网页标题</a>
-    </h1>
-  
-
-        
-        <a href="/2017/12/06/vue单页应用中设置网页标题/" class="archive-article-date">
-  	<time datetime="2017-12-06T14:52:19.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2017-12-06</time>
-</a>
-        
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <!-- toc -->
-<!-- tocstop -->
-<p>在vue-router的单页应用中，你可能需要在不同的路由设置不同的网页标题，如果你在单文件组件里直接使用document.title来设置页面标题，是不生效的。像这样：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div></pre></td><td class="code"><pre><div class="line">mounted() &#123;</div><div class="line">    document.titile = &apos;title&apos;;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这样是不生效的。</p>
-<p>这里有两种方式可以做到这样的功能。一是在路由里定义对应的组件标题，然后在路由钩子里动态设置，但是这种方式在iOS app下不能被支持，因为它不允许动态改变网页标题。二是通过vue指令，在路由切换完成后，静默加载一个空的iframe来设置title。</p>
-<p>第一种方式实现如下：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div></pre></td><td class="code"><pre><div class="line">router.beforeEach((to, from, next) =&gt; &#123;</div><div class="line">  document.title = to.extra.title;</div><div class="line">  next();</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>对应部分路由定义：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">const routers = [&#123;</div><div class="line">    path: &apos;/&apos;,</div><div class="line">    extra: &#123;</div><div class="line">        title: &apos;首页&apos;</div><div class="line">    &#125;</div><div class="line">&#125;]</div></pre></td></tr></table></figure>
-<p>第二种方式实现：</p>
-<p>先定义一个函数用来动态修改标题。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div><div class="line">11</div><div class="line">12</div><div class="line">13</div><div class="line">14</div><div class="line">15</div><div class="line">16</div><div class="line">17</div></pre></td><td class="code"><pre><div class="line">export const setMetaTitle = title =&gt; &#123;</div><div class="line">  document.title = title;</div><div class="line">  const mobile = navigator.userAgent.toLowerCase();</div><div class="line">  if (/iphone|ipad|ipod/.test(mobile)) &#123;</div><div class="line">    let iframe = document.createElement(&apos;iframe&apos;);</div><div class="line">    iframe.style.visibility = &apos;hidden&apos;;</div><div class="line">    iframe.setAttribute(&apos;src&apos;, &apos;https://www.baidu.com/&apos;);</div><div class="line">    const iframeCallback = () =&gt; &#123;</div><div class="line">      setTimeout(() =&gt; &#123;</div><div class="line">        iframe.removeEventListener(&apos;load&apos;, iframeCallback);</div><div class="line">        document.body.removeChild(iframe);</div><div class="line">      &#125;, 0);</div><div class="line">    &#125;</div><div class="line">    iframe.addEventListener(&apos;load&apos;, iframeCallback);</div><div class="line">    document.body.appendChild(iframe);</div><div class="line">  &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>再在vue的入口点比如app.js里，定义一个vue指令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">import &#123; setMetaTitle &#125; from &apos;@/common/utils&apos;; </div><div class="line"></div><div class="line">Vue.directive(&apos;title&apos;, &#123;</div><div class="line">  inserted(el, binding) &#123;</div><div class="line">    setMetaTitle(binding.value);</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<p>最后在你的组件里添加这个指令：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">    &lt;div v-title=&quot;这里是你的标题&quot;&gt;&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">    export default &#123;&#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>推荐第二种方式实现，没毛病。</p>
-
-      
-
-      
-    </div>
-    <div class="article-info article-info-index">
-      
-      
-	<div class="article-tag tagcloud">
-		<i class="icon-price-tags icon"></i>
-		<ul class="article-tag-list">
-			 
-        		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
-        		</li>
-      		
-		</ul>
-	</div>
-
-      
-
-      
-        <p class="article-more-link">
-          <a class="article-more-a" href="/2017/12/06/vue单页应用中设置网页标题/">展开全文 >></a>
-        </p>
-      
-
-      
-      <div class="clearfix"></div>
-    </div>
-  </div>
-</article>
-
-
-
-
-
-  
   
     <nav id="page-nav">
       <span class="page-number current">1</span><a class="page-number" href="/page/2/">2</a><a class="extend next" rel="next" href="/page/2/">Next &raquo;</a>
@@ -1266,6 +1370,10 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color5">JavaScript，搬运工</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color4">css</a>
               </li>
              
@@ -1274,7 +1382,19 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">web安全</a>
+              </li>
+             
+              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">思维方式</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">微信小程序</a>
+              </li>
+             
+              <li class="article-tag-list-item">
+                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
               </li>
              
               <li class="article-tag-list-item">
@@ -1294,23 +1414,11 @@ return o(t,i(n),arguments.length<3?void 0:u(arguments[2]))}})},function(t,n,r){v
               </li>
              
               <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">web安全</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">响应式原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">模板引擎</a>
               </li>
              
               <li class="article-tag-list-item">
                 <a href="javascript:void(0)" class="js-tag color5">正则原理</a>
-              </li>
-             
-              <li class="article-tag-list-item">
-                <a href="javascript:void(0)" class="js-tag color1">微信小程序</a>
               </li>
             
             <div class="clearfix"></div>

@@ -6,19 +6,19 @@
   <meta name="renderer" content="webkit">
   <meta http-equiv="X-UA-Compatible" content="IE=edge" >
   <link rel="dns-prefetch" href="http://keminu.com">
-  <title>vue项目性能优化 | xiaoka de blogs</title>
+  <title>【译】评估一个JS库你需要考虑的12件事 | xiaoka de blogs</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考web性能。 代码分割 默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，">
-<meta name="keywords" content="vue">
+  <meta name="description" content="原文链接：The 12 Things You Need to Consider When Evaluating Any New JavaScript Library  水平有限，根据自己的理解进行删减和重排，有能力还是看原文比较好，我只是个小小的搬运工😜。 反观这些，当自己写一个库的时候，也需要思考下这些有没有做到。 正文开始： 完整因素 1、🕹️ 特性（Features） 2、🐞 稳定性">
+<meta name="keywords" content="JavaScript，搬运工">
 <meta property="og:type" content="article">
-<meta property="og:title" content="vue项目性能优化">
-<meta property="og:url" content="http://keminu.com/2018/02/04/vue项目性能优化/index.html">
+<meta property="og:title" content="【译】评估一个JS库你需要考虑的12件事">
+<meta property="og:url" content="http://keminu.com/2018/10/07/【译】评估一个JS库你需要考虑的12件事/index.html">
 <meta property="og:site_name" content="xiaoka de blogs">
-<meta property="og:description" content="这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考web性能。 代码分割 默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，">
-<meta property="og:updated_time" content="2018-02-06T16:20:35.408Z">
+<meta property="og:description" content="原文链接：The 12 Things You Need to Consider When Evaluating Any New JavaScript Library  水平有限，根据自己的理解进行删减和重排，有能力还是看原文比较好，我只是个小小的搬运工😜。 反观这些，当自己写一个库的时候，也需要思考下这些有没有做到。 正文开始： 完整因素 1、🕹️ 特性（Features） 2、🐞 稳定性">
+<meta property="og:updated_time" content="2018-10-07T15:32:22.779Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="vue项目性能优化">
-<meta name="twitter:description" content="这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考web性能。 代码分割 默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，">
+<meta name="twitter:title" content="【译】评估一个JS库你需要考虑的12件事">
+<meta name="twitter:description" content="原文链接：The 12 Things You Need to Consider When Evaluating Any New JavaScript Library  水平有限，根据自己的理解进行删减和重排，有能力还是看原文比较好，我只是个小小的搬运工😜。 反观这些，当自己写一个库的时候，也需要思考下这些有没有做到。 正文开始： 完整因素 1、🕹️ 特性（Features） 2、🐞 稳定性">
   
     <link rel="alternative" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
   
@@ -146,65 +146,148 @@
             <canvas data-colors="#eaeaea" data-sectionHeight="100" data-contentId="js-content" id="myCanvas1" class="anm-canvas"></canvas>
           </div>
           <div id="js-content" class="content-ll">
-            <article id="post-vue项目性能优化" class="article article-type-post " itemscope itemprop="blogPost">
+            <article id="post-【译】评估一个JS库你需要考虑的12件事" class="article article-type-post " itemscope itemprop="blogPost">
   <div class="article-inner">
     
       <header class="article-header">
         
   
     <h1 class="article-title" itemprop="name">
-      vue项目性能优化
+      【译】评估一个JS库你需要考虑的12件事
     </h1>
   
 
         
-        <a href="/2018/02/04/vue项目性能优化/" class="archive-article-date">
-  	<time datetime="2018-02-04T12:31:11.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-02-04</time>
+        <a href="/2018/10/07/【译】评估一个JS库你需要考虑的12件事/" class="archive-article-date">
+  	<time datetime="2018-10-07T12:09:22.000Z" itemprop="datePublished"><i class="icon-calendar icon"></i>2018-10-07</time>
 </a>
         
       </header>
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>这篇文章主要是对之前项目的一点总结，提出一些在开发中可以进行性能优化的点，针对vue-cli初始化或webpack打包的项目。如果需要了解web性能方面的知识，请参考<a href="https://maizsss.github.io/2017/12/12/Web%E6%80%A7%E8%83%BD%E4%BC%98%E5%8C%96/" target="_blank" rel="external">web性能</a>。</p>
-<h3 id="代码分割">代码分割</h3>
-<p>默认的情况下，webpack会把你应用的代码打包到一个bundle中，如果你的项目有很多的页面，这样打包出来的文件会非常大，导致加载慢。最好的方式是按照页面划分，每个页面单独分割出一个文件，然后按需加载。比如，你的页面中有一个首页和一个用户信息页，那么可以把它们分成两个文件index.vue和info.vue。当然，如果首页还是很大，还可以按照页面组件来划分，比如menu.vue、tab.vue、modal.vue等。</p>
-<h3 id="组件动态加载">组件动态加载</h3>
-<p>通过上面的分割代码之后，bundle被分成了很多小部分，这样我们可以动态加载需要的部分。来看看是怎么实现的？</p>
-<p>利用import()作为动态模块加载器。在webpack中已经把import()作为一个代码分割点，它把import来的模块打包成一个单独的文件，并在需要的时候去加载。import接收一个文件路径作为参数，然后返回一个Promise。这里有一个异步单文件组件：</p>
-<p>AsyncComponent.vue</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">&lt;template&gt;</div><div class="line">  &lt;div&gt;Async Component&lt;/div&gt;</div><div class="line">&lt;/template&gt;</div><div class="line">&lt;script&gt;</div><div class="line">  export default &#123; &#125;</div><div class="line">&lt;/script&gt;</div></pre></td></tr></table></figure>
-<p>使用import就像这样如此简单整洁的完成异步加载：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div></pre></td><td class="code"><pre><div class="line">new Vue(&#123; </div><div class="line">  el: &apos;#app&apos;,</div><div class="line">  components: &#123;</div><div class="line">    AsyncComponent: () =&gt; import(&apos;./AsyncComponent.vue&apos;)</div><div class="line">  &#125;</div><div class="line">&#125;);</div></pre></td></tr></table></figure>
-<h3 id="vue-router路由懒加载">vue-router路由懒加载</h3>
-<p>在vue的项目中，经常会使用vue-router去管理SPA应用。当页面非常多时，打包的文件会变得很大，影响页面加载。如果我们能把不同路由对应的组件分割成不同的代码块，然后当路由被访问的时候才加载对应组件，这样就更加高效了。使用import，再结合webpack，很容易就能做到。</p>
-<p>首先，定义一个能够被 Webpack 自动代码分割的异步组件：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const AsyncComponent = () =&gt; import(&apos;./AsyncComponent.vue&apos;)</div></pre></td></tr></table></figure>
-<p>然后在路由定义中去引用它：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">const router = new VueRouter(&#123;</div><div class="line">  routes: [</div><div class="line">    &#123; path: &apos;/asyncComponent&apos;, component: AsyncComponent &#125;</div><div class="line">  ]</div><div class="line">&#125;)</div></pre></td></tr></table></figure>
-<p>当然，如果你想对你的组件使用不同的名字，也很容易做到：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">const asyncComponent = () =&gt; import(/* webpackChunkName: &quot;async-component&quot; */ &apos;./asyncComponent.vue&apos;)</div></pre></td></tr></table></figure>
-<p>这样打包出来的分块名就是async-component.[hash].js。</p>
-<h3 id="运行时构建">运行时构建</h3>
-<p>如果在应用中你只使用了渲染函数(render functions)（在单文件组件中，会把组件编译成render function），而不需要html 模板(templates)，那么其实你不需要vue的模板编译器，这样在webpack打包的时候大约会减少25%的体积。当使用<em>import vue from 'vue</em>'时，默认使用运行时构建，你也可以改变webpack的配置：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">resolve: &#123;</div><div class="line">  alias: &#123;</div><div class="line">    &apos;vue$&apos;: &apos;vue/dist/vue.esm.js&apos; // Use the full build</div><div class="line">  &#125;</div><div class="line">&#125;,</div></pre></td></tr></table></figure>
-<h3 id="在生产环境中去掉warnings-and-error信息">在生产环境中去掉warnings and error信息</h3>
-<p>把<em>process.env.NODE_ENV</em>设置成<em>production</em>，就可以去掉这些不需要的信息代码。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div><div class="line">10</div></pre></td><td class="code"><pre><div class="line">if (process.env.NODE_ENV === &apos;production&apos;) &#123;</div><div class="line">  module.exports.plugins = (module.exports.plugins || []).concat([</div><div class="line">    new webpack.DefinePlugin(&#123;</div><div class="line">      &apos;process.env&apos;: &#123;</div><div class="line">        NODE_ENV: &apos;&quot;production&quot;&apos;</div><div class="line">      &#125;</div><div class="line">    &#125;),</div><div class="line">    new webpack.optimize.UglifyJsPlugin()</div><div class="line">  ])</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="cdn化">CDN化</h3>
-<p>如果使用vue-cli，配置CDN路径很简单：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div></pre></td><td class="code"><pre><div class="line">module.exports = &#123;</div><div class="line">  build: &#123;</div><div class="line">    assetsSubDirectory: &apos;static&apos;,</div><div class="line">    assetsPublicPath: &apos;./&apos;,  // 这里换成CDN地址</div><div class="line">  &#125;</div></pre></td></tr></table></figure>
-<p>这样对于打包后的js和css路径引用是没有问题的，但是js里使用绝对路径或相对路径引用的图片却没有正常引用CDN地址。</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div></pre></td><td class="code"><pre><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        return &#123;</div><div class="line">            img: &apos;./logo.png&apos;</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<p>这里换一种方式就能正确引用了：</p>
-<figure class="highlight plain"><table><tr><td class="gutter"><pre><div class="line">1</div><div class="line">2</div><div class="line">3</div><div class="line">4</div><div class="line">5</div><div class="line">6</div><div class="line">7</div><div class="line">8</div><div class="line">9</div></pre></td><td class="code"><pre><div class="line">import logo from &apos;./logo.png&apos;</div><div class="line"></div><div class="line">export default &#123;</div><div class="line">    data() &#123;</div><div class="line">        return &#123;</div><div class="line">            img: logo</div><div class="line">        &#125;</div><div class="line">    &#125;</div><div class="line">&#125;</div></pre></td></tr></table></figure>
-<h3 id="代码层面">代码层面</h3>
-<p>v-show or v-if：如果不是频繁的切换显示，我更倾向于使用v-if，它可以减少页面中dom总数，并且它的切换时间肉眼基本没有什么感觉的。</p>
-<h3 id="参考资料">参考资料</h3>
-<p>1、<a href="https://segmentfault.com/a/1190000009443366" target="_blank" rel="external">潜谈vue项目优化</a></p>
-<p>2、<a href="https://router.vuejs.org/zh-cn/advanced/lazy-loading.html" target="_blank" rel="external">vue路由懒加载</a></p>
-<p>3、<a href="https://vuejsdevelopers.com/2017/07/03/vue-js-code-splitting-webpack/" target="_blank" rel="external">vue-js-code-splitting-webpack</a></p>
-<p>4、<a href="https://vuejsdevelopers.com/2017/06/18/vue-js-boost-your-app-with-webpack/" target="_blank" rel="external">vue-js-boost-your-app-with-webpack</a></p>
+        <blockquote>
+<p>原文链接：<a href="https://medium.freecodecamp.org/the-12-things-you-need-to-consider-when-evaluating-any-new-javascript-library-3908c4ed3f49" target="_blank" rel="external">The 12 Things You Need to Consider When Evaluating Any New JavaScript Library</a></p>
+</blockquote>
+<p>水平有限，根据自己的理解进行删减和重排，有能力还是看原文比较好，我只是个小小的搬运工😜。</p>
+<p>反观这些，当自己写一个库的时候，也需要思考下这些有没有做到。</p>
+<p>正文开始：</p>
+<h4 id="完整因素">完整因素</h4>
+<h5 id="1-️-特性features">1、<strong>🕹️ 特性（Features）</strong></h5>
+<h5 id="2-稳定性stability">2、<strong>🐞 稳定性（Stability）</strong></h5>
+<h5 id="3-性能performance">3、<strong>⚡ 性能（Performance）</strong></h5>
+<h5 id="4-依赖包生态package-ecosystem">4、<strong>🎁 依赖包生态（Package Ecosystem）</strong></h5>
+<h5 id="5-社区community">5、🌎 <strong>社区（Community）</strong></h5>
+<h5 id="6-学习曲线learning-curve">6、<strong>👶 学习曲线（Learning Curve）</strong></h5>
+<h5 id="7-文档documentation">7、<strong>📖 文档（Documentation）</strong></h5>
+<h5 id="8-工具tooling">8、<strong>🔧 工具（Tooling）</strong></h5>
+<h5 id="9-️-发展史track-record">9、<strong>🏛️ 发展史（Track Record）</strong></h5>
+<h5 id="10-团队team">10、<strong>👫 团队（Team）</strong></h5>
+<h5 id="11-️-兼容性compatibility">11、<strong>⚖️ 兼容性（Compatibility）</strong></h5>
+<h5 id="12-趋势momentum">12、<strong>📈 趋势（Momentum）</strong></h5>
+<h4 id="特性">特性</h4>
+<p>选择一种技术的首要原因就是：这种技术可以做啥？</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 能完成以前不能完成的事</li>
+<li>B - 用更加优雅的方式做相同的事</li>
+<li>C - 比现有方案差</li>
+</ul>
+<h4 id="稳定性">稳定性</h4>
+<p>不管你的库功能有多么丰富，稳定性都是不可忽视的。如果开发人员在使用的过程中每隔两分钟都发生一次错误，那简直要崩溃了。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 少量的bugs和问题，很容易调试和解决掉</li>
+<li>B - 还有些问题，但是不影响你的软件的稳定性</li>
+<li>C - 已经影响到你的软件的稳定性</li>
+</ul>
+<h4 id="性能">性能</h4>
+<p>如果一个用户打开你的网站需要15秒的话，一切的功能都是徒劳，还没打开，用户已经离开了。</p>
+<p>这也是为什么有一个功能这么完善的react，而像preact、riot还能存活下来的原因。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 体积小，加载快，支持各种优化方案</li>
+<li>B - 对你的软件性能没有影响</li>
+<li>C - 对你的软件性能有影响</li>
+</ul>
+<h4 id="包生态">包生态</h4>
+<p>早起的小程序相信使用过的都很痛苦，大家都用npm、es6模块管理，它却只支持commonjs。还有第三方包的成熟度，对TS的支持等。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 圈子里对一些公共问题有明确的解决方案，第三方包有很好的维护性和文档</li>
+<li>B - 有很多可选的竞争对手</li>
+<li>C -  没有可选包，都要自己动手</li>
+</ul>
+<h4 id="社区">社区</h4>
+<p>另一个考虑的因素综合性社区，当有问题的时候，这些问题可以得到解答。比如Stack Overflow、GitHub的issues。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 有论坛、聊天室、GitHub issues 活跃度高。Stack Overflow 有大量相关问题回答。</li>
+<li>B - 论坛或聊天室活跃度低</li>
+<li>C - 除了GitHub没有其它社区</li>
+</ul>
+<h4 id="学习曲线">学习曲线</h4>
+<p>想想react和vue就知道了。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 马上就能上手</li>
+<li>B - 需要学习一周</li>
+<li>C - 需要学习几周</li>
+</ul>
+<h4 id="文档">文档</h4>
+<p>好的文档能让学习曲线大大降低。这个看看react和vue的文档就知道了。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 有独立的文档站点，文档有演示、项目事例、指导、api说明、良好的代码注释</li>
+<li>B - 有基本的Readme和api说明</li>
+<li>C - 只有简明的readme，得读源码才知道如何使用</li>
+</ul>
+<h4 id="工具">工具</h4>
+<p>调试Redux的时候，浏览器开发工具简洁明了的图形化界面，VS Code对TypeScript的良好支持。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 两个或以上的工具，包括浏览器扩展，代码编辑器拓展、CLI 工具、第三方SaaS服务</li>
+<li>B - 一个工具</li>
+<li>C - 没有工具</li>
+</ul>
+<h4 id="发展史">发展史</h4>
+<p>历史越悠久的库，风险越小，像Rails/PHP，除非它的技术栈很陈旧语言本身不适应发展，面临淘汰。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 4 年以上历史，大量公司实践过</li>
+<li>B - 1-4 年历史，已经有不少人使用过了</li>
+<li>C - 少于一年，几乎没有人用过</li>
+</ul>
+<h4 id="团队">团队</h4>
+<p>Angular.js 出于Google和 React出于Facebook，都是世界一流大厂，家底厚，人员充足，资源多。Vue是个美丽的例外，对工程艺术的执着，总比背着api而完成要好些。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>
+<p>A - 一线大厂的开源团队</p>
+</li>
+<li>
+<p>B - 中型团队维护，并有良好的分工</p>
+</li>
+<li>
+<p>C - 独立维护</p>
+</li>
+</ul>
+<h4 id="兼容性">兼容性</h4>
+<p>除了库本身对浏览器的兼容性重要之外，版本的迭代对旧版本的兼容也很重要。想想你升级babel的时候。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 升级总是能最大程度向后兼容，不兼容部分给出警告。不兼容的老版本维护两年或更久</li>
+<li>B - 不兼容性升级，但给出文档说明</li>
+<li>C - 频繁升级改动大，又没有好的说明</li>
+</ul>
+<h4 id="趋势">趋势</h4>
+<p>大家保持着对这个库的新鲜关注度，能在这个库上面发现一些好的技术点。</p>
+<h5 id="评分等级">评分等级</h5>
+<ul>
+<li>A - 在Hacker News热烈讨论，stars数量多，各大会议都要提及</li>
+<li>B - 启动阶段大家有些兴趣，少量stars</li>
+<li>C - stars少得可怜</li>
+</ul>
 
       
 
@@ -239,7 +322,7 @@
 		<ul class="article-tag-list">
 			 
         		<li class="article-tag-list-item">
-        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color4">vue</a>
+        			<a href="javascript:void(0)" class="js-tag article-tag-list-link color5">JavaScript，搬运工</a>
         		</li>
       		
 		</ul>
@@ -295,7 +378,7 @@
     <a class="close js-modal-close" href="javascript:;"><i class="icon icon-close"></i></a>
     <p>扫一扫，分享到微信</p>
     <div class="wx-qrcode">
-      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2018/02/04/vue项目性能优化/" alt="微信分享二维码">
+      <img src="http://s.jiathis.com/qrcode.php?url=http://keminu.com/2018/10/07/【译】评估一个JS库你需要考虑的12件事/" alt="微信分享二维码">
     </div>
 </div>
 
@@ -309,18 +392,9 @@
   
 <nav id="article-nav">
   
-    <a href="/2018/03/06/理解JavaScript之数组扁平化/" id="article-nav-newer" class="article-nav-link-wrap">
-      <i class="icon-circle-left"></i>
-      <div class="article-nav-title">
-        
-          理解JavaScript之数组扁平化
-        
-      </div>
-    </a>
   
-  
-    <a href="/2018/01/02/理解JavaScript之值类型与引用类型/" id="article-nav-older" class="article-nav-link-wrap">
-      <div class="article-nav-title">理解JavaScript之值类型与引用类型</div>
+    <a href="/2018/08/25/微信小程序使用小结/" id="article-nav-older" class="article-nav-link-wrap">
+      <div class="article-nav-title">微信小程序使用小结</div>
       <i class="icon-circle-right"></i>
     </a>
   
@@ -336,8 +410,8 @@
   <div id="cloud-tie-wrapper" class="cloud-tie-wrapper"></div>
 <script>
   var cloudTieConfig = {
-    url: "http://keminu.com/2018/02/04/vue项目性能优化/", 
-    sourceId: "vue项目性能优化",
+    url: "http://keminu.com/2018/10/07/【译】评估一个JS库你需要考虑的12件事/", 
+    sourceId: "【译】评估一个JS库你需要考虑的12件事",
     productKey: "83304bb43e064453a25cff956da99aaf",
     target: "cloud-tie-wrapper"
   };
