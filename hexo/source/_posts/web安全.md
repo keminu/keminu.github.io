@@ -1,5 +1,5 @@
 ---
-title: web安全（一）
+title: web安全
 date: 2018-07-08 10:59:17
 tags: [web安全]
 ---
@@ -38,7 +38,7 @@ XSS(Cross Site Scripting)，跨站脚本攻击。为和层叠样式表(Cascading
 
 (1) 反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：www.a.com?xss.php?name=
 
-<script>alert(document.cookie)</script>。访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。
+<scrip>alert('哈哈，你的cookie我已经拿到')</scrip>。修改为script标签，访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。
 
 (2) 存储型XSS(Persistent XSS)，这类XSS攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型XSS大同小异，只是脚本不是通过浏览器à服务器à浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种XSS攻击就叫做“存储型XSS”。例如：
 

@@ -1,0 +1,848 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=auto>
+
+
+
+<head>
+  <meta charset="UTF-8">
+
+  <link rel="apple-touch-icon" sizes="76x76" href="/img/fluid.png">
+  <link rel="icon" href="/img/fluid.png">
+  
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="author" content="xiaoka">
+  <meta name="keywords" content="">
+  
+    <meta name="description" content="1、数据流输入输出 我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。 123451. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf &#x2F;;2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题">
+<meta property="og:type" content="article">
+<meta property="og:title" content="web安全">
+<meta property="og:url" content="http://keminu.com/2018/07/08/web%E5%AE%89%E5%85%A8/index.html">
+<meta property="og:site_name" content="xiaoka de blogs">
+<meta property="og:description" content="1、数据流输入输出 我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。 123451. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf &#x2F;;2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题">
+<meta property="og:locale" content="zh_CN">
+<meta property="article:published_time" content="2018-07-08T02:59:17.000Z">
+<meta property="article:modified_time" content="2018-08-26T15:12:04.000Z">
+<meta property="article:author" content="xiaoka">
+<meta property="article:tag" content="web安全">
+<meta name="twitter:card" content="summary_large_image">
+  
+  
+  
+  <title>web安全 - xiaoka de blogs</title>
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/twitter-bootstrap/4.6.1/css/bootstrap.min.css" />
+
+
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/github-markdown-css/4.0.0/github-markdown.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/hint.css/2.7.0/hint.min.css" />
+
+  <link  rel="stylesheet" href="https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.css" />
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+<!-- Do not modify the link that theme dependent icons -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1749284_5i9bdhy70f8.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/c/font_1736178_k526ubmyhba.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+
+  <link id="highlight-css" rel="stylesheet" href="/css/highlight.css" />
+  
+    <link id="highlight-css-dark" rel="stylesheet" href="/css/highlight-dark.css" />
+  
+
+
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    Fluid.ctx = Object.assign({}, Fluid.ctx)
+    var CONFIG = {"hostname":"keminu.com","root":"/","version":"1.9.9","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false,"scope":[]},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"left","visible":"hover","icon":""},"progressbar":{"enable":true,"height_px":3,"color":"#29d","options":{"showSpinner":false,"trickleSpeed":100}},"code_language":{"enable":true,"default":"TEXT"},"copy_btn":true,"image_caption":{"enable":true},"image_zoom":{"enable":true,"img_url_replace":["",""]},"toc":{"enable":true,"expand_all":true,"placement":"right","headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"lazyload":{"enable":true,"loading_img":"/img/loading.gif","onlypost":false,"offset_factor":2},"web_analytics":{"enable":false,"follow_dnt":true,"baidu":null,"google":{"measurement_id":null},"tencent":{"sid":null,"cid":null},"leancloud":{"app_id":null,"app_key":null,"server_url":null,"path":"window.location.pathname","ignore_local":false},"openkounter":{"server_url":"https://open-kounter.mintimate.cn","path":"window.location.pathname","ignore_local":false},"umami":{"src":null,"website_id":null,"domains":null,"start_time":"2024-01-01T00:00:00.000Z","token":null,"api_server":null}},"search_path":"/local-search.xml","include_content_in_search":true};
+
+    if (CONFIG.web_analytics.follow_dnt) {
+      var dntVal = navigator.doNotTrack || window.doNotTrack || navigator.msDoNotTrack;
+      Fluid.ctx.dnt = dntVal && (dntVal.startsWith('1') || dntVal.startsWith('yes') || dntVal.startsWith('on'));
+    }
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+  
+
+
+  
+<meta name="generator" content="Hexo 5.4.2"><link rel="alternate" href="/atom.xml" title="xiaoka de blogs" type="application/atom+xml">
+</head>
+
+
+<body>
+  
+
+  <header>
+    
+
+<div class="header-inner" style="height: 70vh;">
+  <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand" href="/">
+      <strong>xiaoka de blogs</strong>
+    </a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content (desktop) -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/" target="_self">
+                <i class="iconfont icon-home-fill"></i>
+                <span>首页</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/" target="_self">
+                <i class="iconfont icon-archive-fill"></i>
+                <span>归档</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/" target="_self">
+                <i class="iconfont icon-category-fill"></i>
+                <span>分类</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/" target="_self">
+                <i class="iconfont icon-tags-fill"></i>
+                <span>标签</span>
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/" target="_self">
+                <i class="iconfont icon-user-fill"></i>
+                <span>关于</span>
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" target="_self" href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <i class="iconfont icon-search"></i>
+            </a>
+          </li>
+          
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" target="_self" href="javascript:;" aria-label="Color Toggle">
+              <i class="iconfont icon-dark" id="color-toggle-icon"></i>
+            </a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+<!-- Mobile grid menu overlay -->
+<div id="mobile-grid-menu" class="d-lg-none">
+  <div class="mobile-grid-menu-inner">
+    <div class="container">
+      <div class="row">
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-home-fill"></i>
+                  <span>首页</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/archives/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-archive-fill"></i>
+                  <span>归档</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/categories/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-category-fill"></i>
+                  <span>分类</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/tags/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-tags-fill"></i>
+                  <span>标签</span>
+                </div>
+              </a>
+            </div>
+          
+        
+          
+          
+          
+          
+            <div class="col-4 mobile-grid-cell">
+              <a href="/about/" target="_self">
+                <div class="mobile-grid-item">
+                  <i class="iconfont icon-user-fill"></i>
+                  <span>关于</span>
+                </div>
+              </a>
+            </div>
+          
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-search-btn">
+            <a href="javascript:;" data-toggle="modal" data-target="#modalSearch" aria-label="Search">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-search"></i>
+                <span>搜索</span>
+              </div>
+            </a>
+          </div>
+        
+        
+          <div class="col-4 mobile-grid-cell" id="mobile-color-toggle-btn"
+               data-label-light="开灯"
+               data-label-dark="关灯">
+            <a href="javascript:;" aria-label="Color Toggle">
+              <div class="mobile-grid-item">
+                <i class="iconfont icon-dark" id="mobile-color-toggle-icon"></i>
+                <span id="mobile-color-toggle-label">关灯</span>
+              </div>
+            </a>
+          </div>
+        
+      </div>
+    </div>
+  </div>
+</div>
+
+  
+
+<div id="banner" class="banner" parallax=true
+     style="background: url('/img/default.png') no-repeat center center; background-size: cover;">
+  <div class="full-bg-img">
+    <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+      <div class="banner-text text-center fade-in-up">
+        <div class="h2">
+          
+            <span id="subtitle" data-typed-text="web安全"></span>
+          
+        </div>
+
+        
+          
+  <div class="mt-3">
+    
+    
+      <span class="post-meta">
+        <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+        <time datetime="2018-07-08 10:59" pubdate>
+          2018年7月8日 上午
+        </time>
+      </span>
+    
+  </div>
+
+  <div class="mt-1">
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-chart"></i>
+        
+          5k 字
+        
+      </span>
+    
+
+    
+      <span class="post-meta mr-2">
+        <i class="iconfont icon-clock-fill"></i>
+        
+        
+        
+          42 分钟
+        
+      </span>
+    
+
+    
+    
+  </div>
+
+
+        
+      </div>
+
+      
+    </div>
+  </div>
+</div>
+
+
+
+</div>
+
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid nopadding-x">
+  <div class="row nomargin-x">
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+
+    </div>
+
+    <div class="col-lg-8 nopadding-x-md">
+      <div class="container nopadding-x-md" id="board-ctn">
+        <div id="board">
+          <article class="post-content mx-auto">
+            <h1 id="seo-header">web安全</h1>
+            
+            
+              <div class="markdown-body">
+                
+                <h3><span id="1-数据流输入输出">1、数据流输入输出</span></h3>
+<p>我们可以从一个数据输入输出流中，查看web安全的整体是怎么样的。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs reStructuredText">1. 如果在操作系统层上没处理好，比如Linux的Bash环境把“特殊数据”当做指令执行时，就产生了OS命令执行的安全问题，这段“特殊数据”可能长得如下这般：; rm -rf /;<br>2. 如果在存储层的数据库中没处理好，数据库的SQL解析引擎把这个“特殊数据”当做指令执行时，就产生SQL注入这样的安全问题，这段“特殊数据”可能长得如下这般：&#x27; union select user, pwd, 1, 2, 3, 4 from users--<br>3. 如果在Web容器层如nginx中没处理好，nginx把“特殊数据”当做指令执行时，可能会产生远程溢出、DoS等各种安全问题，这段“特殊数据”可能长得如下这般：%c0.%c0./%c0.%c0./%c0.%c0./%c0.%c0./%20<br>4. 如果在Web开发框架或Web应用层中没处理好，把“特殊数据”当做指令执行时，可能会产生远程命令执行的安全问题，这段“特殊数据”可能长得如下这般：eval($_REQUEST[&#x27;x&#x27;]);<br>5. 如果在Web前端层中没处理好，浏览器的JS引擎把“特殊数据”当做指令执行时，可能会产生XSS跨站脚本的安全问题，这段“特殊数据”可能长得如下这般：&#x27;&quot;&gt;&lt;script&gt;alert(/cos is my hero./)&lt;/script&gt;<br></code></pre></td></tr></table></figure>
+<h3><span id="2-ddos攻击">2、DDoS攻击</span></h3>
+<p>DoS(Denial of Service)，即拒绝服务，造成远程服务器拒绝服务的行为被称为DoS攻击。其目的是使计算机或网络无法提供正常的服务。最常见的DoS攻击有计算机网络带宽攻击和连通性攻击。攻击的问题就出在TCP连接的三次握手中，假设一个用户向服务器发送了SYN报文后突然死机或掉线，那么服务器在发出SYN+ACK应答报文后是无法收到客户端的ACK报文的，从而导致第三次握手无法完成。在这种情况下服务器端一般会重试，即再次发送SYN+ACK给客户端，并等待一段时间后丢弃这个未完成的连接。这段时间的长度我们称为SYN Timeout，一般来说这个时间是分钟的数量级，大约为30秒到2分钟。一个用户出现异常导致服务器的一个线程等待1分钟并不是什么很大的问题，但如果有一个恶意的攻击者大量模拟这种情况，服务器端将为了维护一个非常大的半连接列表而消耗非常多的资源，即数以万计的半连接，将会对服务器的CPU和内存造成极大的消耗。若服务器的TCP/IP栈不够强大，最后的结果往往是堆栈溢出崩溃。实际上，就算服务器端的系统足够强大，服务器端也将忙于处理攻击者伪造的TCP连接请求而无暇理睬客户的正常请求，导致用户的正常请求失去响应。</p>
+<p>对于DDoS攻击，我们可以做如下防范：</p>
+<p>(1) 反欺骗：对数据包的地址及端口的正确性进行验证，同时进行反向探测。</p>
+<p>(2) 协议栈行为模式分析：每个数据包类型需要符合RFC规定，这就好像每个数据包都要有完整规范的着装，只要不符合规范，就自动识别并将其过滤掉。</p>
+<p>(3) 特定应用防护：非法流量总是有一些特定特征的，这就好比即便你混进了顾客群中，但你的行为还是会暴露出你的动机，比如老重复问店员同一个问题，老做同样的动作，这样你仍然还是会被发现的。</p>
+<p>(4) 带宽控制：真实的访问数据过大时，可以限制其最大输出的流量，以减少下游网络系统的压力</p>
+<h3><span id="3-跨站脚本攻击xss">3、跨站脚本攻击（XSS）</span></h3>
+<p>XSS(Cross Site Scripting)，跨站脚本攻击。为和层叠样式表(Cascading Style Sheets，CSS)区分开，跨站脚本在安全领域叫做“XSS”。恶意攻击者往Web页面里注入恶意Script代码，当用户浏览这些网页时，就会执行其中的恶意代码，可对用户进行盗取cookie信息、会话劫持等各种攻击。XSS是常见的Web攻击技术之一，由于跨站脚本漏洞易于出现且利用成本低，所以被OWASP列为当前的头号Web安全威胁。</p>
+<p>根据XSS攻击的效果，可以将XSS分为3类：</p>
+<p>(1) 反射型XSS(Non-persistent XSS)，服务器接受客户端的请求包，不会存储请求包的内容，只是简单的把用户输入的数据“反射”给浏览器。例如：<a target="_blank" rel="noopener" href="http://www.a.com?xss.php?name=">www.a.com?xss.php?name=</a></p>
+<p><scrip>alert(‘哈哈，你的cookie我已经拿到’)</scrip>。修改为script标签，访问这个链接则会弹出页面的cookie内容，若攻击者把alert改为一个精心构造的发送函数，就可以把用户的cookie偷走。</p>
+<p>(2) 存储型XSS(Persistent XSS)，这类XSS攻击会把用户输入的数据“存储”在服务器端，具有很强的稳定性。注入脚本跟反射型XSS大同小异，只是脚本不是通过浏览器à服务器à浏览器这样的反射方式，而是多发生在富文本编辑器、日志、留言、配置系统等数据库保存用户输入内容的业务场景。即用户的注入脚本保存到了数据库里，其他用户进行访问涉及到包含恶意脚本的链接都会中招。由于这段恶意的脚本被上传保存到了服务器，这种XSS攻击就叫做“存储型XSS”。例如：</p>
+<p>服务器端代码：<?php $db.set(‘name’, $_GET[‘name’]);?></p>
+<p>HTML页面代码：<?php echo ‘Hi,’ . $db.get[‘name’];?></p>
+<p>对于XSS攻击，我们可以做如下防范：</p>
+<p>(1) 输入过滤。永远不要相信用户的输入，对用户输入的数据做一定的过滤。如输入的数据是否符合预期的格式，比如日期格式，Email格式，电话号码格式等等。这样可以初步对XSS漏洞进行防御。</p>
+<p>上面的措施只在web端做了限制，攻击者通抓包工具如Fiddler还是可以绕过前端输入的限制，修改请求注入攻击脚本。因此，后台服务器需要在接收到用户输入的数据后，对特殊危险字符进行过滤或者转义处理，然后再存储到数据库中。</p>
+<p>(2) 输出编码。服务器端输出到浏览器的数据，可以使用系统的安全函数来进行编码或转义来防范XSS攻击。在PHP中，有htmlentities()和htmlspecialchars()两个函数可以满足安全要求。相应的JavaScript的编码方式可以使用JavascriptEncode。</p>
+<p>(3) 安全编码。开发需尽量避免Web客户端文档重写、重定向或其他敏感操作，同时要避免使用客户端数据，这些操作需尽量在服务器端使用动态页面来实现。</p>
+<p>(4) HttpOnly Cookie。预防XSS攻击窃取用户cookie最有效的防御手段。Web应用程序在设置cookie时，将其属性设为HttpOnly，就可以避免该网页的cookie被客户端恶意JavaScript窃取，保护用户cookie信息。</p>
+<p>(5)WAF(Web Application Firewall)，Web应用防火墙，主要的功能是防范诸如网页木马、XSS以及CSRF等常见的Web漏洞攻击。由第三方公司开发，在企业环境中深受欢迎。</p>
+<h3><span id="4-跨站点请求伪造csrf">4、跨站点请求伪造（CSRF）</span></h3>
+<p>CSRF(Cross Site Request Forgery)，即跨站请求伪造，是一种常见的Web攻击，但很多开发者对它很陌生。CSRF也是Web安全中最容易被忽略的一种攻击。下面先介绍一下CSRF攻击的原理。</p>
+<p>受害者用户登录网站A，输入个人信息，在本地保存服务器生成的cookie。攻击者构建一条恶意链接，例如对受害者在网站A的信息及状态进行操作，典型的例子就是转账。受害者打开了攻击者构建的网页B，浏览器发出该恶意连接的请求，浏览器发起会话的过程中发送本地保存的cookie到网址A，A网站收到cookie，以为此链接是受害者发出的操作，导致受害者的身份被盗用，完成攻击者恶意的目的。</p>
+<p>举个简单的例子来说明下CSRF的危害。用户登陆某银行网站，以Get请求的方式完成到另一银行的转账，如：<a target="_blank" rel="noopener" href="http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000%E3%80%82%E6%94%BB%E5%87%BB%E8%80%85%E5%8F%AF%E6%9E%84%E9%80%A0%E5%8F%A6%E4%B8%80%E5%8D%B1%E9%99%A9%E9%93%BE%E6%8E%A5http://www.mybank.com/Transfer.php?toUserId=100&amp;money=1000%E5%B9%B6%E6%8A%8A%E8%AF%A5%E9%93%BE%E6%8E%A5%E9%80%9A%E8%BF%87%E4%B8%80%E5%AE%9A%E6%96%B9%E5%BC%8F%E5%8F%91%E7%BB%99%E5%8F%97%E5%AE%B3%E8%80%85%E7%94%A8%E6%88%B7%E3%80%82%E5%8F%97%E5%AE%B3%E8%80%85%E7%94%A8%E6%88%B7%E8%8B%A5%E5%9C%A8%E6%B5%8F%E8%A7%88%E5%99%A8%E6%89%93%E5%BC%80%E6%AD%A4%E9%93%BE%E6%8E%A5%EF%BC%8C%E4%BC%9A%E5%B0%86%E4%B9%8B%E5%89%8D%E7%99%BB%E9%99%86%E5%90%8E%E7%9A%84cookie%E4%BF%A1%E6%81%AF%E4%B8%80%E8%B5%B7%E5%8F%91%E9%80%81%E7%BB%99%E9%93%B6%E8%A1%8C%E7%BD%91%E7%AB%99%EF%BC%8C%E6%9C%8D%E5%8A%A1%E5%99%A8%E5%9C%A8%E6%8E%A5%E6%94%B6%E5%88%B0%E8%AF%A5%E8%AF%B7%E6%B1%82%E5%90%8E%EF%BC%8C%E7%A1%AE%E8%AE%A4cookie%E4%BF%A1%E6%81%AF%E6%97%A0%E8%AF%AF%EF%BC%8C%E4%BC%9A%E5%AE%8C%E6%88%90%E6%94%B9%E8%AF%B7%E6%B1%82%E6%93%8D%E4%BD%9C%EF%BC%8C%E9%80%A0%E6%88%90%E6%94%BB%E5%87%BB%E8%A1%8C%E4%B8%BA%E5%AE%8C%E6%88%90%E3%80%82%E6%94%BB%E5%87%BB%E8%80%85%E5%8F%AF%E4%BB%A5%E6%9E%84%E9%80%A0CGI%E7%9A%84%E6%AF%8F%E4%B8%80%E4%B8%AA%E5%8F%82%E6%95%B0%EF%BC%8C%E4%BC%AA%E9%80%A0%E8%AF%B7%E6%B1%82%E3%80%82%E8%BF%99%E4%B9%9F%E6%98%AF%E5%AD%98%E5%9C%A8CSRF%E6%BC%8F%E6%B4%9E%E7%9A%84%E6%9C%80%E6%9C%AC%E8%B4%A8%E5%8E%9F%E5%9B%A0%E3%80%82">http://www.mybank.com/Transfer.php?toBankId=11&amp;money=1000。攻击者可构造另一危险链接http://www.mybank.com/Transfer.php?toUserId=100&amp;money=1000并把该链接通过一定方式发给受害者用户。受害者用户若在浏览器打开此链接，会将之前登陆后的cookie信息一起发送给银行网站，服务器在接收到该请求后，确认cookie信息无误，会完成改请求操作，造成攻击行为完成。攻击者可以构造CGI的每一个参数，伪造请求。这也是存在CSRF漏洞的最本质原因。</a></p>
+<p>对于CSRF攻击，我们可以做如下防范：</p>
+<p>(1) 验证码。应用程序和用户进行交互过程中，特别是账户交易这种核心步骤，强制用户输入验证码，才能完成最终请求。在通常情况下，验证码够很好地遏制CSRF攻击。</p>
+<p>但增加验证码降低了用户的体验，网站不能给所有的操作都加上验证码。所以只能将验证码作为一种辅助手段，在关键业务点设置验证码。</p>
+<p>(2) Referer Check。HTTP Referer是header的一部分，当浏览器向web服务器发送请求时，一般会带上Referer信息告诉服务器是从哪个页面链接过来的，服务器籍此可以获得一些信息用于处理。可以通过检查请求的来源来防御CSRF攻击。正常请求的referer具有一定规律，如在提交表单的referer必定是在该页面发起的请求。所以通过检查http包头referer的值是不是这个页面，来判断是不是CSRF攻击。</p>
+<p>但在某些情况下如从https跳转到http，浏览器处于安全考虑，不会发送referer，服务器就无法进行check了。若与该网站同域的其他网站有XSS漏洞，那么攻击者可以在其他网站注入恶意脚本，受害者进入了此类同域的网址，也会遭受攻击。出于以上原因，无法完全依赖Referer Check作为防御CSRF的主要手段。但是可以通过Referer Check来监控CSRF攻击的发生。</p>
+<p>(3) Anti CSRF Token。目前比较完善的解决方案是加入Anti-CSRF-Token，即发送请求时在HTTP 请求中以参数的形式加入一个随机产生的token，并在服务器建立一个拦截器来验证这个token。服务器读取浏览器当前域cookie中这个token值，会进行校验该请求当中的token和cookie当中的token值是否都存在且相等，才认为这是合法的请求。否则认为这次请求是违法的，拒绝该次服务。</p>
+<h3><span id="5-点击劫持clickjacking">5、点击劫持（ClickJacking）</span></h3>
+<p>点击攻击就是一种视觉上的欺骗。攻击者用一个透明的不可见的iframe，覆盖在一个网页上，用户在不知情的情况下，点击透明的iframe。</p>
+<h3><span id="6-数据库注入攻击">6、数据库注入攻击</span></h3>
+<p>SQL注入(SQL Injection)，应用程序在向后台数据库传递SQL(Structured Query Language，结构化查询语言)时，攻击者将SQL命令插入到Web表单提交或输入域名或页面请求的查询字符串，最终达到欺骗服务器执行恶意的SQL命令。</p>
+<p>SQL注入常见产生的原因有：</p>
+<p>(1) 转义字符处理不当。特别是输入验证和单引号处理不当。用户简单的在url页面输入一个单引号，就能快速识别Web站点是否易收到SQL注入攻击。</p>
+<p>(2) 后台查询语句处理不当。开发者完全信赖用户的输入，未对输入的字段进行判断和过滤处理，直接调用用户输入字段访问数据库。</p>
+<p>(3) SQL语句被拼接。攻击者构造精心设计拼接过的SQL语句，来达到恶意的目的。如构造语句：select * from users where userid=123; DROP TABLE users;直接导致user表被删除。</p>
+<h3><span id="7-文件上传漏洞">7、文件上传漏洞</span></h3>
+<p>上传漏洞在DVBBS6.0时代被黑客们利用的最为猖獗，利用上传漏洞可以直接得到WEBSHELL，危害等级超级高，现在的入侵中上传漏洞也是常见的漏洞。该漏洞允许用户上传任意文件可能会让攻击者注入危险内容或恶意代码，并在服务器上运行。</p>
+<p>文件上传漏洞的原理：由于文件上传功能实现代码没有严格限制用户上传的文件后缀以及文件类型，导致允许攻击者向某个可通过 Web 访问的目录上传任意PHP文件，并能够将这些文件传递给 PHP 解释器，就可以在远程服务器上执行任意PHP脚本。</p>
+<p>对于文件上传漏洞攻击，我们可以做如下防范：</p>
+<p>(1)检查服务器是否判断了上传文件类型及后缀。</p>
+<p>(2) 定义上传文件类型白名单，即只允许白名单里面类型的文件上传。</p>
+<p>(3) 文件上传目录禁止执行脚本解析，避免攻击者进行二次攻击。</p>
+<h3><span id="参考资料">参考资料</span></h3>
+<p>《白帽子讲web安全》</p>
+
+                
+              </div>
+            
+            <hr/>
+            <div>
+              <div class="post-metas my-3">
+  
+  
+    <div class="post-meta">
+      <i class="iconfont icon-tags"></i>
+      
+        <a href="/tags/web%E5%AE%89%E5%85%A8/" class="print-no-link">#web安全</a>
+      
+    </div>
+  
+</div>
+
+
+              
+  
+
+  <div class="license-box my-3">
+    <div class="license-title">
+      <div>web安全</div>
+      <div>http://keminu.com/2018/07/08/web安全/</div>
+    </div>
+    <div class="license-meta">
+      
+        <div class="license-meta-item">
+          <div>作者</div>
+          <div>xiaoka</div>
+        </div>
+      
+      
+        <div class="license-meta-item license-meta-date">
+          <div>发布于</div>
+          <div>2018年7月8日</div>
+        </div>
+      
+      
+      
+        <div class="license-meta-item">
+          <div>许可协议</div>
+          <div>
+            
+              
+              
+                <a class="print-no-link" target="_blank" href="https://creativecommons.org/licenses/by/4.0/">
+                  <span class="hint--top hint--rounded" aria-label="BY - 署名">
+                    <i class="iconfont icon-cc-by"></i>
+                  </span>
+                </a>
+              
+            
+          </div>
+        </div>
+      
+    </div>
+    <div class="license-icon iconfont"></div>
+  </div>
+
+
+
+              
+                <div class="post-prevnext my-3">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/2018/08/25/%E5%BE%AE%E4%BF%A1%E5%B0%8F%E7%A8%8B%E5%BA%8F%E4%BD%BF%E7%94%A8%E5%B0%8F%E7%BB%93/" title="微信小程序使用小结">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">微信小程序使用小结</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/2018/06/09/%E7%90%86%E8%A7%A3JavaScript%E4%B9%8B%E5%87%BD%E6%95%B0%E5%88%9B%E5%BB%BA%E8%BF%87%E7%A8%8B/" title="理解JavaScript之函数创建过程">
+                        <span class="hidden-mobile">理解JavaScript之函数创建过程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+
+    <div class="side-col d-none d-lg-block col-lg-2">
+      
+  <aside class="sidebar" style="margin-left: -1rem">
+    <div id="toc">
+  <p class="toc-header">
+    <i class="iconfont icon-list"></i>
+    <span>目录</span>
+  </p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+
+
+  </aside>
+
+
+    </div>
+  </div>
+</div>
+
+
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+  
+
+
+
+
+
+
+
+    
+
+    
+      <a id="scroll-top-button" aria-label="TOP" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v" for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+    
+
+    
+  </main>
+
+  <footer>
+    <div class="footer-inner">
+  
+    <div class="footer-content">
+       <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+    </div>
+  
+  
+  
+</div>
+
+  </footer>
+
+  <!-- Scripts -->
+  
+  <script  src="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://lib.baomitu.com/nprogress/0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":100})
+    NProgress.start()
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://lib.baomitu.com/jquery/3.6.4/jquery.min.js" ></script>
+<script  src="https://lib.baomitu.com/twitter-bootstrap/4.6.1/js/bootstrap.min.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+
+  <script  src="https://lib.baomitu.com/typed.js/2.0.12/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var subtitle = document.getElementById('subtitle');
+      if (!subtitle || !typing) {
+        return;
+      }
+      var text = subtitle.getAttribute('data-typed-text');
+      
+        typing(text);
+      
+    })(window, document);
+  </script>
+
+
+
+
+  
+    <script  src="/js/img-lazyload.js" ></script>
+  
+
+
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/tocbot/4.20.1/tocbot.min.js', function() {
+    var toc = jQuery('#toc');
+    if (toc.length === 0 || !window.tocbot) { return; }
+    var boardCtn = jQuery('#board-ctn');
+    var boardTop = boardCtn.offset().top;
+
+    function isExpandAllEnabled() {
+      return CONFIG.toc && CONFIG.toc.expand_all === true;
+    }
+    function expandAllToc() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .tocbot-is-collapsed').removeClass('tocbot-is-collapsed');
+    }
+    function updateTocToggle($li, $childList) {
+      var $toggle = $li.children('.toc-toggle');
+      if ($toggle.length === 0) { return; }
+      var collapsed = $childList.hasClass('tocbot-is-collapsed');
+      $toggle
+        .toggleClass('toc-toggle-collapsed', collapsed)
+        .toggleClass('toc-toggle-expanded', !collapsed);
+    }
+    function bindTocToggle() {
+      if (!isExpandAllEnabled()) { return; }
+      jQuery('#toc-body .toc-list-item').each(function() {
+        var $li = jQuery(this);
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) {
+          if ($li.children('.toc-toggle').length === 0) {
+            $li.prepend('<span class="toc-toggle toc-toggle-placeholder" aria-hidden="true">›</span>');
+          }
+          return;
+        }
+
+        if ($li.children('.toc-toggle').length === 0) {
+          $li.prepend('<span class="toc-toggle toc-toggle-expanded" aria-hidden="true">›</span>');
+        }
+        updateTocToggle($li, $childList);
+      });
+      jQuery('#toc-body').off('click.tocToggle').on('click.tocToggle', '.toc-toggle', function(e) {
+        e.preventDefault();
+        e.stopPropagation();
+        var $li = jQuery(this).parent('.toc-list-item');
+        var $childList = $li.children('ol');
+        if ($childList.length === 0) { return; }
+        $childList.toggleClass('tocbot-is-collapsed');
+        updateTocToggle($li, $childList);
+      });
+      if (!window.__tocToggleObserver) {
+        window.__tocToggleObserver = new MutationObserver(function(mutations) {
+          mutations.forEach(function(mutation) {
+            if (mutation.type !== 'attributes' || mutation.attributeName !== 'class') { return; }
+            var $list = jQuery(mutation.target);
+            var $li = $list.parent('.toc-list-item');
+            if ($li.length === 0) { return; }
+            updateTocToggle($li, $list);
+          });
+        });
+        jQuery('#toc-body ol').each(function() {
+          window.__tocToggleObserver.observe(this, { attributes: true });
+        });
+      }
+    }
+    var tocConfig = Object.assign({
+      tocSelector     : '#toc-body',
+      contentSelector : '.markdown-body',
+      linkClass       : 'tocbot-link',
+      activeLinkClass : 'tocbot-active-link',
+      listClass       : 'tocbot-list',
+      isCollapsedClass: 'tocbot-is-collapsed',
+      collapsibleClass: 'tocbot-is-collapsible',
+      scrollSmooth    : true,
+      includeTitleTags: true,
+      headingsOffset  : -boardTop,
+    }, CONFIG.toc);
+    if (isExpandAllEnabled()) {
+      tocConfig.collapseDepth = 6;
+    }
+    window.tocbot.init(tocConfig);
+    if (toc.find('.toc-list-item').length > 0) {
+      toc.css('visibility', 'visible');
+    }
+    expandAllToc();
+    bindTocToggle();
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('tocbot' in window) {
+        tocbot.refresh();
+        var toc = jQuery('#toc');
+        if (toc.length === 0 || !tocbot) {
+          return;
+        }
+        if (toc.find('.toc-list-item').length > 0) {
+          toc.css('visibility', 'visible');
+        }
+        expandAllToc();
+        bindTocToggle();
+      }
+    });
+  });
+</script>
+
+
+  <script src=https://lib.baomitu.com/clipboard.js/2.0.11/clipboard.min.js></script>
+
+  <script>Fluid.plugins.codeWidget();</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/anchor-js/5.0.0/anchor.min.js', function() {
+    window.anchors.options = {
+      placement: CONFIG.anchorjs.placement,
+      visible  : CONFIG.anchorjs.visible
+    };
+    if (CONFIG.anchorjs.icon) {
+      window.anchors.options.icon = CONFIG.anchorjs.icon;
+    }
+    var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+    var res = [];
+    for (var item of el) {
+      res.push('.markdown-body > ' + item.trim());
+    }
+    if (CONFIG.anchorjs.placement === 'left') {
+      window.anchors.options.class = 'anchorjs-link-left';
+    }
+    window.anchors.add(res.join(', '));
+
+    Fluid.events.registerRefreshCallback(function() {
+      if ('anchors' in window) {
+        anchors.removeAll();
+        var el = (CONFIG.anchorjs.element || 'h1,h2,h3,h4,h5,h6').split(',');
+        var res = [];
+        for (var item of el) {
+          res.push('.markdown-body > ' + item.trim());
+        }
+        if (CONFIG.anchorjs.placement === 'left') {
+          anchors.options.class = 'anchorjs-link-left';
+        }
+        anchors.add(res.join(', '));
+      }
+    });
+  });
+</script>
+
+
+  
+<script>
+  Fluid.utils.createScript('https://lib.baomitu.com/fancybox/3.5.7/jquery.fancybox.min.js', function() {
+    Fluid.plugins.fancyBox();
+  });
+</script>
+
+
+  <script>Fluid.plugins.imageCaption();</script>
+
+  <script  src="/js/local-search.js" ></script>
+
+
+
+
+
+<!-- 主题的启动项，将它保持在最底部 -->
+<!-- the boot of the theme, keep it at the bottom -->
+<script  src="/js/boot.js" ></script>
+
+
+  
+
+  <noscript>
+    <div class="noscript-warning">博客在允许 JavaScript 运行的环境下浏览效果更佳</div>
+  </noscript>
+</body>
+</html>

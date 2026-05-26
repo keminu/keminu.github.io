@@ -1,0 +1,43 @@
+navbar:
+  blog_title: xiaoka de blogs
+  ground_glass:
+    enable: true
+  menu:
+    - { key: "home", name: "首页", link: "/", icon: "iconfont icon-home-fill" }
+    - { key: "archive", name: "归档", link: "/archives/", icon: "iconfont icon-archive-fill" }
+    - { key: "category", name: "分类", link: "/categories/", icon: "iconfont icon-category-fill" }
+    - { key: "tag", name: "标签", link: "/tags/", icon: "iconfont icon-tags-fill" }
+    - { key: "about", name: "关于", link: "/about/", icon: "iconfont icon-user-fill" }
+
+index:
+  slogan:
+    enable: true
+    text: "记录前端 / JavaScript / Web 开发学习与思考"
+    api:
+      enable: false
+
+code:
+  copy_btn: true
+  highlight:
+    enable: true
+    line_number: true
+    lib: "highlightjs"
+    highlightjs:
+      style: "Github Gist"
+      bg_color: false
+
+about:
+  avatar: /assets/img/avatar.png
+  name: xiaoka
+  intro: 前端开发 / 技术笔记 / 学习总结
+  icons:
+    - { class: "iconfont icon-github-fill", link: "https://github.com/keminu", tip: "GitHub" }
+    - { class: "iconfont icon-mail-fill", link: "mailto:keminu@gmail.com", tip: "Email" }
+
+tag:
+  tagcloud:
+    min_font: 15
+    max_font: 30
+    unit: px
+    start_color: "#BBBBEE"
+    end_color: "#337ab7"
